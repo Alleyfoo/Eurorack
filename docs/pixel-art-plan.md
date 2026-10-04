@@ -69,6 +69,65 @@ separate from this plan, but removing it belongs to phase 3.
 - **Palette**: the colours are fixed tokens in one file. Highlights and shadows
   are derived from them with `shade()`, so a new manufacturer is a single line.
 
+## Ambient cellular field
+
+> **Locked:** the rack is hardware; the background is a living computational
+> field. It reflects the character of the patch without explaining or
+> scoring it.
+
+A slow 2D cellular automaton fills the page behind the rack. It is
+atmosphere, not interface. It stays dark and low-contrast, mostly black and
+charcoal with one muted luminous tone. It moves slowly in large structures,
+never flashes, and wraps at the edges so it has no seams. The panels stay fully
+readable on top. The automaton does not run inside the module screens.
+
+Avoid particles, starfields, falling-code effects, neon gradients and
+screensaver chaos.
+
+Three families run on the same grid. Their output is blended, never switched:
+
+| Family | Rule | Look | Tint |
+| --- | --- | --- | --- |
+| Calm / structured | Grain growth on a hex grid. A newer grain sweeps over older ones. | Broad faceted hexagonal domains with a slow bright front | Muted teal |
+| Unstable | Cyclic CA, 20 states, Moore neighbourhood, threshold 1 | Rotating square-spiral vortices | Muted violet |
+| Deep noise | Excitable medium with lossy conduction, kept just below the critical value (about 0.19) | Sparse eruptions that branch and die out | Muted amber |
+
+The patch feeds five broad dimensions. Nothing maps one-to-one to a colour or
+number:
+
+- **Activity** sets the update speed. Silence slows the field and lowers its
+  brightness so it settles rather than stopping.
+- **Feedback** (cable loops, patched effects and duckers) shifts the field
+  toward vortices and plants new vortex cores.
+- **Noise** (trash, curses, randomness) shifts it toward eruptions and raises
+  how often they ignite.
+- **Clock regularity** (sequencers) sets how evenly steps are timed, and how
+  cleanly crystal facets grow.
+- **Density** (number of active modules) sets how often new crystal grains
+  and eruptions appear.
+
+Every visible quantity is eased: the dimensions over about 3 s, the family
+blend over about 5 s, and brightness per frame. A patch change therefore drifts
+across the room rather than jumping. In the prototype, closing a three-module
+loop moves the field from mostly calm to about 75 % unstable in roughly 15 s.
+
+**Cost, measured on a 202 x 154 grid (6 CSS px cells):** about 2 ms per
+simulation step, at 1 to 8 steps a second, plus about 0.5 ms per frame to
+paint. The field needs no images and no extra libraries.
+
+**Prototype choices that did not work:**
+- Packard snowflake crystals made a fine checkered speckle. Blurring them
+  turned them to mush.
+- Changing the cyclic state count while the field was running broke the
+  spirals into flat blocks.
+- The excitable medium above its critical conduction filled the whole screen.
+
+**In the game:** `services/pixelArt/field.ts` holds the simulation.
+`components/AmbientField.tsx` mounts it as a fixed canvas behind the app.
+`patchMood()` should come from the real patch graph and the audio analyser,
+for example taking density from spectral flatness and loudness, rather than
+from module counts as the prototype does.
+
 ## Architecture
 
 Panels are generated once per module at runtime, cached, and drawn with

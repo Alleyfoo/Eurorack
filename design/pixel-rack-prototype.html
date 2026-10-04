@@ -20,7 +20,10 @@
     --px: 3px;
   }
   * { box-sizing: border-box; }
-  html, body { margin: 0; background: var(--bg); color: var(--text); }
+  html, body { margin: 0; background: #07070b; color: var(--text); }
+  /* The living field sits behind everything; the hardware sits on top. */
+  #field { position: fixed; left: 0; top: 0; z-index: 0; image-rendering: pixelated; pointer-events: none; }
+  .wrap { position: relative; z-index: 1; }
   body {
     font-family: 'VT323', ui-monospace, monospace;
     font-size: 20px;
@@ -52,7 +55,15 @@
   .ap i.off { background: var(--line); }
   .main { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 18px; align-items: start; }
   @media (max-width: 980px) { .main { grid-template-columns: minmax(0, 1fr); } }
-  .rackbox { padding: 10px; min-width: 0; }
+  .rackbox { padding: 10px; min-width: 0; background: rgba(12, 12, 18, 0.35); }
+  .hud { background: rgba(22, 22, 29, 0.82); }
+  .side .pxbox, .sheet { background: rgba(22, 22, 29, 0.9); }
+  .slider { display: grid; grid-template-columns: 96px 1fr 34px; gap: 8px; align-items: center; font-size: 17px; }
+  .slider input { width: 100%; accent-color: var(--amber); }
+  .slider output { color: var(--green); text-align: right; }
+  .fam { display: grid; grid-template-columns: 96px 1fr; gap: 8px; align-items: center; font-size: 17px; }
+  .fam i { display: block; height: 9px; background: var(--line); }
+  .fam b { display: block; height: 9px; width: 0; }
   .rackhead { display: flex; flex-wrap: wrap; gap: 8px 16px; justify-content: space-between; align-items: center; margin-bottom: 8px; }
   .scroller { overflow-x: auto; overflow-y: hidden; }
   canvas { display: block; image-rendering: pixelated; image-rendering: crisp-edges; }
@@ -82,6 +93,7 @@
 </style>
 </head>
 <body>
+<canvas id="field" aria-hidden="true"></canvas>
 <div class="wrap">
   <header class="pxbox hud">
     <h1>EURORACK INCREMENTAL</h1>
@@ -116,6 +128,13 @@
         <p><button class="btn" id="muteBtn">MUTE</button></p>
       </div>
       <div class="pxbox">
+        <h3>FIELD (PROTOTYPE CONTROL)</h3>
+        <p class="hint">The game would never show this. In AUTO the patch drives the field; patch a loop to feed it back on itself.</p>
+        <p><button class="btn" id="fieldAuto" aria-pressed="true">AUTO FROM PATCH</button></p>
+        <div id="moodSliders"></div>
+        <div id="famBars" style="margin-top:8px"></div>
+      </div>
+      <div class="pxbox">
         <h3>WEIGHT (MEASURED LIVE)</h3>
         <dl class="kv stats" id="stats"></dl>
       </div>
@@ -140,7 +159,7 @@ const SAMPLE = [{"id":"duck_001","name":"Kick-Safe Ducker","type":"DUCKER","valu
 
 // ---------- Geometry (native pixels) ----------
 const MW = 24, MH = 64, GAP = 1, COLS = 16, ROWS = 3;
-const LEFT = 6, TOP = 2, LABEL_H = 8, RAIL = 3, ROW_H = LABEL_H + RAIL + MH + RAIL + 2;
+const LEFT = 6, TOP = 2, LABEL_H = 8, RAIL = 3, ROW_H = LABEL_H + RAIL + MH + RAIL + 7;
 const NW = LEFT * 2 + COLS * (MW + GAP) - GAP;
 const NH = TOP * 2 + ROWS * ROW_H;
 const slotX = col => LEFT + col * (MW + GAP);
@@ -475,11 +494,12 @@ let frameMs = 0;
 function drawRack(t) {
   const g = rg;
   g.setTransform(S, 0, 0, S, 0, 0);
-  g.fillStyle = '#101016'; g.fillRect(0, 0, NW, NH);
+  g.clearRect(0, 0, NW, NH);
   const step = Math.floor((performance.now() - t0) / STEP_MS) % COLS;
   for (let r = 0; r < ROWS; r++) {
-    const y = rowY(r);
-    text(g, ROW_LABELS[r], LEFT, y - RAIL - LABEL_H + 1, '#6e6e84');
+    const y = rowY(r), ly = y - RAIL - LABEL_H + 1;
+    g.fillStyle = 'rgba(7,7,11,0.85)'; g.fillRect(LEFT - 2, ly - 1, textWidth(ROW_LABELS[r]) + 4, 7);
+    text(g, ROW_LABELS[r], LEFT, ly, '#8a8aa0');
     for (const ry of [y - RAIL, y + MH]) {
       g.fillStyle = '#4c4c60'; g.fillRect(LEFT - 2, ry, NW - LEFT * 2 + 4, RAIL);
       g.fillStyle = '#8a8a98'; g.fillRect(LEFT - 2, ry, NW - LEFT * 2 + 4, 1);
@@ -645,11 +665,269 @@ function renderStats() {
     ['As PNG atlas', atlasBytes ? `${kb(atlasBytes.bytes)} / ${atlasBytes.n}` : '...'],
     ['Draw per frame', frameMs.toFixed(2) + ' ms'],
     ['Canvas', `${NW}x${NH} @${S}`],
+    ['Field cells', `${FW}x${FH}`],
+    ['Field step', fieldStepMs.toFixed(2) + ' ms'],
+    ['Field paint', fieldPaintMs.toFixed(2) + ' ms'],
   ];
   statsEl.innerHTML = rows.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join('');
 }
 
+// ---------- Ambient cellular field ----------
+// The rack is hardware; the background is a living computational field.
+// It reflects the character of the patch without explaining or scoring it.
+//
+// Three families run side by side on the same toroidal grid and are blended:
+//   calm      hexagonal crystal growth (Packard rule) that decays from within
+//   unstable  cyclic CA: rotating spiral vortices and turbulence
+//   noise     excitable medium with lossy conduction: sparse eruptions that die out
+// The patch sets five broad dimensions; nothing maps to a colour or a number.
+const field = document.getElementById('field'), fctx = field.getContext('2d');
+const CELL_CSS = 6;
+const FIELD_BG = [7, 7, 11];
+const TINT = { calm: [34, 62, 70], unstable: [62, 46, 82], noise: [84, 62, 34] };
+let FW = 0, FH = 0, fieldImg = null, disp = null, target = null, blurTmp = null;
+let xm, xp, ym, yp;
+let cyc, cycB, cycN = 20, grain, grainB, grainJoin, gh, ghB;
+let fieldStepMs = 0, fieldPaintMs = 0;
+const frnd = rng('field');
+const poisson = l => { let n = 0, p = Math.exp(-l), s = p, u = frnd(); while (u > s && n < 50) { n++; p *= l / n; s += p; } return n; };
+
+function fieldInit() {
+  const dpr = window.devicePixelRatio || 1;
+  const cellDev = Math.max(1, Math.round(CELL_CSS * dpr));
+  const w = Math.ceil(innerWidth * dpr / cellDev), h = Math.ceil(innerHeight * dpr / cellDev);
+  field.style.width = (w * cellDev / dpr) + 'px'; field.style.height = (h * cellDev / dpr) + 'px';
+  if (w === FW && h === FH) return;
+  FW = w; FH = h; field.width = w; field.height = h;
+  const n = w * h;
+  fieldImg = fctx.createImageData(w, h);
+  disp = new Float32Array(n); target = new Float32Array(n); blurTmp = new Float32Array(n);
+  xm = new Int32Array(w); xp = new Int32Array(w); ym = new Int32Array(h); yp = new Int32Array(h);
+  for (let x = 0; x < w; x++) { xm[x] = (x - 1 + w) % w; xp[x] = (x + 1) % w; }
+  for (let y = 0; y < h; y++) { ym[y] = (y - 1 + h) % h; yp[y] = (y + 1) % h; }
+  cyc = new Uint8Array(n); cycB = new Uint8Array(n);
+  for (let i = 0; i < n; i++) cyc[i] = Math.floor(frnd() * cycN);
+  grain = new Uint16Array(n); grainB = new Uint16Array(n); grainJoin = new Uint32Array(n);
+  grainTone[0] = 0.06;
+  gh = new Uint8Array(n); ghB = new Uint8Array(n);
+  // Let the cyclic field organise into spirals before anyone sees it.
+  for (let k = 0; k < 420; k++) stepCyclic(1, 0);
+  // Pre-grow a mosaic of grains, then let the join glow die down.
+  for (let k = 0; k < 160; k++) { if (k % 12 === 0) seedCrystal(); stepCrystal(0.9); }
+  grainJoin.fill(0); crystalStepNo += 50;
+}
+
+function stepCyclic(T, mut) {
+  const a = cyc, b = cycB, N = cycN;
+  for (let y = 0; y < FH; y++) {
+    const r0 = ym[y] * FW, r1 = y * FW, r2 = yp[y] * FW;
+    for (let x = 0; x < FW; x++) {
+      const i = r1 + x, s = a[i], nx = s + 1 === N ? 0 : s + 1, l = xm[x], r = xp[x];
+      const c = (a[r0 + l] === nx) + (a[r0 + x] === nx) + (a[r0 + r] === nx) + (a[r1 + l] === nx) +
+                (a[r1 + r] === nx) + (a[r2 + l] === nx) + (a[r2 + x] === nx) + (a[r2 + r] === nx);
+      b[i] = c >= T ? nx : s;
+    }
+  }
+  // Mutations seed new vortex cores rather than speckle: a small block, one phase.
+  for (let k = poisson(mut * FW * FH); k > 0; k--) {
+    const cx = Math.floor(frnd() * FW), cy = Math.floor(frnd() * FH), s = Math.floor(frnd() * N);
+    for (let dy = 0; dy < 3; dy++) for (let dx = 0; dx < 3; dx++) b[((cy + dy) % FH) * FW + (cx + dx) % FW] = (s + dx) % N;
+  }
+  cyc = b; cycB = a;
+}
+
+// Grain growth: every crystal grain owns a flat tone. A newer grain sweeps across
+// older ones through the hex neighbourhood, so domains stay broad and faceted.
+const MAX_GRAINS = 65536;
+const grainBirth = new Float64Array(MAX_GRAINS), grainTone = new Float32Array(MAX_GRAINS);
+let nextGrain = 1, crystalStepNo = 0;
+function stepCrystal(growP) {
+  const a = grain, b = grainB;
+  crystalStepNo++;
+  for (let y = 0; y < FH; y++) {
+    const r0 = ym[y] * FW, r1 = y * FW, r2 = yp[y] * FW, odd = y & 1;
+    for (let x = 0; x < FW; x++) {
+      const i = r1 + x, own = a[i];
+      // Hex neighbourhood on an offset grid.
+      const l = xm[x], r = xp[x], u0 = odd ? x : l, u1 = odd ? r : x;
+      let best = own, bb = grainBirth[own], n;
+      n = a[r1 + l]; if (grainBirth[n] > bb) { best = n; bb = grainBirth[n]; }
+      n = a[r1 + r]; if (grainBirth[n] > bb) { best = n; bb = grainBirth[n]; }
+      n = a[r0 + u0]; if (grainBirth[n] > bb) { best = n; bb = grainBirth[n]; }
+      n = a[r0 + u1]; if (grainBirth[n] > bb) { best = n; bb = grainBirth[n]; }
+      n = a[r2 + u0]; if (grainBirth[n] > bb) { best = n; bb = grainBirth[n]; }
+      n = a[r2 + u1]; if (grainBirth[n] > bb) { best = n; bb = grainBirth[n]; }
+      if (best !== own && frnd() < growP) { b[i] = best; grainJoin[i] = crystalStepNo; }
+      else b[i] = own;
+    }
+  }
+  grain = b; grainB = a;
+}
+function seedCrystal() {
+  const id = nextGrain; nextGrain = nextGrain + 1 >= MAX_GRAINS ? 1 : nextGrain + 1;
+  grainBirth[id] = crystalStepNo + 1;
+  grainTone[id] = 0.03 + frnd() * 0.16;
+  const i = Math.floor(frnd() * FW * FH);
+  grain[i] = id; grainJoin[i] = crystalStepNo;
+}
+
+const GH_R = 6;
+function stepNoise(conduct, ignite) {
+  const a = gh, b = ghB, pk = [0];
+  for (let k = 1; k <= 8; k++) pk[k] = 1 - Math.pow(1 - conduct, k);
+  for (let y = 0; y < FH; y++) {
+    const r0 = ym[y] * FW, r1 = y * FW, r2 = yp[y] * FW;
+    for (let x = 0; x < FW; x++) {
+      const i = r1 + x, s = a[i];
+      if (s) { b[i] = s >= GH_R ? 0 : s + 1; continue; }
+      const l = xm[x], r = xp[x];
+      const k = (a[r0 + l] === 1) + (a[r0 + x] === 1) + (a[r0 + r] === 1) + (a[r1 + l] === 1) +
+                (a[r1 + r] === 1) + (a[r2 + l] === 1) + (a[r2 + x] === 1) + (a[r2 + r] === 1);
+      b[i] = k && frnd() < pk[k] ? 1 : 0;
+    }
+  }
+  for (let k = poisson(ignite); k > 0; k--) {
+    const cx = Math.floor(frnd() * FW), cy = Math.floor(frnd() * FH);
+    for (let dy = -1; dy <= 1; dy++) for (let dx = -1; dx <= 1; dx++) if (!dx || !dy) b[((cy + dy + FH) % FH) * FW + (cx + dx + FW) % FW] = 1;
+  }
+  gh = b; ghB = a;
+}
+
+// ---------- Patch character -> field ----------
+const MOOD_KEYS = ['activity', 'feedback', 'noise', 'regularity', 'density'];
+let fieldAuto = true;
+const manualMood = { activity: 0.5, feedback: 0.2, noise: 0.2, regularity: 0.6, density: 0.5 };
+const clamp01 = v => Math.max(0, Math.min(1, v));
+function patchMood() {
+  const live = s => deck[s].type !== 'EMPTY' && !muted.has(deck[s].id);
+  const act = deck.filter((_, s) => live(s));
+  if (!act.length) return { activity: 0, feedback: 0, noise: 0, regularity: 0.5, density: 0 };
+  const lc = cables.filter(c => live(c.from.slot) && live(c.to.slot));
+  const adj = new Map();
+  for (const c of lc) { if (!adj.has(c.from.slot)) adj.set(c.from.slot, []); adj.get(c.from.slot).push(c.to.slot); }
+  const reaches = (start) => { const seen = new Set(), st = [...(adj.get(start) || [])]; while (st.length) { const n = st.pop(); if (n === start) return true; if (seen.has(n)) continue; seen.add(n); st.push(...(adj.get(n) || [])); } return false; };
+  const loopNodes = [...adj.keys()].filter(reaches).length;
+  const count = t => act.filter(m => m.type === t).length;
+  const patchedInto = types => lc.filter(c => types.includes(deck[c.to.slot].type) || types.includes(deck[c.from.slot].type)).length;
+  return {
+    activity: clamp01(0.15 + lc.length / 14 + act.length / 120),
+    feedback: clamp01(loopNodes / 3 + patchedInto(['EFFECT', 'DUCKER']) * 0.04),
+    noise: clamp01((count('TRASH') + count('CURSE')) * 0.015 + patchedInto(['TRASH', 'CURSE']) * 0.12 + count('LFO') * 0.01),
+    regularity: clamp01(0.2 + count('SEQ') * 0.12),
+    density: clamp01(act.length / 40),
+  };
+}
+
+// Everything the field shows is eased, so it can drift but never jump or flash.
+const mood = { activity: 0, feedback: 0, noise: 0, regularity: 0.5, density: 0 };
+const fam = { calm: 1, unstable: 0, noise: 0 };
+let moodTarget = { ...mood }, stepClock = 0, nextStepIn = 0.2, lastFieldT = 0;
+
+function famTargets(m) {
+  const u = Math.pow(m.feedback, 1.2);
+  const n = m.noise * (1 - u * 0.6);
+  const c = Math.max(0.05, (1 - u) * (1 - n));
+  const s = u + n + c;
+  return { calm: c / s, unstable: u / s, noise: n / s };
+}
+
+function fieldStep() {
+  const m = mood;
+  const t0s = performance.now();
+  // State count stays fixed: changing it mid-run breaks the spirals into flat blocks.
+  // Feedback instead plants new vortex cores, so the field grows more turbulent.
+  if (fam.unstable > 0.01) stepCyclic(1, m.noise * 0.00002 + m.feedback * 0.00004);
+  if (fam.calm > 0.01) { stepCrystal(0.8 + m.regularity * 0.18); for (let k = poisson(0.02 + m.density * 0.06); k > 0; k--) seedCrystal(); }
+  if (fam.noise > 0.01) stepNoise(0.15 + m.noise * 0.035 + m.density * 0.01, 0.2 + m.noise * 1.5 * (0.4 + m.density)); // ~0.19 is critical: stay just under it
+  // Combine into one brightness target.
+  const N = cycN, wC = fam.calm, wU = fam.unstable, wN = fam.noise;
+  const ghV = [0, 1, 0.55, 0.32, 0.18, 0.09, 0.04];
+  const cycV = new Float32Array(N);
+  for (let s = 0; s < N; s++) cycV[s] = 0.5 * Math.pow(0.5 + 0.5 * Math.cos(2 * Math.PI * s / N), 6);
+  for (let i = 0; i < target.length; i++) {
+    const g = grain[i], row = i - i % FW, x = i - row;
+    const edge = g !== grain[row + xp[x]] || g !== grain[yp[(row / FW) | 0] * FW + x];
+    const vc = grainTone[g] + 0.5 * Math.exp(-(crystalStepNo - grainJoin[i]) / 3) + (edge ? 0.1 : 0);
+    blurTmp[i] = wC * vc + wU * cycV[cyc[i]] + wN * ghV[gh[i]];
+  }
+  // A 3x3 box blur turns cell-level speckle into broad tonal structure.
+  for (let y = 0; y < FH; y++) {
+    const r0 = ym[y] * FW, r1 = y * FW, r2 = yp[y] * FW;
+    for (let x = 0; x < FW; x++) {
+      const l = xm[x], r = xp[x], b = blurTmp;
+      target[r1 + x] = (b[r0 + l] + b[r0 + x] + b[r0 + r] + b[r1 + l] + b[r1 + x] * 2 + b[r1 + r] + b[r2 + l] + b[r2 + x] + b[r2 + r]) / 10 * 1.6;
+    }
+  }
+  fieldStepMs = fieldStepMs * 0.8 + (performance.now() - t0s) * 0.2;
+}
+
+function fieldFrame(now) {
+  const dt = Math.min(0.1, (now - lastFieldT) / 1000 || 0.016); lastFieldT = now;
+  moodTarget = fieldAuto ? patchMood() : manualMood;
+  for (const k of MOOD_KEYS) mood[k] += (moodTarget[k] - mood[k]) * Math.min(1, dt / 3);
+  const ft = famTargets(mood);
+  for (const k in fam) fam[k] += (ft[k] - fam[k]) * Math.min(1, dt / 5);
+  // Activity sets the step rate; silence lets the field settle instead of stopping.
+  const sps = 0.6 + mood.activity * 7;
+  stepClock += dt;
+  if (stepClock >= nextStepIn) {
+    stepClock = 0;
+    const jitter = (1 - mood.regularity) * (frnd() * 1.6 - 0.8);
+    nextStepIn = Math.max(0.03, (1 + jitter) / sps);
+    fieldStep();
+  }
+  const t1 = performance.now();
+  const gain = 0.45 + 0.55 * Math.min(1, mood.activity * 2);
+  const tint = [0, 1, 2].map(c => TINT.calm[c] * fam.calm + TINT.unstable[c] * fam.unstable + TINT.noise[c] * fam.noise);
+  const hi = tint.map(c => Math.min(255, c * 1.45 + 6));
+  const px = fieldImg.data, ease = Math.min(1, dt * 2.5);
+  for (let i = 0, p = 0; i < disp.length; i++, p += 4) {
+    const v = (disp[i] += (target[i] * gain - disp[i]) * ease);
+    for (let c = 0; c < 3; c++) {
+      px[p + c] = v < 0.6 ? FIELD_BG[c] + (tint[c] - FIELD_BG[c]) * (v / 0.6) : tint[c] + (hi[c] - tint[c]) * ((Math.min(1, v) - 0.6) / 0.4);
+    }
+    px[p + 3] = 255;
+  }
+  fctx.putImageData(fieldImg, 0, 0);
+  fieldPaintMs = fieldPaintMs * 0.9 + (performance.now() - t1) * 0.1;
+}
+
+// Prototype-only controls for previewing the field without building patches.
+const sliderEls = {};
+{
+  const host = document.getElementById('moodSliders');
+  for (const k of MOOD_KEYS) {
+    const row = document.createElement('label'); row.className = 'slider';
+    row.innerHTML = `<span>${k.toUpperCase()}</span><input type="range" min="0" max="1" step="0.01"><output></output>`;
+    const input = row.querySelector('input');
+    input.value = manualMood[k];
+    input.addEventListener('input', () => { manualMood[k] = +input.value; });
+    host.appendChild(row);
+    sliderEls[k] = { input, out: row.querySelector('output') };
+  }
+  const fb = document.getElementById('famBars');
+  fb.innerHTML = [['calm', '#3e7480'], ['unstable', '#7a5ca4'], ['noise', '#a87a40']].map(([k, c]) => `<div class="fam"><span>${k.toUpperCase()}</span><i><b id="fam_${k}" style="background:${c}"></b></i></div>`).join('');
+  document.getElementById('fieldAuto').addEventListener('click', e => {
+    fieldAuto = !fieldAuto;
+    e.currentTarget.setAttribute('aria-pressed', String(fieldAuto));
+    if (!fieldAuto) for (const k of MOOD_KEYS) { manualMood[k] = +mood[k].toFixed(2); sliderEls[k].input.value = manualMood[k]; }
+  });
+}
+function renderFieldControls() {
+  for (const k of MOOD_KEYS) {
+    sliderEls[k].input.disabled = fieldAuto;
+    if (fieldAuto) sliderEls[k].input.value = mood[k];
+    sliderEls[k].out.textContent = mood[k].toFixed(2);
+  }
+  for (const k in fam) document.getElementById('fam_' + k).style.width = (fam[k] * 100).toFixed(0) + '%';
+}
+let resizeTimer = 0;
+window.addEventListener('resize', () => { clearTimeout(resizeTimer); resizeTimer = setTimeout(fieldInit, 250); });
+
 // ---------- Loop ----------
+fieldInit();
+Object.assign(mood, patchMood());
+Object.assign(fam, famTargets(mood));
 fit(); sizeInspector(); sizeStrips(); renderInspector();
 let lastStats = 0;
 function frame(now) {
@@ -661,7 +939,8 @@ function frame(now) {
   const m = deck[selected], spr = sprite(m, muted.has(m.id));
   ig.drawImage(spr, 0, 0); drawOverlay(ig, m, 0, 0, t, { muted: muted.has(m.id), step: 0, sprite: spr });
   drawStrips(t);
-  if (now - lastStats > 500) { renderStats(); lastStats = now; if (!atlasBytes) measureAtlas(); }
+  fieldFrame(now);
+  if (now - lastStats > 500) { renderStats(); renderFieldControls(); lastStats = now; if (!atlasBytes) measureAtlas(); }
   requestAnimationFrame(frame);
 }
 requestAnimationFrame(frame);
