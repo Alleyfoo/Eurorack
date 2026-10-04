@@ -1,0 +1,62 @@
+.patch-sandbox {
+    --paper: #d4d0bd; --ink: #151a18; --signal: #e3a45c; --cv: #77bcb8;
+    height: 100dvh; overflow: auto; background: #111715; color: #dddcca;
+    font-family: 'Space Mono', monospace; padding: 32px clamp(16px, 4vw, 64px);
+    background-image: repeating-linear-gradient(0deg, transparent, transparent 31px, #25302933 32px);
+}
+.patch-sandbox * { box-sizing: border-box; }
+.patch-header { display: flex; justify-content: space-between; gap: 24px; align-items: center; padding-bottom: 26px; border-bottom: 1px solid #506055; }
+.patch-eyebrow { font-size: 10px; letter-spacing: .2em; color: #a1b0a3; }
+.patch-header h1 { font-family: 'VT323', monospace; font-size: clamp(38px, 5vw, 64px); line-height: 1.05; margin: 6px 0; letter-spacing: .03em; }
+.patch-intro { font-size: 12px; color: #aeb8ad; }
+.patch-transport { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; }
+.audio-status { font-size: 10px; letter-spacing: .12em; margin-right: 10px; color: #8d9a8e; }
+.audio-status.live { color: #a8d181; }
+.patch-button { display: inline-flex; justify-content: center; align-items: center; border: 1px solid #566255; padding: 9px 12px; background: #1d2822; color: #d4dccf; font: inherit; font-size: 11px; cursor: pointer; text-decoration: none; }
+.patch-button:hover { background: #354237; border-color: #a1b0a3; }
+.patch-button.primary { background: #d4d0bd; color: #182018; border-color: #d4d0bd; }
+.patch-button:disabled { opacity: .5; cursor: wait; }
+.patch-sandbox button:focus-visible, .patch-sandbox input:focus-visible, .patch-sandbox a:focus-visible { outline: 2px solid #edc287; outline-offset: 4px; }
+.patch-toolbar { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; padding: 22px 0 14px; }
+.patch-toolbar > span { margin-right: 12px; }
+.patch-toolbar .clear { margin-left: auto; }
+.patch-notice { display: flex; align-items: baseline; gap: 20px; min-height: 46px; padding: 8px 0 16px; font-size: 12px; color: #ccd4c6; }
+.patch-notice .patch-eyebrow { flex-shrink: 0; }
+.patch-rack { display: flex; flex-wrap: wrap; align-items: stretch; gap: 3px; position: relative; padding: 22px 10px; border-top: 8px solid #50584b; border-bottom: 8px solid #50584b; background: #090e0b; box-shadow: inset 0 0 30px #000; }
+.patch-module { position: relative; flex: 1 0 210px; max-width: 260px; min-height: 410px; padding: 20px 16px 34px; background: var(--paper); color: var(--ink); border: 1px solid #898d79; box-shadow: inset 2px 0 #eee7d2; display: flex; flex-direction: column; }
+.patch-module.noise, .patch-module.delay { background: #b2bdac; }
+.patch-module.lfo { background: #b9cec6; }
+.patch-module.output { background: #26392e; color: #e0e4d2; border-color: #69826b; }
+.module-header { display: flex; gap: 8px; align-items: center; border-bottom: 2px solid currentColor; padding-bottom: 10px; cursor: grab; }
+.module-header h2 { font-family: 'VT323', monospace; font-size: 29px; line-height: 1; margin: 0; }
+.module-number { font-size: 10px; opacity: .6; }
+.remove-module { margin-left: auto; font-size: 21px; border: 0; background: none; color: inherit; cursor: pointer; padding: 0 3px; }
+.module-subtitle { font-size: 9px; letter-spacing: .03em; margin: 10px 0 25px; opacity: .75; }
+.module-controls { display: flex; flex-direction: column; gap: 20px; flex: 1; }
+.patch-control { display: block; }
+.patch-control > span { display: flex; justify-content: space-between; gap: 5px; font-size: 10px; margin-bottom: 9px; }
+.patch-control output { font-weight: bold; }
+.patch-control input { display: block; width: 100%; accent-color: #27382b; cursor: ew-resize; }
+.output .patch-control input { accent-color: #d4d0bd; }
+.module-ports { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 26px; padding-top: 12px; border-top: 1px solid #66705b88; }
+.patch-port { position: relative; display: flex; align-items: center; gap: 6px; padding: 5px 2px; background: none; border: 0; color: inherit; cursor: crosshair; font: inherit; font-size: 9px; min-height: 40px; touch-action: none; }
+.patch-port small { display: block; font-size: 7px; opacity: .65; margin-top: 3px; }
+.jack { width: 23px; height: 23px; border-radius: 50%; background: #151915; border: 4px solid #c09561; box-shadow: inset 0 0 0 2px #090b09, 0 1px 2px #0006; flex-shrink: 0; }
+.patch-port.cv .jack { border-color: #437f7c; }
+.patch-port.selected .jack { outline: 3px solid #f6f0d2; outline-offset: 3px; }
+.panel-screw { position: absolute; bottom: 12px; width: 6px; height: 6px; border-radius: 50%; background: #66735d; }
+.panel-screw.left { left: 9px; } .panel-screw.right { right: 9px; }
+.patch-cables { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 5; pointer-events: none; overflow: visible; }
+.patch-cable { stroke: var(--signal); stroke-width: 4; fill: none; filter: drop-shadow(0 2px 1px #0009); opacity: .88; }
+.patch-cable.cv { stroke: var(--cv); stroke-dasharray: 6 3; }
+.patch-cable.pending { stroke: #fff; stroke-dasharray: 4 4; stroke-width: 2; }
+.patch-footer { display: flex; justify-content: space-between; align-items: flex-start; gap: 32px; padding: 24px 0; }
+.patch-footer p { font-size: 10px; line-height: 1.8; color: #a0af9f; margin-top: 8px; }
+.signal-key { font-size: 10px; margin-right: 18px; }
+.signal-key.audio { color: var(--signal); } .signal-key.cv { color: var(--cv); }
+.patch-connections { max-width: 520px; display: flex; flex-wrap: wrap; gap: 6px; }
+.patch-connections h2 { width: 100%; font-size: 10px; letter-spacing: .15em; color: #a1b0a3; margin: 0 0 4px; }
+.connection-remove { background: #1d2822; color: #cdd7c7; border: 1px solid #485947; font: inherit; font-size: 9px; padding: 7px 9px; cursor: pointer; }
+.connection-remove span { margin-left: 10px; color: #e3a45c; }
+@media (max-width: 700px) { .patch-sandbox { padding: 20px 12px; } .patch-header, .patch-footer { flex-direction: column; align-items: flex-start; } .patch-toolbar .clear { margin-left: 0; } .patch-notice { flex-direction: column; gap: 6px; } .patch-module { max-width: none; flex-basis: 180px; } }
+@media (max-width: 430px) { .patch-module { flex-basis: 100%; } }

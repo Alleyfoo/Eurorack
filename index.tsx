@@ -2,6 +2,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
+import PatchSandbox from './components/PatchSandbox';
 
 const rootElement = document.getElementById('root');
 
@@ -13,7 +14,7 @@ try {
   const root = ReactDOM.createRoot(rootElement);
   root.render(
     <React.StrictMode>
-      <App />
+      {new URLSearchParams(window.location.search).get('mode') === 'patch' ? <PatchSandbox /> : <App />}
     </React.StrictMode>
   );
 } catch (error) {

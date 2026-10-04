@@ -1518,7 +1518,7 @@ const App: React.FC = () => {
             </div>
             <div className="flex-1 relative bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-zinc-900 to-zinc-950 z-0 flex flex-col">
                 <div className="h-14 border-b border-zinc-800 flex items-center px-6 justify-between bg-zinc-900/80 backdrop-blur-sm z-20">
-                    <div className="flex items-center gap-2 text-sm text-zinc-400"><Terminal size={16} /><span className="uppercase tracking-widest">{view.replace('_', ' ')}</span></div>
+                    <div className="flex items-center gap-2 text-sm text-zinc-400"><Terminal size={16} /><span className="uppercase tracking-widest">{view.replace('_', ' ')}</span><a href="?mode=patch" className="ml-4 text-xs text-amber-400 hover:text-amber-200">PATCH / LISTEN ↗</a></div>
                     <div className="flex items-center gap-2">{view !== 'HOME' && view !== 'BOSS' && view !== 'VICTORY' && view !== 'CHARACTER_SELECT' && (<Button variant="ghost" onClick={() => { setView('HOME'); playSoundEffect('click'); }} className="text-xs">Return to Studio</Button>)}<button onClick={() => setShowSettings(true)} className="p-2 text-zinc-500 hover:text-zinc-200"><Settings size={20} /></button></div>
                 </div>
                 <div className="flex-1 overflow-auto relative p-6">

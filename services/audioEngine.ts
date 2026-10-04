@@ -1,9 +1,14 @@
 
 import { Module, ModuleType, Cable, Rarity } from '../types';
 import { ROW_SIZE } from '../constants';
+import type { StudioPatchSession } from './patchAudioGraph.ts';
+
+let audioAuthority: 'STUDIO' | 'PATCH' = 'STUDIO';
+let patchSessionOwned = false;
 
 let audioCtx: AudioContext | null = null;
 let masterGain: GainNode | null = null;
+let soundEffectBus: GainNode | null = null;
 let compressor: DynamicsCompressorNode | null = null;
 let limiter: WaveShaperNode | null = null; 
 let analyser: AnalyserNode | null = null;
@@ -98,6 +103,7 @@ export const updateGenerativeInput = (x: number, y: number) => {
 };
 
 export const playSoundEffect = (type: 'click' | 'power' | 'error' | 'success') => {
+    if (audioAuthority === 'PATCH') return;
     const { audioCtx: ctx, masterGain } = getContext();
     if (!ctx || !masterGain) return;
 
@@ -105,7 +111,7 @@ export const playSoundEffect = (type: 'click' | 'power' | 'error' | 'success') =
     const gain = ctx.createGain();
     
     osc.connect(gain);
-    gain.connect(masterGain);
+    gain.connect(soundEffectBus!);
     
     const now = ctx.currentTime;
     
@@ -186,6 +192,8 @@ const getContext = () => {
         
         masterGain = audioCtx.createGain();
         masterGain.gain.value = isMuted ? 0 : 0.5;
+        soundEffectBus = audioCtx.createGain();
+        soundEffectBus.connect(masterGain);
 
         limiter = audioCtx.createWaveShaper();
         limiter.curve = makeHardClipCurve(audioCtx.sampleRate);
@@ -201,13 +209,56 @@ const getContext = () => {
         analyser.connect(audioCtx.destination);
         limiter.connect(recordingDest);
 
-        initLivingRack();
-        startModulationLoop();
+        if (audioAuthority === 'STUDIO') {
+            initLivingRack();
+            startModulationLoop();
+        }
     }
-    if (audioCtx.state === 'suspended') {
-        audioCtx.resume();
+    if (audioCtx.state === 'suspended' && audioAuthority === 'STUDIO') {
+        void audioCtx.resume().catch(error => console.warn('Audio is waiting for a user gesture.', error));
     }
     return { audioCtx, masterGain, compressor, analyser };
+};
+
+/** The visible graph takes source/routing authority; Studio retains the output chain. */
+export const openStudioPatchSession = (): StudioPatchSession => {
+    if (patchSessionOwned) throw new Error('A visible patch already owns the Studio audio session.');
+    audioAuthority = 'PATCH';
+    if (schedulerTimer !== null) { clearTimeout(schedulerTimer); schedulerTimer = null; }
+    if (modulationFrameId !== null) { cancelAnimationFrame(modulationFrameId); modulationFrameId = null; }
+    // Existing Studio voices and noise must not masquerade as a cable's result.
+    for (const bus of [drumBus, bassBus, melodyBus, noiseGain]) if (bus) {
+        bus.gain.cancelScheduledValues(audioCtx!.currentTime);
+        bus.gain.setValueAtTime(0, audioCtx!.currentTime);
+    }
+    // Muting inputs alone is insufficient: nonlinear legacy nodes can emit DC at zero.
+    drumBus?.disconnect();
+    rackFilter?.disconnect();
+    soundEffectBus?.disconnect();
+    const { audioCtx: ctx, compressor: destination, analyser: scope } = getContext();
+    soundEffectBus!.disconnect();
+    // The patch's listen control owns volume; a prior Studio mute/boost is not hidden state.
+    masterGain!.gain.cancelScheduledValues(ctx.currentTime);
+    masterGain!.gain.setValueAtTime(0.5, ctx.currentTime);
+    patchSessionOwned = true;
+    return {
+        context: ctx, destination: destination!, analyser: scope!,
+        release: async () => {
+            if (audioCtx !== ctx) return;
+            // Clear ownership synchronously so restart cannot retain a closing context.
+            if (mediaRecorder?.state === 'recording') mediaRecorder.stop();
+            mediaRecorder = null; recordedChunks = []; recordingDest = null;
+            audioCtx = null; masterGain = null; soundEffectBus = null; compressor = null; limiter = null; analyser = null;
+            drumBus = null; bassBus = null; melodyBus = null;
+            sidechainNodeBass = null; sidechainNodeMelody = null;
+            rackFilter = null; masterSaturator = null; saturatorDrive = null; saturatorMakeup = null;
+            delaySend = null; delayNode = null; delayFeedback = null; delayFilter = null;
+            noiseNode = null; noiseGain = null;
+            nextNoteTime = 0; currentStepIndex = 0;
+            patchSessionOwned = false; audioAuthority = 'STUDIO';
+            if (ctx.state !== 'closed') await ctx.close();
+        }
+    };
 };
 
 export const getMasterAnalyser = (): AnalyserNode | null => {
@@ -358,6 +409,7 @@ export const setMutedModules = (ids: string[]) => {
 };
 
 export const syncLivingRack = (deck: Module[]) => {
+    if (audioAuthority === 'PATCH') return;
     const { audioCtx: ctx } = getContext();
     if (!ctx) return;
     
@@ -752,7 +804,8 @@ function makeHardClipCurve(sampleRate: number) {
     const n_samples = sampleRate;
     const curve = new Float32Array(n_samples);
     for (let i = 0; i < n_samples; ++i) {
-        let x = (i * 2) / n_samples - 1;
+        // Symmetric endpoints keep zero input at zero after interpolation.
+        let x = (i * 2) / (n_samples - 1) - 1;
         if (x > 1) x = 1;
         if (x < -1) x = -1;
         curve[i] = x;

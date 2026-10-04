@@ -6,14 +6,20 @@ interface OscilloscopeProps {
   className?: string;
   width?: number;
   height?: number;
+  analyser?: AnalyserNode | null;
 }
 
-const Oscilloscope: React.FC<OscilloscopeProps> = ({ className, width = 300, height = 100 }) => {
+const Oscilloscope: React.FC<OscilloscopeProps> = ({ className, width = 300, height = 100, analyser: suppliedAnalyser }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [mode, setMode] = useState<'TIME' | 'FREQ'>('TIME');
 
   useEffect(() => {
-    const analyser = getMasterAnalyser();
+    // null deliberately means no active audio; only legacy callers omit this prop.
+    const analyser = suppliedAnalyser === undefined ? getMasterAnalyser() : suppliedAnalyser;
+    if (!analyser && canvasRef.current) {
+      const canvas = canvasRef.current;
+      canvas.getContext('2d')?.clearRect(0, 0, canvas.width, canvas.height);
+    }
     if (!analyser || !canvasRef.current) return;
 
     const canvas = canvasRef.current;
@@ -91,7 +97,7 @@ const Oscilloscope: React.FC<OscilloscopeProps> = ({ className, width = 300, hei
     draw();
 
     return () => cancelAnimationFrame(animationId);
-  }, [width, height, mode]);
+  }, [width, height, mode, suppliedAnalyser]);
 
   return (
     <div className="relative group cursor-pointer" onClick={() => setMode(prev => prev === 'TIME' ? 'FREQ' : 'TIME')}>
