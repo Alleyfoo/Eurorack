@@ -1,7 +1,8 @@
 # G1-D — Game structure decision packet
 
 2026-10-04. Inspected current source at `adf6ab9`.
-**FOR REVIEW — no new game-structure decisions are accepted here. No implementation.**
+**PARTIAL ACCEPTANCE — D1-B and D8-A for G1-P accepted. Remaining choices for review.
+No implementation authorized.** See the acceptance record below.
 
 This packet distinguishes source-confirmed behavior from recommendations.
 KEEP / CUT / TRANSFORM below are proposed dispositions for the future game,
@@ -56,8 +57,8 @@ the visual pixel/ambient prototype contains an integrated persistent patch game.
 
 ## 2. Proposed disposition of every major system
 
-These recommendations assume the persistent-studio/project option in D1. Choosing
-finite runs would change several dispositions, especially resources and loss.
+These recommendations fit the accepted persistent-studio/project option in D1.
+That acceptance does not accept the system dispositions or their resource rules.
 KEEP preserves a useful role, not every current handler or presentation.
 
 | Existing system | Proposal | Player action and reason / implementation or save impact if accepted |
@@ -92,11 +93,17 @@ KEEP preserves a useful role, not every current handler or presentation.
 
 ## 3. Major decisions for us to review
 
-All options below are OPEN. Recommendations form one coherent candidate, not a
-set of accepted requirements. No counts, timers, currency amounts or unlock tree
-are locked by these examples.
+D1-B and D8-A for G1-P are accepted as marked below. Their other alternatives
+remain here as review history. All other choices and system dispositions are
+OPEN. Recommendations do not automatically become accepted requirements.
+No counts, timers, currency amounts or unlock tree are locked by these examples.
 
 ### D1. Is this a run, or a studio that grows?
+
+**ACCEPTED B:** persistent studio, finite projects. Studio, owned modules,
+discoveries and archive persist. Projects provide finite beginnings, situations
+and deliberate closing points. Closing a project does not reset the studio or
+destroy a patch. Alternatives below record the original decision context.
 
 - **A — Finite runs:** start with a constrained rack, encounter a sequence of
   acquisition situations, finish a chosen brief, then restart with a new system.
@@ -204,6 +211,12 @@ Recording capability must be verified before it becomes a progression gate.
 
 ### D8. What finishes, and why keep going afterward?
 
+**ACCEPTED A for G1-P:** the player chooses a result/version to keep and closes
+the project. The game does not judge whether the result is musically good.
+**Overall studio ending is DEFERRED / OPEN:** G1-P imposes no final studio ending.
+A later authored chapter/finale may be considered if useful; the studio remains
+usable afterward. Alternatives below record the original decision context.
+
 - **A — Close a piece/project:** choose a version to keep and mark this project
   finished. New opportunities open; the studio persists. Risks weak finale.
 - **B — Finish an authored chapter:** resolve a small set of situations, then
@@ -246,8 +259,10 @@ state without autoplay; audible ownership starts from a gesture as in S1-A.
 
 ## 4. A candidate start-to-completion walkthrough
 
-**ILLUSTRATIVE — assumes the recommendations above.** This demonstrates their
-combined consequences so we can reject or revise them. It is not the chosen game.
+**ILLUSTRATIVE — combines accepted D1/D8 with still-open recommendations.**
+This demonstrates their consequences so we can reject or revise the unaccepted
+parts. The walkthrough's acquisition, progression triggers and capture format
+are not the chosen game merely because studio/project closure was accepted.
 
 1. **First visit:** arrive in a small studio and choose tone or noise as material.
    Start audio, route it to Output, change a control, unplug it and hear silence.
@@ -271,9 +286,9 @@ combined consequences so we can reject or revise them. It is not the chosen game
    different question. Whether a larger chapter or overall game has an authored
    final closing point is still D8, not decided by this example.
 
-This gives a complete project arc, not a secretly chosen whole-game ending.
-If we choose finite runs instead, rewrite it with the starting constraints,
-acquisition sequence, final brief, archive and explicit restart/carryover rules.
+This gives a candidate project arc within the accepted persistent studio.
+G1-P has no overall studio ending, and project closure preserves the studio and
+patch. The other transitions still need review before implementation.
 
 ## 5. Conditional G1-P outline and risks to test
 
@@ -297,13 +312,24 @@ Test the chosen loop with questions that can change the design:
 - Do consecutive projects feel different enough to justify continuation?
   The full-game/chapter ending remains unresolved until we choose and test it.
 
-## 6. Acceptance record — pending
+## 6. Acceptance record — partial
 
-No D1–D10 options or system dispositions have been accepted yet. Recommended
-review order: D1 (form), D3/D4/D5 (desire and consequence), D8/D9 (closure/stakes),
-then starter palette, constraints, capture and saves. Choices are coupled:
-finite runs need different loss/carryover rules; a credit shop needs an actual
-earning loop; audio-required completion needs verified recording.
+User acceptance, 2026-10-04:
+
+| Decision | Status | Accepted scope |
+|---|---|---|
+| D1 | ACCEPT B | Persistent studio, finite projects. Studio, owned modules, discoveries and archive persist. Projects have finite beginnings, situations and deliberate closing points. Closing a project does not reset the studio or destroy a patch. |
+| D8 | ACCEPT A for G1-P | Project ends when the player chooses a result/version to keep and closes it. No musical-quality judgment. |
+| Overall studio ending | DEFERRED / OPEN | G1-P imposes no final studio ending. A later authored chapter/finale is optional if beneficial; studio remains usable afterward. |
+| D2–D7, D9–D10 | PENDING | Starter kit, acquisition, progression, objectives, scarcity/growth, capture, stakes/recovery and save strategy need further review. |
+| System disposition table | RECOMMENDATIONS ONLY | D1/D8 acceptance does not approve cuts, transformations, new rewards or resource rules. |
+| G1-P implementation | NOT AUTHORIZED | Partial design acceptance is not a request to implement the prototype. |
+
+Next review: D3/D4/D5 (desire, acquisition and consequence), then D9 (stakes),
+starter palette, constraints, capture and saves. Choices are coupled: a credit
+shop needs an actual earning loop; audio-required completion needs verified
+recording. The accepted player-chosen closure does not settle capture format or
+whether closure unlocks a reward or next opportunity.
 
 Record the user's choices and changes here or in a linked accepted structure
 document before G1-P starts. Identify intentionally deferred choices and the

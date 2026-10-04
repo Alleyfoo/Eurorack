@@ -55,6 +55,27 @@ exist to create new relationships, not merely larger scores. A player should be
 able to relate an edit to an audible consequence, including deliberate silence,
 and explore an evolving system without constant economic interruption.
 
+## Studio and project structure — LOCKED DESIGN
+
+**D1-B — accepted:** persistent studio, finite projects. The player's studio,
+owned modules, discoveries and archive persist. Projects provide finite
+beginnings, situations and deliberate closing points. Closing a project does
+not reset the studio or destroy a patch.
+
+**D8-A — accepted for G1-P:** projects finish when the player chooses a
+result/version to keep and closes the project. The game does not judge whether
+that result is musically good.
+
+**Overall studio ending — OPEN / DEFERRED:** G1-P must not impose a final ending
+on the studio. A later authored chapter or finale may be considered if the full
+game benefits from it; the studio remains usable afterward.
+
+These accepted choices establish the form and project closure, not acquisition,
+progression rewards, objective checking, resource rules, capture format or save
+schema. Those decisions remain for joint review in the
+[G1-D packet](../plans/G1_D_DECISION_PACKET.md#6-acceptance-record--partial).
+G1-P implementation has not been authorized by this acceptance alone.
+
 ## Player verbs — LOCKED DESIGN
 
 Ultimately support place module, remove module, patch cable, remove cable,
@@ -251,8 +272,9 @@ the minimum usable capture when the run needs it; advanced recording work can wa
 - What timing and lifecycle architecture remains responsive under sustained
   modulation/feedback on target browsers and modest hardware?
 
-Present the full-run and system-retention questions in G1-D for joint review;
-even the choice between finite runs and a persistent studio is open. Implement
+Present the remaining project-progression and system-retention questions in
+G1-D for joint review. Persistent studio/finite projects and player-chosen project
+closure are accepted; the overall studio ending is deferred. Implement
 G1-P only after user acceptance. Use listening evidence
 and an end-to-end prototype to refine the structure before expanding content or
 audio fidelity. Catalogue promises and illustrative objectives are not requirements.

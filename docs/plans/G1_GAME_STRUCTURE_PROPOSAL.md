@@ -16,6 +16,13 @@ The [G1-D decision packet](G1_D_DECISION_PACKET.md) is a review artifact.
 Recommendations are not locked design. User acceptance must be recorded with
 the chosen alternatives, changes and unresolved items before G1-P begins.
 
+**Accepted so far:** D1-B, persistent studio with finite projects; D8-A for
+G1-P, player chooses a result/version to keep and closes the project without
+musical grading. Studio, owned modules, discoveries and archive persist; closure
+does not reset the studio or destroy a patch. The overall studio ending is
+deferred, and G1-P imposes none. Any later chapter/finale leaves the studio usable.
+Other choices remain pending; this partial acceptance does not authorize G1-P.
+
 Governing rule: **Audio fidelity is deferred; audio architecture is not.**
 Reuse the working Studio engine and S1-A's authoritative visible graph. Crude
 module behavior is acceptable; decorative cables or score-derived sound are not.

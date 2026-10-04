@@ -19,6 +19,9 @@ G1 game structure/progression, as scoped in `docs/plans/G1_GAME_STRUCTURE_PROPOS
 G1-D is design archaeology and a decision packet only: no runtime changes.
 Provide alternatives and recommendations for major choices; do not silently
 lock them. G1-P requires recorded user acceptance and implementation authorization.
+D1-B (persistent studio/finite projects) and D8-A (player-chosen project closure)
+are accepted for the documented scope. Closure preserves the studio and patch;
+G1-P has no final studio ending. Other decisions remain pending in the G1-D packet.
 Follow the sequence in `docs/design/GAME_DESIGN.md`: structure, rack experience,
 content, end-to-end playability, then serious audio refinement. Clock/GATE or
 S1-B work needs a concrete gameplay reason; it is not the default next task.
