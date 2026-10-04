@@ -1,7 +1,8 @@
 # G1-D — Game structure decision packet
 
 2026-10-04. Inspected current source at `adf6ab9`.
-**PARTIAL ACCEPTANCE — D1-B and D8-A for G1-P accepted. Remaining choices for review.
+**PARTIAL ACCEPTANCE — D1-B, D3-A for G1-P, D4-A with structural progression,
+D5-B+A and D8-A for G1-P accepted. Remaining choices for review.
 No implementation authorized.** See the acceptance record below.
 
 This packet distinguishes source-confirmed behavior from recommendations.
@@ -93,7 +94,7 @@ KEEP preserves a useful role, not every current handler or presentation.
 
 ## 3. Major decisions for us to review
 
-D1-B and D8-A for G1-P are accepted as marked below. Their other alternatives
+D1-B, D3-A, D4-A, D5-B+A and D8-A are accepted for the scope marked below. Other alternatives
 remain here as review history. All other choices and system dispositions are
 OPEN. Recommendations do not automatically become accepted requirements.
 No counts, timers, currency amounts or unlock tree are locked by these examples.
@@ -133,6 +134,12 @@ listening controls are available immediately. No clock or envelope is required.
 
 ### D3. Why does the player want another module, and how do they obtain it?
 
+**ACCEPTED A for G1-P:** projects may temporarily provide curated modules for
+unrestricted audition. At project closure the player may retain a selected
+offered module. No currency, rarity hierarchy or blind purchase is required for
+G1-P. Other acquisition channels remain open for later design. Alternatives and
+original recommendations below record the decision context.
+
 - **A — Curated loan/choice:** a situation offers alternatives to audition; choose
   one to keep after engaging with the project. Desire comes from a relationship
   the current patch cannot produce, not a price/rarity number.
@@ -148,6 +155,13 @@ not a required purchase path. Let the player defer an offer and keep exploring.
 
 ### D4. What progresses, and what triggers progression?
 
+**ACCEPTED A with explicit structural progression:** closing a project opens
+specific new opportunities/capabilities. Progression is not based on musical
+quality, analyser scoring, amplitude, conventional topology or genre. Minimal
+transparent interaction requirements may prove engagement, but player-chosen
+closure remains authoritative. Exact interactions and unlock mappings are not
+chosen here. Alternatives below record the decision context.
+
 - **A — Complete an opportunity:** take a concrete offered experiment, work on
   the patch and explicitly close it; unlock a specific next opportunity/choice.
   Transparent, minimal grading, but closure may become checkbox clicking.
@@ -158,13 +172,21 @@ not a required purchase path. Let the player defer an offer and keep exploring.
   are available. Progress comes from studio configuration, not task completion;
   risks hiding unlock consequences and making experimentation costly.
 
-**Recommend A, with a readable record of what opened and why.** The player may
+**Original recommendation A, with a readable record of what opened and why.** The player may
 describe a discovery; the game does not certify its musical merit. Do not add a
-hidden analyser judge. If closure is player-declared, say so honestly and accept
-that it can be rushed. If we want mechanically verified conditions instead, we
-must choose and review them explicitly before G1-P.
+hidden analyser judge. The accepted rule permits minimal transparent engagement
+requirements, not musical-quality verification. Concrete requirements still
+need review before G1-P; do not invent them from illustrative examples.
 
 ### D5. What makes an objective or request meaningful?
+
+**ACCEPTED B+A hybrid:** projects provide situated mechanical/material constraints
+or questions; the sonic response is open. Constraints may concern tools, routing
+or actions, but must not prescribe what good music sounds like. Free studio
+exploration remains available outside projects. Alternatives below record the
+decision context.
+
+**LOCKED RULE:** projects introduce possibility; they do not confiscate the studio.
 
 - **A — Open invitation:** “Find a change you want to return to.” Player chooses
   the response, including silence; meaning rests on curiosity and keeping work.
@@ -259,10 +281,10 @@ state without autoplay; audible ownership starts from a gesture as in S1-A.
 
 ## 4. A candidate start-to-completion walkthrough
 
-**ILLUSTRATIVE — combines accepted D1/D8 with still-open recommendations.**
+**ILLUSTRATIVE — combines accepted D1/D3/D4/D5/D8 with still-open specifics.**
 This demonstrates their consequences so we can reject or revise the unaccepted
-parts. The walkthrough's acquisition, progression triggers and capture format
-are not the chosen game merely because studio/project closure was accepted.
+parts. Concrete offered modules, prompts, engagement requirements, unlock map
+and capture format are not chosen merely because their general direction was accepted.
 
 1. **First visit:** arrive in a small studio and choose tone or noise as material.
    Start audio, route it to Output, change a control, unplug it and hear silence.
@@ -303,8 +325,8 @@ Test the chosen loop with questions that can change the design:
 - Does the offered module answer something the player wants to try, or do they
   acquire it only because the UI says to? If the latter, revise acquisition/prompt.
 - Does closing a project feel like a decision, or an arbitrary unlock button?
-  Player-declared progress intentionally permits rushing; do not conceal this
-  weakness with unreviewed musical grading.
+  Any engagement requirements must be minimal and transparent; do not conceal
+  weak motivation with unreviewed musical grading or hidden analyser checks.
 - Does a limited palette invite investigation or just obstruct an intended patch?
   Can players freely explore and return without losing their work?
 - Does a saved snapshot make the player want to revisit? Would an audio moment
@@ -319,17 +341,23 @@ User acceptance, 2026-10-04:
 | Decision | Status | Accepted scope |
 |---|---|---|
 | D1 | ACCEPT B | Persistent studio, finite projects. Studio, owned modules, discoveries and archive persist. Projects have finite beginnings, situations and deliberate closing points. Closing a project does not reset the studio or destroy a patch. |
+| D3 | ACCEPT A for G1-P | Projects may temporarily provide curated modules for unrestricted audition; at closure the player may retain a selected offered module. No currency, rarity hierarchy or blind purchase required for G1-P. Other acquisition channels remain open for later design. |
+| D4 | ACCEPT A with explicit structural progression | Closing a project opens specific opportunities/capabilities. No musical-quality, analyser, amplitude, conventional-topology or genre scoring. Minimal transparent interaction requirements may prove engagement; player-chosen closure remains authoritative. |
+| D5 | ACCEPT B+A hybrid | Situated mechanical/material constraints or questions, open sonic response. Tool/routing/action constraints may apply within projects; no prescribed good sound. Free studio exploration remains available outside projects. |
 | D8 | ACCEPT A for G1-P | Project ends when the player chooses a result/version to keep and closes it. No musical-quality judgment. |
+| Project/studio rule | LOCKED DESIGN | Projects introduce possibility; they do not confiscate the studio. |
 | Overall studio ending | DEFERRED / OPEN | G1-P imposes no final studio ending. A later authored chapter/finale is optional if beneficial; studio remains usable afterward. |
-| D2–D7, D9–D10 | PENDING | Starter kit, acquisition, progression, objectives, scarcity/growth, capture, stakes/recovery and save strategy need further review. |
-| System disposition table | RECOMMENDATIONS ONLY | D1/D8 acceptance does not approve cuts, transformations, new rewards or resource rules. |
+| D2, D6–D7, D9–D10 | PENDING | Starter kit, scarcity/growth, capture, stakes/recovery and save strategy need further review. Concrete project offers, interactions and unlock mappings also remain unspecified. |
+| System disposition table | RECOMMENDATIONS ONLY | Accepted directions constrain the table, but do not approve every cut/transformation or settle the full game's acquisition/resource systems. |
 | G1-P implementation | NOT AUTHORIZED | Partial design acceptance is not a request to implement the prototype. |
 
-Next review: D3/D4/D5 (desire, acquisition and consequence), then D9 (stakes),
-starter palette, constraints, capture and saves. Choices are coupled: a credit
-shop needs an actual earning loop; audio-required completion needs verified
-recording. The accepted player-chosen closure does not settle capture format or
-whether closure unlocks a reward or next opportunity.
+Next review: D9 (stakes/recovery), D2 (starter palette), D6 (scarcity/growth),
+D7 (capture) and D10 (saves), then concrete project offers, engagement requirements
+and unlock mappings. D4 now settles structural progression through project
+closure; it does not select the actual opportunities or require musical grading.
+Capture format is still open. How unretained audition modules relate to preserved
+patches/archive restoration must be decided consistently with D1 and the project/
+studio rule; do not silently remove modules in a way that destroys a kept patch.
 
 Record the user's choices and changes here or in a linked accepted structure
 document before G1-P starts. Identify intentionally deferred choices and the

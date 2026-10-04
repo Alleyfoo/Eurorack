@@ -21,7 +21,11 @@ Provide alternatives and recommendations for major choices; do not silently
 lock them. G1-P requires recorded user acceptance and implementation authorization.
 D1-B (persistent studio/finite projects) and D8-A (player-chosen project closure)
 are accepted for the documented scope. Closure preserves the studio and patch;
-G1-P has no final studio ending. Other decisions remain pending in the G1-D packet.
+G1-P has no final studio ending. D3-A for G1-P, D4-A structural progression and
+D5-B+A situated constraints/open sonic response are also accepted. Projects
+introduce possibility; they do not confiscate the studio. Free exploration stays
+available; exact engagement requirements/unlocks and remaining choices stay
+pending in the G1-D packet. Do not infer runtime implementation authorization.
 Follow the sequence in `docs/design/GAME_DESIGN.md`: structure, rack experience,
 content, end-to-end playability, then serious audio refinement. Clock/GATE or
 S1-B work needs a concrete gameplay reason; it is not the default next task.

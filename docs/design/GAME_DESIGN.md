@@ -70,9 +70,32 @@ that result is musically good.
 on the studio. A later authored chapter or finale may be considered if the full
 game benefits from it; the studio remains usable afterward.
 
-These accepted choices establish the form and project closure, not acquisition,
-progression rewards, objective checking, resource rules, capture format or save
-schema. Those decisions remain for joint review in the
+### Projects introduce possibility — LOCKED DESIGN
+
+**Projects introduce possibility; they do not confiscate the studio.**
+
+**D3-A — accepted for G1-P:** projects may temporarily provide curated modules
+for unrestricted audition. At project closure the player may retain a selected
+offered module. No currency, rarity hierarchy or blind purchase is required for
+G1-P. Other acquisition channels remain open for later design.
+
+**D4-A — accepted with explicit structural progression:** closing a project
+opens specific new opportunities/capabilities. Progression is not based on
+musical quality, analyser scoring, amplitude, conventional topology or genre.
+Minimal transparent interaction requirements may prove that the project was
+engaged with, but player-chosen closure remains authoritative. Exact requirements
+and the opportunity/capability map still need review; no hidden detector is implied.
+
+**D5-B+A — accepted:** projects provide situated mechanical/material constraints
+or questions; the sonic response is open. Constraints may concern available
+tools, routing or actions, but must not prescribe what good music sounds like.
+Free studio exploration remains available outside projects. Project constraints
+do not authorize taking away the player's persistent studio or destroying patches.
+
+These choices establish acquisition direction, structural progression and project
+framing alongside studio persistence and closure. Starter kit, scarcity/growth,
+capture format, stakes/recovery, save schema and concrete project requirements
+remain for joint review in the
 [G1-D packet](../plans/G1_D_DECISION_PACKET.md#6-acceptance-record--partial).
 G1-P implementation has not been authorized by this acceptance alone.
 

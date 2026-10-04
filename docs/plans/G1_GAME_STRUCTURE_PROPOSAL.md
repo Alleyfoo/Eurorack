@@ -23,6 +23,16 @@ does not reset the studio or destroy a patch. The overall studio ending is
 deferred, and G1-P imposes none. Any later chapter/finale leaves the studio usable.
 Other choices remain pending; this partial acceptance does not authorize G1-P.
 
+**Also accepted:** D3-A for G1-P, temporary curated modules for unrestricted
+audition and optional retention of a selected offer at closure, with no required
+currency/rarity hierarchy/blind purchase; other acquisition channels remain open.
+D4-A, closure opens specific opportunities/capabilities through structural
+progression, without musical scoring; minimal transparent engagement requirements
+may apply, while player-chosen closure stays authoritative. D5-B+A, situated
+mechanical/material constraints or questions with an open sonic response and
+free exploration outside projects. **Projects introduce possibility; they do
+not confiscate the studio.** Concrete requirements/unlocks still need review.
+
 Governing rule: **Audio fidelity is deferred; audio architecture is not.**
 Reuse the working Studio engine and S1-A's authoritative visible graph. Crude
 module behavior is acceptable; decorative cables or score-derived sound are not.
