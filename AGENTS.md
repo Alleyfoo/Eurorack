@@ -7,6 +7,13 @@ This project is a React and TypeScript browser game. `index.tsx` mounts the root
 `src/App.tsx` is unused and its relative imports do not match the current layout;
 make application changes in the root file.
 
+`index.tsx` selects `components/PatchSandbox.tsx` for `?mode=patch`; default
+navigation still mounts root App. S1-A routes use `services/patchModel.ts` and
+`services/patchAudioGraph.ts`. Reuse `audioEngine.openStudioPatchSession` for
+context/master ownership; do not create a competing engine or hidden backing
+sequence. Module positions must not determine DSP behavior. Patch state remains
+separate from the legacy save schema.
+
 Reusable controls and module displays live in `components/`. Game calculations,
 Web Audio synthesis, and local storage persistence are separated in `services/`.
 Shared game data and types live in `constants.ts` and `types.ts`.
@@ -17,8 +24,9 @@ Shared game data and types live in `constants.ts` and `types.ts`.
 - `npm run dev`: start Vite on port 3000.
 - `npm run build`: generate the production bundle in `dist/`.
 - `npm run preview`: serve the production bundle locally.
+- `npm run test:patch`: run graph policy tests (Node.js 22.18+ or 24).
 
-No automated test, lint, or formatting scripts are configured. The production
+Only graph policy tests are configured; no lint or formatting script exists. The production
 build bundles the active application; it does not perform TypeScript checking.
 Browser audio uses the Web Audio API, and saved progress uses local storage.
 

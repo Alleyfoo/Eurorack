@@ -13,6 +13,9 @@ or override the governing design established here.
 
 ## Read in this order
 
+For the implemented S1-A slice, read [Visible patch authority](S1_A_PATCH_AUTHORITY.md).
+The documents below remain the S0 baseline archaeology.
+
 1. [Current system](CURRENT_SYSTEM.md): runtime and ownership authority.
 2. [Gameplay map](GAMEPLAY_MAP.md): implemented actions and reachability.
 3. [Audio model](AUDIO_MODEL.md): what actually produces sound.

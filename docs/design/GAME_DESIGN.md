@@ -165,6 +165,16 @@ heard, observed and learned.
 
 ## First playable — OPEN QUESTION
 
+### S1 integration direction — LOCKED DESIGN
+
+Reuse the working Studio audio engine and gradually make the visible patch
+graph take authority over it. Preserve working synthesis/output capabilities
+where they support the design; add routing and module behavior at explicit
+seams rather than building a competing engine or treating decorative cables
+as audio authority. S1-A establishes this boundary using Studio's shared context,
+master safety, analyser and recording path. Its implemented slice is described
+in [S1-A patch authority](../project/S1_A_PATCH_AUTHORITY.md).
+
 The proposed S1 experiment asks **IS PATCHING ITSELF FUN?** It does not ask
 whether the full progression system is complete. Exact module selection,
 controls, signal ranges and implementation remain open and require follow-up

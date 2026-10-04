@@ -1,8 +1,15 @@
 # S1 patch sandbox proposal
 
-**OPEN QUESTION — proposed experiment, not authorized implementation.**
+**OPEN QUESTION — full S1 proposal. S1-A was separately authorized and implemented.**
 Based on baseline `96b1008`, [audio archaeology](../project/AUDIO_MODEL.md), and
 [governing design](../design/GAME_DESIGN.md). S0 changes documentation only.
+
+**LOCKED DESIGN — revised integration framing:** reuse the working Studio audio
+engine and gradually make the visible patch graph take authority over it.
+[S1-A](../project/S1_A_PATCH_AUTHORITY.md) implements AUDIO/CV routing, delayed
+feedback, direct controls and shared Studio output ownership. Clock/GATE,
+function generator, capture UI and progression integration remain future work.
+The remainder is a proposal, not authorization to implement all S1 examples.
 
 ## Experiment purpose and scope
 
@@ -75,10 +82,12 @@ three-row positional scheduler, shared DSP and independent ambience. playPatch
 does not connect anything; no per-instance graph registry, route edits, gate
 network or cleanup exists. Global controls do not substitute for module DSP.
 
-**ILLUSTRATIVE:** retain the legacy engine for the legacy game. Extract reusable
-output/analyser/capture and primitive construction where it makes a focused
-implementation smaller. Add a dedicated sandbox runtime with explicit start,
-apply-edit and dispose contracts. Do not rewrite the current RPG or every component.
+**LOCKED DESIGN:** reuse the Studio engine and introduce cable authority at its
+ownership boundary. S1-A adds a per-module routing layer with explicit start,
+apply-edit and disposal, hosted by Studio's existing context, master chain,
+analyser and recording destination. Further Studio synthesis capabilities should
+be reused where their behavior fits the visible graph. Do not rewrite the RPG
+or introduce a competing audio engine.
 
 ## 4. Reuse and 5. isolation/replacement
 
@@ -93,11 +102,12 @@ apply-edit and dispose contracts. Do not rewrite the current RPG or every compon
 | Scalar scoring and job rewards | Remain legacy-only. No authority over sandbox graph, silence, music quality or success. |
 | PlayerState/deck/shop/bosses | Keep intact. New session patch is distinct; serialization/migration is deferred. |
 
-**OPEN QUESTION:** isolate entry before root's deck-sync effect initializes the
-legacy engine, or extract an explicit legacy audio lifecycle. A sandbox view
-mounted inside the current App without gating that effect would leave two
-instruments running. The future implementation must resolve that seam before
-audio tests. This is a scoped ownership refactor, not permission for broad cleanup.
+**S1-A decision:** route `?mode=patch` before root App's deck-sync effects mount.
+`openStudioPatchSession` grants source/routing ownership to the visible graph,
+pauses Studio timers and detaches its backing/SFX paths, while retaining the
+shared output chain. Tests also exercise takeover of an existing Studio context.
+Same-screen game-state integration remains OPEN QUESTION; this boundary does
+not authorize broader lifecycle or progression refactors.
 
 ## 6. Cables become audible authority
 
