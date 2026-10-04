@@ -2,7 +2,7 @@
 
 2026-10-04. Inspected current source at `adf6ab9`.
 **PARTIAL ACCEPTANCE — D1-B, D3-A for G1-P, D4-A with structural progression,
-D5-B+A and D8-A for G1-P accepted. Remaining choices for review.
+D5-B+A, D8-A for G1-P and D9-A for G1-P accepted. Remaining choices for review.
 No implementation authorized.** See the acceptance record below.
 
 This packet distinguishes source-confirmed behavior from recommendations.
@@ -94,7 +94,7 @@ KEEP preserves a useful role, not every current handler or presentation.
 
 ## 3. Major decisions for us to review
 
-D1-B, D3-A, D4-A, D5-B+A and D8-A are accepted for the scope marked below. Other alternatives
+D1-B, D3-A, D4-A, D5-B+A, D8-A and D9-A are accepted for the scope marked below. Other alternatives
 remain here as review history. All other choices and system dispositions are
 OPEN. Recommendations do not automatically become accepted requirements.
 No counts, timers, currency amounts or unlock tree are locked by these examples.
@@ -219,6 +219,10 @@ only as far as the accepted model needs them.
 
 ### D7. What does the player capture?
 
+**Hard requirement, mechanism OPEN with D10:** returning temporary audition
+modules must never silently break a preserved patch or archive item. Capture
+format choices below must satisfy this; D9 acceptance does not choose a solution.
+
 - **A — Patch snapshot and short note:** keeps modules, controls and routes for
   revisiting; cheap to test, but cannot promise the exact same evolving sound.
 - **B — Snapshot plus optional audio:** retains the system and a moment it made.
@@ -253,6 +257,30 @@ New modules should make a new question interesting, not merely prolong a ladder.
 
 ### D9. Can the player fail or lose anything?
 
+**ACCEPTED A for G1-P:** no destructive progression failure. Projects may be
+revised, abandoned, retried or returned to later. Failure to meet an explicit
+project condition may make that attempt incomplete, but never destroys owned
+modules, saved patches, discoveries, archive items or the persistent studio.
+
+The game never treats silence, noise, instability, feedback, low amplitude,
+unconventional routing or an aesthetically unwanted result as failure. Recovery
+must always be explicit: revise, retry, abandon, or return to free studio exploration.
+
+**B remains available for later optional situated events.** A project-only
+borrowed module, one-take performance, machine that changes each attempt or event
+that closes on leaving may create temporary stakes. Losing that opportunity or
+take must leave the studio, instruments and history safe. No such event is
+required or authorized for G1-P by this decision.
+
+**C is incompatible with the accepted persistent-studio structure.** The options
+below preserve the original decision context, not equally available future choices.
+
+**LOCKED RULE:** projects may close doors; they do not erase the player's work.
+
+**D7/D10 coupling — hard consistency requirement, solution OPEN:** temporary
+audition modules must never silently break a preserved patch or archive item
+when returned. Resolve under capture/save design, not by inventing a D9 policy.
+
 - **A — No destructive progression failure:** abandon, revise or revisit projects;
   opportunities remain available. Stakes come from choosing and performing.
 - **B — Optional situated stakes:** a loan expires or an event attempt ends, but
@@ -266,6 +294,10 @@ can be unmet without condemning the patch. No half-wallet penalty, lives meter,
 forced bloat or permanent module loss by inheritance from the old shell.
 
 ### D10. What persists, and what happens to old saves?
+
+**Hard requirement, mechanism OPEN with D7:** returning temporary audition
+modules must never silently break preserved patches or archive items. Save/load
+and archive restoration must honor this alongside the accepted persistent studio.
 
 - **A — Separate new studio save:** persist accepted progression, owned modules,
   installed graph and captures; leave the legacy save/route usable. Safest prototype
@@ -281,7 +313,7 @@ state without autoplay; audible ownership starts from a gesture as in S1-A.
 
 ## 4. A candidate start-to-completion walkthrough
 
-**ILLUSTRATIVE — combines accepted D1/D3/D4/D5/D8 with still-open specifics.**
+**ILLUSTRATIVE — combines accepted D1/D3/D4/D5/D8/D9 with still-open specifics.**
 This demonstrates their consequences so we can reject or revise the unaccepted
 parts. Concrete offered modules, prompts, engagement requirements, unlock map
 and capture format are not chosen merely because their general direction was accepted.
@@ -345,19 +377,25 @@ User acceptance, 2026-10-04:
 | D4 | ACCEPT A with explicit structural progression | Closing a project opens specific opportunities/capabilities. No musical-quality, analyser, amplitude, conventional-topology or genre scoring. Minimal transparent interaction requirements may prove engagement; player-chosen closure remains authoritative. |
 | D5 | ACCEPT B+A hybrid | Situated mechanical/material constraints or questions, open sonic response. Tool/routing/action constraints may apply within projects; no prescribed good sound. Free studio exploration remains available outside projects. |
 | D8 | ACCEPT A for G1-P | Project ends when the player chooses a result/version to keep and closes it. No musical-quality judgment. |
+| D9 | ACCEPT A for G1-P | No destructive progression failure. Attempts may be incomplete; owned modules, patches, discoveries, archive and studio remain safe. Silence/noise/instability/feedback/low amplitude/unconventional routing/unwanted aesthetics never constitute failure. Explicit recovery: revise, retry, abandon or return to free exploration. |
+| D9-B | RESERVED for later optional content | Situated temporary stakes may close an opportunity or lose a take without harming the studio, instrument or history. No G1-P event requirement. |
+| D9-C | INCOMPATIBLE | Destructive run loss/reset conflicts with the accepted persistent-studio structure. |
 | Project/studio rule | LOCKED DESIGN | Projects introduce possibility; they do not confiscate the studio. |
+| Work-preservation rule | LOCKED DESIGN | Projects may close doors; they do not erase the player's work. |
+| Audition module / preserved work coupling | HARD REQUIREMENT; mechanism OPEN for D7/D10 | Returning temporary audition modules must never silently break a preserved patch or archive item. |
 | Overall studio ending | DEFERRED / OPEN | G1-P imposes no final studio ending. A later authored chapter/finale is optional if beneficial; studio remains usable afterward. |
-| D2, D6–D7, D9–D10 | PENDING | Starter kit, scarcity/growth, capture, stakes/recovery and save strategy need further review. Concrete project offers, interactions and unlock mappings also remain unspecified. |
+| D2, D6–D7, D10 | PENDING | Starter kit, scarcity/growth, capture and save strategy need further review. Concrete project offers, interactions, unlock mappings and audition-module preservation mechanism also remain unspecified. |
 | System disposition table | RECOMMENDATIONS ONLY | Accepted directions constrain the table, but do not approve every cut/transformation or settle the full game's acquisition/resource systems. |
 | G1-P implementation | NOT AUTHORIZED | Partial design acceptance is not a request to implement the prototype. |
 
-Next review: D9 (stakes/recovery), D2 (starter palette), D6 (scarcity/growth),
+Next review: D2 (starter palette), D6 (scarcity/growth),
 D7 (capture) and D10 (saves), then concrete project offers, engagement requirements
 and unlock mappings. D4 now settles structural progression through project
 closure; it does not select the actual opportunities or require musical grading.
-Capture format is still open. How unretained audition modules relate to preserved
-patches/archive restoration must be decided consistently with D1 and the project/
-studio rule; do not silently remove modules in a way that destroys a kept patch.
+Capture format is still open. D7/D10 must resolve how unretained audition modules
+relate to preserved patches/archive restoration. Preserved work must never silently
+break when a temporary module is returned; the hard requirement is accepted,
+while the solution remains open.
 
 Record the user's choices and changes here or in a linked accepted structure
 document before G1-P starts. Identify intentionally deferred choices and the

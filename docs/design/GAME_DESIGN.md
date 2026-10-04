@@ -92,9 +92,35 @@ tools, routing or actions, but must not prescribe what good music sounds like.
 Free studio exploration remains available outside projects. Project constraints
 do not authorize taking away the player's persistent studio or destroying patches.
 
-These choices establish acquisition direction, structural progression and project
-framing alongside studio persistence and closure. Starter kit, scarcity/growth,
-capture format, stakes/recovery, save schema and concrete project requirements
+### Projects preserve work — LOCKED DESIGN
+
+**Projects may close doors; they do not erase the player's work.**
+
+**D9-A — accepted for G1-P:** no destructive progression failure. A project may
+be revised, abandoned, retried or returned to later. Failure to meet an explicit
+project condition may leave that attempt incomplete; it never destroys owned
+modules, saved patches, discoveries, archive items or the persistent studio.
+
+Silence, noise, instability, feedback, low amplitude, unconventional routing and
+an aesthetically unwanted result are never failure. Recovery must always be
+explicit: revise, retry, abandon, or return to free studio exploration.
+
+**D9-B — reserved for later optional situated events:** temporary stakes may
+close an opportunity or lose a particular take, while the studio, instruments
+and history remain safe. Examples include a project-only loan, a one-take live
+performance, a machine that changes each attempt or an event that closes on
+leaving. These are illustrative future content, not G1-P requirements.
+**D9-C — incompatible:** destructive run loss/reset conflicts with the accepted
+persistent-studio structure. Do not inherit half-wallet penalties, lives, boss
+gates, curses or forced collection damage from the old shell.
+
+**Hard consistency requirement for D7/D10:** returning temporary audition
+modules must never silently break a preserved patch or archive item. Capture/
+save design must resolve this coupling; D9 does not select the mechanism.
+
+These choices establish acquisition direction, structural progression, project
+framing and non-destructive recovery alongside studio persistence and closure.
+Starter kit, scarcity/growth, capture format, save schema and concrete project requirements
 remain for joint review in the
 [G1-D packet](../plans/G1_D_DECISION_PACKET.md#6-acceptance-record--partial).
 G1-P implementation has not been authorized by this acceptance alone.

@@ -33,6 +33,17 @@ mechanical/material constraints or questions with an open sonic response and
 free exploration outside projects. **Projects introduce possibility; they do
 not confiscate the studio.** Concrete requirements/unlocks still need review.
 
+**D9-A accepted for G1-P:** no destructive progression failure. Explicit project
+conditions can leave an attempt incomplete; owned modules, saved patches,
+discoveries, archive and studio remain safe. Silence, noise, instability, feedback,
+low amplitude, unconventional routing and unwanted aesthetics are never failure.
+Recovery is explicit: revise, retry, abandon, or return to free exploration.
+D9-B remains a later optional situated-event pattern with the studio/history safe;
+D9-C is incompatible with the chosen structure. **Projects may close doors; they
+do not erase the player's work.** D7/D10 must resolve how temporary audition
+modules return without ever silently breaking a preserved patch or archive item;
+the requirement is locked, the mechanism remains open.
+
 Governing rule: **Audio fidelity is deferred; audio architecture is not.**
 Reuse the working Studio engine and S1-A's authoritative visible graph. Crude
 module behavior is acceptable; decorative cables or score-derived sound are not.

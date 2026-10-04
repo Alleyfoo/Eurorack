@@ -26,6 +26,11 @@ D5-B+A situated constraints/open sonic response are also accepted. Projects
 introduce possibility; they do not confiscate the studio. Free exploration stays
 available; exact engagement requirements/unlocks and remaining choices stay
 pending in the G1-D packet. Do not infer runtime implementation authorization.
+D9-A is accepted for G1-P: no destructive failure, explicit revise/retry/abandon/
+free-studio recovery. Projects may close doors; they do not erase the player's work.
+D9-B is reserved for later optional events with studio/history safe; D9-C is
+incompatible. D7/D10 must ensure returned audition modules never silently break
+preserved patches/archive items; the preservation mechanism remains open.
 Follow the sequence in `docs/design/GAME_DESIGN.md`: structure, rack experience,
 content, end-to-end playability, then serious audio refinement. Clock/GATE or
 S1-B work needs a concrete gameplay reason; it is not the default next task.
