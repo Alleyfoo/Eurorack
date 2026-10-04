@@ -33,13 +33,26 @@ is session-only; the existing game's save schema is unchanged.
 Clock/GATE behavior and capture controls are deferred. See
 [S1-A implementation and validation](docs/project/S1_A_PATCH_AUTHORITY.md).
 
+## G1-P: Persistent Studio
+
+Open http://localhost:3000/?mode=studio. Choose Tone or Noise, then start audio
+and patch. Your three owned modules share six installed spaces plus fixed Output.
+Start **Material / Memory** to audition the other source and Delay; closing it
+opens **Level in Motion**, which loans VCA. Make one valid cable involving a loan
+to enable closure, keep a snapshot and optionally retain one offered module.
+
+Project edits leave your Studio patch alone. Both survive reload without starting
+audio. Archives preserve returned loan dependencies; **Make working copy** offers
+temporary reacquisition or explicit same-kind substitution. Closing both projects
+completes the prototype arc while leaving Studio usable. The legacy save is untouched.
+See [G1-P implementation and validation](docs/project/G1_P_STUDIO_SLICE.md).
+
 ## Project direction
 
-**Audio fidelity is deferred; audio architecture is not.** Next is
+**Audio fidelity is deferred; audio architecture is not.** The
 [G1 — Game Structure / Progression Prototype](docs/plans/G1_GAME_STRUCTURE_PROPOSAL.md):
-G1-D inspects the current run and presents keep/cut/transform recommendations
-and alternatives for joint review. G1-P implements a small progression prototype
-only after accepted decisions. Then prioritize the rack/player experience, gameplay
+G1-D decisions were reviewed together; the authorized G1-P slice now implements
+the first persistent project loop. Playtest it, then prioritize rack/player experience, gameplay
 content and an end-to-end playable game before the serious audio pass.
 Clock/GATE waits until gameplay needs it. See the
 [governing sequence](docs/design/GAME_DESIGN.md#development-priority--locked-design).
@@ -52,7 +65,8 @@ npm run preview
 ```
 
 Vite writes the production build to `dist/`. Graph policy tests run with
-`npm run test:patch` (Node.js 22.18+ or 24). The build does not type-check the
+`npm run test:patch` and Studio state tests with `npm run test:studio`
+(Node.js 22.18+ or 24). The build does not type-check the
 whole prototype, and no lint script is configured.
 
 ## Code layout

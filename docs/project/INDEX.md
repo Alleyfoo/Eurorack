@@ -16,8 +16,8 @@ or override the governing design established here.
 For the implemented S1-A slice, read [Visible patch authority](S1_A_PATCH_AUTHORITY.md).
 Next, read [G1 — Game Structure / Progression Prototype](../plans/G1_GAME_STRUCTURE_PROPOSAL.md).
 Its [G1-D decision packet](../plans/G1_D_DECISION_PACKET.md) now records accepted
-D1–D10 directions and provisional content recommendations. Next scope the concrete
-G1-P task; design acceptance alone does not request runtime implementation.
+D1–D10 directions and provisional content recommendations. The user's subsequent
+working-slice order authorized [G1-P, now implemented](G1_P_STUDIO_SLICE.md).
 The governing sequence puts game structure, rack experience, content and an
 end-to-end playable run before serious audio fidelity. Audio architecture and
 actual cable authority remain requirements throughout.

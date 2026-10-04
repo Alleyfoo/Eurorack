@@ -1,7 +1,9 @@
 # G1 — Game Structure / Progression Prototype
 
-**D1–D10 directions accepted; next scope a concrete G1-P task. No runtime work
-requested by this document update.**
+**D1–D10 directions accepted; G1-P authorized and implemented.** See
+[working slice and validation](../project/G1_P_STUDIO_SLICE.md). The user's later
+eight-part work order scoped two authored projects, six installed spaces and the
+dependency resolver; it did not authorize a generic progression/content engine.
 G1 is split into two stages. The worker must not silently decide the game because
 systems happen to exist in the old shell.
 
@@ -16,8 +18,8 @@ systems happen to exist in the old shell.
 The [G1-D decision packet](G1_D_DECISION_PACKET.md) is a review artifact.
 Recommendations are not locked design. User acceptance must be recorded with
 the chosen alternatives, changes and unresolved items before G1-P begins. The
-directions are now accepted for the recorded scope; concrete content and the
-implementation task remain to scope.
+directions are accepted for the recorded scope. The concrete G1-P task was
+subsequently authorized and implemented; remaining full-game content stays open.
 
 **Accepted so far:** D1-B, persistent studio with finite projects; D8-A for
 G1-P, player chooses a result/version to keep and closes the project without
@@ -52,7 +54,7 @@ progression, without musical scoring; minimal transparent engagement requirement
 may apply, while player-chosen closure stays authoritative. D5-B+A, situated
 mechanical/material constraints or questions with an open sonic response and
 free exploration outside projects. **Projects introduce possibility; they do
-not confiscate the studio.** Concrete requirements/unlocks still need review.
+not confiscate the studio.** The subsequent G1-P work order scoped the concrete engagement requirement and two-project unlock; see the implemented slice linked above.
 
 **D9-A accepted for G1-P:** no destructive progression failure. Explicit project
 conditions can leave an attempt incomplete; owned modules, saved patches,

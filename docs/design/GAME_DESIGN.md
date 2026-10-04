@@ -207,9 +207,10 @@ progression, project framing and non-destructive recovery alongside studio
 persistence and closure, now including snapshot capture and separate versioned
 saves. D1–D10 directions are accepted for their recorded scope in the
 [G1-D packet](../plans/G1_D_DECISION_PACKET.md#6-acceptance-record--accepted-directions).
-Concrete project offers, engagement requirements, unlock mapping and prototype
-capacity still need a scoped G1-P task. Design acceptance alone does not request
-runtime implementation.
+The user's subsequent G1-P working-slice order scoped concrete offers, engagement,
+unlocks, provisional capacity and archive resolution; that slice is now implemented.
+See [G1-P behavior and validation](../project/G1_P_STUDIO_SLICE.md). This does not
+authorize expanding its two authored projects into a generalized content framework.
 
 ## Player verbs — LOCKED DESIGN
 

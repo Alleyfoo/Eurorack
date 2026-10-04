@@ -3,7 +3,8 @@
 2026-10-04. Inspected current source at `adf6ab9`.
 **D1–D10 DIRECTIONS ACCEPTED for the scope recorded below.** D7 requires snapshots
 in G1-P, with optional audio as the long-term direction. Concrete prototype
-content/task remains to scope. No runtime implementation requested by this record.
+content beyond the two-project slice remains open. A subsequent user working-slice
+order authorized [G1-P, now implemented](../project/G1_P_STUDIO_SLICE.md).
 
 This packet distinguishes source-confirmed behavior from recommendations.
 KEEP / CUT / TRANSFORM below are proposed dispositions for the future game,
@@ -379,7 +380,7 @@ When reopening/forking an archive with a dependency not owned/available, show
 the state and offer reacquire/substitute/retain-as-archive. Never silently remove
 the module or its cables. These are explicit resolution choices, not permission
 to invent a currency shop, grant ownership or rewrite the immutable archive.
-Concrete reacquisition/substitution UX still needs a scoped prototype task.
+The later G1-P work order scoped this resolver; its implemented behavior is documented in `../project/G1_P_STUDIO_SLICE.md`.
 
 G1-P does not require perfect audio replay or long-term DSP compatibility.
 The alternatives below record the original save-strategy decision context.
@@ -431,7 +432,7 @@ capture and the Studio/Project/Archive model are now accepted.
 
 This gives a candidate project arc within the accepted persistent studio.
 G1-P has no overall studio ending, and project closure preserves the studio and
-patch. The other transitions still need review before implementation.
+patch. This historical candidate informed the later scoped two-project slice; see `../project/G1_P_STUDIO_SLICE.md` for the implemented transitions.
 
 ## 5. Conditional G1-P outline and risks to test
 
@@ -483,17 +484,15 @@ User acceptance, 2026-10-04:
 | Missing dependency rule | LOCKED DESIGN | A missing dependency is a state to explain, never a cable to silently delete. Show unavailable dependency on reopen/fork and offer reacquire/substitute/retain-as-archive; preserve original module/cables/archive. |
 | Overall studio ending | DEFERRED / OPEN | G1-P imposes no final studio ending. A later authored chapter/finale is optional if beneficial; studio remains usable afterward. |
 | Exact installed capacity | PROTOTYPE TUNING | Enough for starter system, auditioned module and potentially one additional relationship; test meaningful boundary versus annoyance. No inherited 10/12/48 design mandate. |
-| Concrete prototype task | TO SCOPE | Project offers, transparent engagement requirements, unlock map, exact capacity and dependency-resolution UI remain unspecified. No perfect replay, legacy migration or long-term DSP compatibility required. |
+| Concrete prototype task | AUTHORIZED / IMPLEMENTED | Material / Memory loans other source + Delay; closure opens Level in Motion (VCA). One valid cable involving a loan proves engagement, no audio required. Six ordinary installed modules + Output; explicit archive loan/substitute/cancel resolver. |
 | System disposition table | RECOMMENDATIONS ONLY | Accepted directions constrain the table, but do not approve every cut/transformation or settle the full game's acquisition/resource systems. |
-| G1-P implementation | NOT REQUESTED YET | Accepted design directions do not themselves request implementation of a concrete prototype slice. |
+| G1-P implementation | AUTHORIZED / IMPLEMENTED | Later eight-part user working-slice order provided implementation authorization. See G1_P_STUDIO_SLICE.md for state boundaries, behavior and validation. |
 
-Next: scope the concrete G1-P slice with project offers, transparent engagement
-requirements and unlock mappings. D1–D10 supply enough architecture; do not expand
-them into a full economy or audio-replay system. Exact capacity is prototype
-tuning. Snapshot format must represent modules, controls, cables and borrowed
-dependencies, without granting ownership or silently deleting unavailable routes.
-Reacquisition/substitution mechanics must respect the accepted channels and
-remain explicit rather than silently invented.
+Next: human playtest the implemented G1-P slice before expanding it. D1–D10
+govern its architecture; six installed spaces remain prototype tuning, not canon.
+The project offers, engagement and resolver were explicitly scoped by the user's
+later work order. No full economy, new audio-replay system or generic content
+framework was requested. Full-game content remains provisional.
 
 Record the user's choices and changes here or in a linked accepted structure
 document before G1-P starts. Identify intentionally deferred choices and the

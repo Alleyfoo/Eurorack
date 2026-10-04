@@ -14,43 +14,35 @@ context/master ownership; do not create a competing engine or hidden backing
 sequence. Module positions must not determine DSP behavior. Patch state remains
 separate from the legacy save schema.
 
-Audio fidelity is deferred; audio architecture is not. The next priority is
-G1 game structure/progression, as scoped in `docs/plans/G1_GAME_STRUCTURE_PROPOSAL.md`.
-G1-D is design archaeology and a decision packet only: no runtime changes.
-Provide alternatives and recommendations for major choices; do not silently
-lock them. G1-P requires recorded user acceptance and implementation authorization.
-D1-B (persistent studio/finite projects) and D8-A (player-chosen project closure)
-are accepted for the documented scope. Closure preserves the studio and patch;
-G1-P has no final studio ending. D3-A for G1-P, D4-A structural progression and
-D5-B+A situated constraints/open sonic response are also accepted. Projects
-introduce possibility; they do not confiscate the studio. Free exploration stays
-available; exact engagement requirements/unlocks and remaining choices stay
-pending in the G1-D packet. Do not infer runtime implementation authorization.
-D9-A is accepted for G1-P: no destructive failure, explicit revise/retry/abandon/
-free-studio recovery. Projects may close doors; they do not erase the player's work.
-D9-B is reserved for later optional events with studio/history safe; D9-C is
-incompatible. D7/D10 must ensure returned audition modules never silently break
-preserved patches/archive items; use the accepted Studio/Project/Archive model.
-D2-A is accepted for G1-P: chosen tone/noise source, Filter, LFO and Output;
-other source available very early, no class/genre/difficulty/permanent branch.
-The starter kit teaches relationships, not a canonical signal chain.
-D6-A+B is accepted for G1-P: generous persistent storage, finite installed space;
-project constraints apply to the response, not the entire studio. No automatic
-eviction, forced selling, slot prices or module destruction. Rack space is a
-compositional constraint, not a progression currency. G1-P uses a fixed modest
-limit; exact capacity is prototype tuning, not inherited 10/12/48. Expansion as
-progression is deferred; do not implement a repeating +2-slot ladder.
-D7: snapshots with optional title/note required for every closed project in G1-P;
-optional audio long-term, never required for closure. D10-A: separate versioned
-new-studio save, legacy untouched; load never autostarts audio. Persist owned
-modules, current studio patch, project/loans, progression/unlocks and archive.
-Projects are working branches; archives are immutable and preserve borrowed
-dependencies without granting ownership. A missing dependency is a state to
-explain, never a cable to silently delete. On archive reopen/fork, show unavailable
-dependencies with reacquire/substitute/retain-as-archive choices. Exact schema,
-content and resolution UI need a concrete task; no runtime implementation requested
-by design acceptance alone. No perfect replay, migration or long-term DSP
-compatibility required for G1-P.
+Audio fidelity is deferred; audio architecture is not. D1–D10 acceptance is
+recorded in `docs/plans/G1_D_DECISION_PACKET.md`. A subsequent user work order
+authorized the concrete G1-P slice, now implemented and documented in
+`docs/project/G1_P_STUDIO_SLICE.md`; consult it for scope and validation.
+
+`?mode=studio` mounts `StudioPrototype` and the shared `PatchWorkspace`, using
+`studioModel.ts` and `studioStorage.ts`. The prototype starts with Tone or Noise,
+Filter, LFO and Output; six ordinary installed modules plus Output is a tuning
+limit. Owned storage persists. Two authored projects offer loans and structural
+unlocks; do not broaden this into an economy, quest framework or expansion ladder.
+A valid new cable involving a loan enables player-chosen closure even with audio
+off. Closure snapshots the branch and optionally retains one offered module in
+storage, without replacing the free Studio patch. Projects remain isolated working
+branches and can be left and resumed. No destructive progression failure or
+musical scoring is allowed; completing the prototype arc leaves Studio usable.
+
+The versioned `eurorack_studio_save_v1` save is separate from the legacy key.
+Loading never creates an AudioContext or starts sound. Exact module instance IDs,
+controls, cables and dependency provenance survive archive capture. Immutable
+archives preserve dependencies without granting ownership. Missing dependencies
+must be explained and explicitly resolved by temporary reacquisition, same-kind
+owned substitution, or retaining the archive; never silently remove cables.
+Unsupported/corrupt saves remain stored and show an error instead of resetting.
+Only one working branch is supported in this slice. Optional audio recording,
+legacy migration and perfect DSP replay remain outside scope.
+
+The next task is human playtesting of the complete two-project loop and installed
+space boundary, followed by scoped rack/player experience work. Preserve the
+accepted design rules; further content and serious DSP need separate scope.
 Follow the sequence in `docs/design/GAME_DESIGN.md`: structure, rack experience,
 content, end-to-end playability, then serious audio refinement. Clock/GATE or
 S1-B work needs a concrete gameplay reason; it is not the default next task.
@@ -66,8 +58,9 @@ Shared game data and types live in `constants.ts` and `types.ts`.
 - `npm run build`: generate the production bundle in `dist/`.
 - `npm run preview`: serve the production bundle locally.
 - `npm run test:patch`: run graph policy tests (Node.js 22.18+ or 24).
+- `npm run test:studio`: run progression, ownership, archive and save tests.
 
-Only graph policy tests are configured; no lint or formatting script exists. The production
+Graph policy and Studio model tests are configured; no lint or formatting script exists. The production
 build bundles the active application; it does not perform TypeScript checking.
 Browser audio uses the Web Audio API, and saved progress uses local storage.
 
