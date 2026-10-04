@@ -101,7 +101,7 @@ const Oscilloscope: React.FC<OscilloscopeProps> = ({ className, width = 300, hei
 
   return (
     <div className="relative group cursor-pointer" onClick={() => setMode(prev => prev === 'TIME' ? 'FREQ' : 'TIME')}>
-        <canvas ref={canvasRef} className={`rounded border border-zinc-700 ${className}`} />
+        <canvas ref={canvasRef} width={width} height={height} style={{ maxWidth: '100%' }} className={`rounded border border-zinc-700 ${className}`} />
         <div className="absolute top-1 left-1 text-[9px] text-zinc-600 font-mono opacity-0 group-hover:opacity-100 transition-opacity">
             {mode === 'TIME' ? 'WAVEFORM' : 'SPECTRUM'}
         </div>

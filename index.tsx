@@ -3,6 +3,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import PatchSandbox from './components/PatchSandbox';
+import StudioPrototype from './components/StudioPrototype';
 
 const rootElement = document.getElementById('root');
 
@@ -14,7 +15,7 @@ try {
   const root = ReactDOM.createRoot(rootElement);
   root.render(
     <React.StrictMode>
-      {new URLSearchParams(window.location.search).get('mode') === 'patch' ? <PatchSandbox /> : <App />}
+      {new URLSearchParams(window.location.search).get('mode') === 'studio' ? <StudioPrototype /> : new URLSearchParams(window.location.search).get('mode') === 'patch' ? <PatchSandbox /> : <App />}
     </React.StrictMode>
   );
 } catch (error) {
