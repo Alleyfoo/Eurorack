@@ -211,7 +211,10 @@ The project sequence is:
 1. **Game structure.** Decide the complete run: starting rack, acquisition,
    discovery, objectives, progression, module availability, studio growth,
    failure/non-failure, capture and completion. Decide what to keep, cut or
-   transform from the RPG/incremental shell. G1 is the next milestone.
+   transform from the RPG/incremental shell. G1-D is the next milestone: archaeology
+   and a decision packet, with alternatives and recommendations. Review it with
+   the user and record accepted decisions before G1-P implements a progression
+   prototype. Worker recommendations do not lock the game structure.
 2. **Rack/player experience.** Integrate the pixel rack, module movement, cables,
    inspector, controls, cellular background, save/load, responsive layout and
    onboarding. Modules need enough real behavior to make their roles understandable.
@@ -248,6 +251,8 @@ the minimum usable capture when the run needs it; advanced recording work can wa
 - What timing and lifecycle architecture remains responsive under sustained
   modulation/feedback on target browsers and modest hardware?
 
-Resolve the full-run and system-retention questions in G1. Use listening evidence
+Present the full-run and system-retention questions in G1-D for joint review;
+even the choice between finite runs and a persistent studio is open. Implement
+G1-P only after user acceptance. Use listening evidence
 and an end-to-end prototype to refine the structure before expanding content or
 audio fidelity. Catalogue promises and illustrative objectives are not requirements.

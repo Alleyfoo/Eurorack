@@ -16,6 +16,9 @@ separate from the legacy save schema.
 
 Audio fidelity is deferred; audio architecture is not. The next priority is
 G1 game structure/progression, as scoped in `docs/plans/G1_GAME_STRUCTURE_PROPOSAL.md`.
+G1-D is design archaeology and a decision packet only: no runtime changes.
+Provide alternatives and recommendations for major choices; do not silently
+lock them. G1-P requires recorded user acceptance and implementation authorization.
 Follow the sequence in `docs/design/GAME_DESIGN.md`: structure, rack experience,
 content, end-to-end playability, then serious audio refinement. Clock/GATE or
 S1-B work needs a concrete gameplay reason; it is not the default next task.

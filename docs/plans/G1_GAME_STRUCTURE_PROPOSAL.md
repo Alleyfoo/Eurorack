@@ -1,8 +1,20 @@
 # G1 — Game Structure / Progression Prototype
 
-**NEXT MILESTONE.** This proposal records the user's revised project sequence.
-It scopes inspection and design before implementation; it does not claim that
-the run structure is settled or authorize deleting the current game wholesale.
+**NEXT: G1-D — design archaeology and decision packet only. No code.**
+G1 is split into two stages. The worker must not silently decide the game because
+systems happen to exist in the old shell.
+
+- **G1-D — Game structure decision packet:** inspect the old shell, describe its
+  complete current run, recommend KEEP / CUT / TRANSFORM for every major system
+  with rationale, and give 2–3 concrete alternatives plus a recommendation for
+  unresolved major choices. No runtime implementation or deletion.
+- **G1-P — Progression prototype:** only after the user reviews and accepts the
+  decisions, implement the smallest slice proving the chosen loop:
+  start → acquire/discover → patch → consequence → progression → small completion.
+
+The [G1-D decision packet](G1_D_DECISION_PACKET.md) is a review artifact.
+Recommendations are not locked design. User acceptance must be recorded with
+the chosen alternatives, changes and unresolved items before G1-P begins.
 
 Governing rule: **Audio fidelity is deferred; audio architecture is not.**
 Reuse the working Studio engine and S1-A's authoritative visible graph. Crude
@@ -34,11 +46,13 @@ The pixel/ambient prototype supplies a visual direction, not integrated gameplay
 
 ## Decisions and design artifacts
 
-Produce a run walkthrough and a system disposition table with a reason for
-every keep, cut or transform decision. Do not treat the following questions as
-already answered:
+Produce a current-run walkthrough and a proposed future walkthrough, clearly
+separated. Produce a system disposition table with a reason for every recommended
+keep, cut or transform. Give alternatives for major open choices, including
+whether the game should have runs at all. Do not treat the following questions
+as already answered or turn a worker recommendation into implementation authority:
 
-| Area | Decision G1 must make |
+| Area | Decision G1-D must present for user review |
 |---|---|
 | Start | Starting rack/palette, character choice, first meaningful action and onboarding into listening. |
 | Acquisition | How modules become available, how players choose them, where owned modules live, and whether shops/currency/scavenging earn their place. |
@@ -59,7 +73,7 @@ illustrative content and questions that require playtesting.
 
 ## Small progression prototype
 
-After the structure is decided, scope the smallest playable slice that can test
+Only after the user accepts the structure, G1-P scopes the smallest playable slice that can test
 its transitions with existing crude audio. Prefer a small authored palette and
 a few representative opportunities over a catalogue or a complex economy.
 Specify the slice's starting state, acquisition/discovery step, unlock, capture
@@ -71,8 +85,9 @@ Preserve the legacy route/save until an explicit integration/migration design
 replaces it. Record any required audio capability against a concrete gameplay
 need; Clock/GATE is conditional, not the next milestone by default.
 
-G1's first deliverable is the full-run design and scoped prototype plan. This
-documentation update does not implement that prototype. Rack polish, broad
+G1-D's deliverable is the decision packet, including a conditional prototype
+outline. G1-P requires an explicit acceptance record and work authorization;
+elapsed time or lack of objection is not acceptance. Rack polish, broad
 content authoring, a complete end-to-end playthrough and fidelity follow in the
 order recorded in the governing design.
 
