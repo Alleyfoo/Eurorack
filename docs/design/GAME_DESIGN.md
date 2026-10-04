@@ -2,8 +2,9 @@
 
 S0, 2026-10-04. This document records the user's governing direction, not the
 current prototype's implemented capabilities. See [baseline index](../project/INDEX.md)
-for current behavior and [S1 proposal](../plans/S1_PATCH_SANDBOX_PROPOSAL.md) for
-an experiment that still needs authorization.
+for baseline behavior, [S1-A patch authority](../project/S1_A_PATCH_AUTHORITY.md)
+for the implemented routing seam, and [G1 proposal](../plans/G1_GAME_STRUCTURE_PROPOSAL.md)
+for the next milestone. The remaining full S1 proposal is provisional.
 
 ## Authority labels — LOCKED DESIGN
 
@@ -195,6 +196,43 @@ multiplayer, DAW integration, MIDI implementation, plugin hosting, backend,
 cloud save, AI composition, procedural 500-module catalogue, or complex economy
 expansion. Reconsideration belongs to a later explicit design decision.
 
+## Development priority — LOCKED DESIGN
+
+**Audio fidelity is deferred; audio architecture is not.**
+
+Crude DSP is sufficient while we establish the game. Visible cables must still
+control real signal relationships, controls must affect their declared modules,
+and runtime ownership, cleanup and bounded output must remain sound. Do not use
+fake routing that requires rebuilding the game when audio improves. Reuse the
+Studio engine and the S1-A seam throughout these stages.
+
+The project sequence is:
+
+1. **Game structure.** Decide the complete run: starting rack, acquisition,
+   discovery, objectives, progression, module availability, studio growth,
+   failure/non-failure, capture and completion. Decide what to keep, cut or
+   transform from the RPG/incremental shell. G1 is the next milestone.
+2. **Rack/player experience.** Integrate the pixel rack, module movement, cables,
+   inspector, controls, cellular background, save/load, responsive layout and
+   onboarding. Modules need enough real behavior to make their roles understandable.
+3. **Gameplay content.** Build interesting constraints and prompts: unusual
+   starting systems, discoveries, unlocks, events, strange/damaged modules and
+   performances or requests. These invite different approaches without genre
+   judgment or score ladders; examples remain illustrative.
+4. **End-to-end playable game.** Play from fresh save through progression to the
+   late game and chosen end state with crude audio. Identify where the experience
+   becomes boring, confusing or pointless before investing in fidelity.
+5. **Serious audio pass.** Refine oscillator character, filters, FM,
+   nonlinearities, audio-rate modulation, clock behavior, chaotic CV, delays,
+   feedback, saturation, envelopes, aliasing, output safety, browser performance
+   and recording quality. Basic safety and correct lifecycle remain requirements
+   throughout; necessary gameplay behavior can arrive earlier.
+
+These stages set priorities, not a prohibition on small supporting fixes.
+Clock/GATE and S1-B are not the default next step. Add them when a specific piece
+of gameplay requires their relationships. Define capture's role in G1 and provide
+the minimum usable capture when the run needs it; advanced recording work can wait.
+
 ## Decisions remaining — OPEN QUESTION
 
 - Which smallest palette produces multiple compelling behaviors, and which
@@ -210,5 +248,6 @@ expansion. Reconsideration belongs to a later explicit design decision.
 - What timing and lifecycle architecture remains responsive under sustained
   modulation/feedback on target browsers and modest hardware?
 
-Resolve these with a small patching experiment and listening evidence before
-expanding progression or copying the catalogue's promises into requirements.
+Resolve the full-run and system-retention questions in G1. Use listening evidence
+and an end-to-end prototype to refine the structure before expanding content or
+audio fidelity. Catalogue promises and illustrative objectives are not requirements.

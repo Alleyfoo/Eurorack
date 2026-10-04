@@ -33,6 +33,16 @@ is session-only; the existing game's save schema is unchanged.
 Clock/GATE behavior and capture controls are deferred. See
 [S1-A implementation and validation](docs/project/S1_A_PATCH_AUTHORITY.md).
 
+## Project direction
+
+**Audio fidelity is deferred; audio architecture is not.** Next is
+[G1 — Game Structure / Progression Prototype](docs/plans/G1_GAME_STRUCTURE_PROPOSAL.md):
+define the complete run and decide what to keep, cut or transform from the
+RPG/incremental shell. Then prioritize the rack/player experience, gameplay
+content and an end-to-end playable game before the serious audio pass.
+Clock/GATE waits until gameplay needs it. See the
+[governing sequence](docs/design/GAME_DESIGN.md#development-priority--locked-design).
+
 ## Production build
 
 ```sh

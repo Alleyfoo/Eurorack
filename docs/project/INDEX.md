@@ -14,6 +14,10 @@ or override the governing design established here.
 ## Read in this order
 
 For the implemented S1-A slice, read [Visible patch authority](S1_A_PATCH_AUTHORITY.md).
+Next, read [G1 — Game Structure / Progression Prototype](../plans/G1_GAME_STRUCTURE_PROPOSAL.md).
+The governing sequence puts game structure, rack experience, content and an
+end-to-end playable run before serious audio fidelity. Audio architecture and
+actual cable authority remain requirements throughout.
 The documents below remain the S0 baseline archaeology.
 
 1. [Current system](CURRENT_SYSTEM.md): runtime and ownership authority.

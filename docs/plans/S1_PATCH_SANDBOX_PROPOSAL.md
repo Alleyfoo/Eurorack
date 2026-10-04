@@ -11,6 +11,13 @@ feedback, direct controls and shared Studio output ownership. Clock/GATE,
 function generator, capture UI and progression integration remain future work.
 The remainder is a proposal, not authorization to implement all S1 examples.
 
+**Current priority:** [G1 — Game Structure / Progression Prototype](G1_GAME_STRUCTURE_PROPOSAL.md)
+comes next. Audio fidelity is deferred; audio architecture is not. The remaining
+Clock/GATE/function-generator examples below are conditional future audio work,
+not an S1-B queue. Implement them earlier only for a concrete gameplay need.
+The [governing sequence](../design/GAME_DESIGN.md#development-priority--locked-design)
+supersedes this proposal's original audio-first ordering.
+
 ## Experiment purpose and scope
 
 **LOCKED DESIGN:** patch → listen → change → discover → capture/perform;

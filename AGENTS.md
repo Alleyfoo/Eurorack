@@ -14,6 +14,12 @@ context/master ownership; do not create a competing engine or hidden backing
 sequence. Module positions must not determine DSP behavior. Patch state remains
 separate from the legacy save schema.
 
+Audio fidelity is deferred; audio architecture is not. The next priority is
+G1 game structure/progression, as scoped in `docs/plans/G1_GAME_STRUCTURE_PROPOSAL.md`.
+Follow the sequence in `docs/design/GAME_DESIGN.md`: structure, rack experience,
+content, end-to-end playability, then serious audio refinement. Clock/GATE or
+S1-B work needs a concrete gameplay reason; it is not the default next task.
+
 Reusable controls and module displays live in `components/`. Game calculations,
 Web Audio synthesis, and local storage persistence are separated in `services/`.
 Shared game data and types live in `constants.ts` and `types.ts`.
