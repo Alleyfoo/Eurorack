@@ -1,0 +1,670 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pixel Rack Prototype</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0b0b10;
+    --panel: #16161d;
+    --panel-hi: #23232e;
+    --line: #343445;
+    --text: #e8e8f0;
+    --muted: #8a8aa0;
+    --amber: #f59e0b;
+    --green: #4ade80;
+    --red: #ef4444;
+    --px: 3px;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--text); }
+  body {
+    font-family: 'VT323', ui-monospace, monospace;
+    font-size: 20px;
+    line-height: 1.15;
+    padding: 16px;
+  }
+  /* Chamfered pixel border: four flat box-shadows leave the corners open. */
+  .pxbox {
+    background: var(--panel);
+    box-shadow:
+      0 calc(-1 * var(--px)) 0 0 var(--line),
+      0 var(--px) 0 0 var(--line),
+      calc(-1 * var(--px)) 0 0 0 var(--line),
+      var(--px) 0 0 0 var(--line);
+    margin: var(--px);
+  }
+  h1, h2, h3 { font-weight: 400; margin: 0; letter-spacing: 0.08em; }
+  h1 { font-size: 34px; color: var(--amber); }
+  h2 { font-size: 26px; }
+  h3 { font-size: 20px; color: var(--muted); }
+  p { margin: 0.4em 0; }
+  .wrap { max-width: 1320px; margin: 0 auto; display: grid; gap: 18px; }
+  .hud { display: flex; flex-wrap: wrap; gap: 6px 24px; align-items: center; padding: 8px 14px; }
+  .hud .stat { display: flex; gap: 8px; align-items: baseline; }
+  .hud .k { color: var(--muted); }
+  .hud .v { color: var(--green); font-size: 24px; }
+  .ap { display: inline-flex; gap: 3px; }
+  .ap i { width: 9px; height: 12px; background: var(--amber); display: block; }
+  .ap i.off { background: var(--line); }
+  .main { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 18px; align-items: start; }
+  @media (max-width: 980px) { .main { grid-template-columns: minmax(0, 1fr); } }
+  .rackbox { padding: 10px; min-width: 0; }
+  .rackhead { display: flex; flex-wrap: wrap; gap: 8px 16px; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+  .scroller { overflow-x: auto; overflow-y: hidden; }
+  canvas { display: block; image-rendering: pixelated; image-rendering: crisp-edges; }
+  #rack { cursor: default; touch-action: none; }
+  .btn {
+    font: inherit; color: var(--text); background: var(--panel-hi); border: 0; padding: 2px 10px; cursor: pointer;
+    box-shadow: inset -3px -3px 0 0 #0b0b10, inset 3px 3px 0 0 #4c4c60;
+  }
+  .btn:active, .btn[aria-pressed="true"] { box-shadow: inset 3px 3px 0 0 #0b0b10, inset -3px -3px 0 0 #4c4c60; color: var(--amber); }
+  .seg { display: inline-flex; gap: 4px; align-items: center; }
+  .side { display: grid; gap: 18px; }
+  .side .pxbox { padding: 12px; }
+  #inspect { margin: 8px auto; }
+  .kv { display: grid; grid-template-columns: auto 1fr; gap: 0 10px; }
+  .kv dt { color: var(--muted); }
+  .kv dd { margin: 0; }
+  .stats dd { color: var(--green); text-align: right; }
+  .sheet { padding: 14px; }
+  .strip { margin-top: 12px; }
+  .strip .row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 6px; }
+  .cell { display: grid; justify-items: center; gap: 2px; width: 84px; font-size: 16px; color: var(--muted); text-align: center; }
+  #tip {
+    position: fixed; pointer-events: none; z-index: 10; padding: 4px 8px; font-size: 18px; display: none;
+    background: #0b0b10; box-shadow: 0 -3px 0 0 var(--amber), 0 3px 0 0 var(--amber), -3px 0 0 0 var(--amber), 3px 0 0 0 var(--amber);
+  }
+  .hint { color: var(--muted); font-size: 17px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="pxbox hud">
+    <h1>EURORACK INCREMENTAL</h1>
+    <span class="stat"><span class="k">CREDITS</span><span class="v">240cr</span></span>
+    <span class="stat"><span class="k">AP</span><span class="ap"><i></i><i></i><i></i><i class="off"></i></span></span>
+    <span class="stat"><span class="k">DAY</span><span class="v">3</span><span class="k">/ WK 1</span></span>
+    <span class="stat"><span class="k">REP</span><span class="v">5</span></span>
+  </header>
+
+  <div class="main">
+    <section class="pxbox rackbox">
+      <div class="rackhead">
+        <h2>MAIN RACK</h2>
+        <div class="seg" role="group" aria-label="Zoom">
+          <span class="hint">ZOOM</span>
+          <button class="btn" data-zoom="0" aria-pressed="true">AUTO</button>
+          <button class="btn" data-zoom="1">1x</button>
+          <button class="btn" data-zoom="2">2x</button>
+          <button class="btn" data-zoom="3">3x</button>
+          <button class="btn" data-zoom="4">4x</button>
+        </div>
+      </div>
+      <div class="scroller"><canvas id="rack"></canvas></div>
+      <p class="hint">Drag from a jack to another jack to patch. Click a jack to pull its cables. Click a panel to inspect.</p>
+    </section>
+
+    <aside class="side">
+      <div class="pxbox">
+        <h3>INSPECTOR</h3>
+        <canvas id="inspect"></canvas>
+        <dl class="kv" id="inspectInfo"></dl>
+        <p><button class="btn" id="muteBtn">MUTE</button></p>
+      </div>
+      <div class="pxbox">
+        <h3>WEIGHT (MEASURED LIVE)</h3>
+        <dl class="kv stats" id="stats"></dl>
+      </div>
+    </aside>
+  </div>
+
+  <section class="pxbox sheet">
+    <h2>DESIGN SHEET</h2>
+    <p class="hint">Every panel is built at load time from the module's game data: type sets the layout and screen icon, manufacturer sets panel colour and texture, rarity sets the trim. 24 x 64 native pixels per panel, drawn at integer zoom.</p>
+    <div class="strip"><h3>TYPE: LAYOUT, ICON, LED</h3><div class="row" id="stripType"></div></div>
+    <div class="strip"><h3>MANUFACTURER: PANEL COLOUR, TEXTURE, LOGO</h3><div class="row" id="stripMan"></div></div>
+    <div class="strip"><h3>RARITY: TRIM AND EFFECTS</h3><div class="row" id="stripRar"></div></div>
+    <div class="strip"><h3>STATES</h3><div class="row" id="stripState"></div></div>
+  </section>
+</div>
+<div id="tip"></div>
+
+<script>
+'use strict';
+// Sample of real modules exported from constants.ts (MASTER_POOL, TRASH_ITEMS, CURSE_ITEMS).
+const SAMPLE = [{"id":"duck_001","name":"Kick-Safe Ducker","type":"DUCKER","value":2,"rarity":"Common","manufacturer":"Thunderclap Systems","inputs":["CV_IN"],"outputs":["CV_OUT"]},{"id":"vco_001","name":"Solar Sine","type":"VCO","value":2,"rarity":"Common","manufacturer":"Luminous Forge","inputs":["CV_IN"],"outputs":["AUDIO_OUT"]},{"id":"vcf_001","name":"Fusion Ladder Filter","type":"FILTER","value":2,"rarity":"Common","manufacturer":"Luminous Forge","inputs":["AUDIO_IN","CV_IN"],"outputs":["AUDIO_OUT"]},{"id":"lfo_001","name":"Grandpa’s Drift LFO","type":"LFO","value":1,"rarity":"Common","manufacturer":"Analog Granny Industries","inputs":["CV_IN"],"outputs":["CV_OUT"]},{"id":"env_001","name":"Ember ADSR","type":"UTILITY","value":1,"rarity":"Common","manufacturer":"Luminous Forge","inputs":["GATE_IN"],"outputs":["CV_OUT"]},{"id":"vca_001","name":"Ghost Gate VCA","type":"VCA","value":1,"rarity":"Common","manufacturer":"Generic","inputs":["AUDIO_IN","CV_IN"],"outputs":["AUDIO_OUT"]},{"id":"eff_001","name":"Glow Reverb","type":"EFFECT","value":2,"rarity":"Common","manufacturer":"Luminous Forge","inputs":["AUDIO_IN","CV_IN"],"outputs":["AUDIO_OUT"]},{"id":"seq_001","name":"Scribe Sequencer","type":"SEQ","value":1,"rarity":"Common","manufacturer":"Ancient Circuitry Guild","inputs":["GATE_IN"],"outputs":["CV_OUT","GATE_OUT"]},{"id":"trash_hum","name":"60Hz Hum","type":"TRASH","value":0,"rarity":"Common","manufacturer":"Bad Wiring","inputs":["AUDIO_IN"],"outputs":["AUDIO_OUT"]},{"id":"curse_void","name":"Void Patch","type":"CURSE","value":-2,"rarity":"Cursed","manufacturer":"The Abyss","inputs":["AUDIO_IN","CV_IN"],"outputs":[]},{"id":"duck_002","name":"Vacuum Pump","type":"DUCKER","value":3,"rarity":"Uncommon","manufacturer":"Vaporvale Laboratories","inputs":["CV_IN"],"outputs":["CV_OUT"]},{"id":"vco_002","name":"Gramps’ Saw","type":"VCO","value":2,"rarity":"Common","manufacturer":"Analog Granny Industries","inputs":["CV_IN"],"outputs":["AUDIO_OUT"]},{"id":"vcf_002","name":"Fog SEM Filter","type":"FILTER","value":2,"rarity":"Common","manufacturer":"Thunderclap Systems","inputs":["AUDIO_IN","CV_IN"],"outputs":["AUDIO_OUT"]},{"id":"lfo_002","name":"Electric Meadow LFO","type":"LFO","value":1,"rarity":"Common","manufacturer":"Thunderclap Systems","inputs":["CV_IN"],"outputs":["CV_OUT"]},{"id":"env_002","name":"Thunderstrike ENV","type":"UTILITY","value":1,"rarity":"Common","manufacturer":"Thunderclap Systems","inputs":["GATE_IN"],"outputs":["CV_OUT"]},{"id":"vca_002","name":"Thunderhold VCA","type":"VCA","value":1,"rarity":"Common","manufacturer":"Thunderclap Systems","inputs":["AUDIO_IN","CV_IN"],"outputs":["AUDIO_OUT"]},{"id":"eff_002","name":"Biscuit Bitcrusher","type":"EFFECT","value":2,"rarity":"Common","manufacturer":"Analog Granny Industries","inputs":["AUDIO_IN","CV_IN"],"outputs":["AUDIO_OUT"]},{"id":"seq_003","name":"Clockwork Stepper","type":"SEQ","value":2,"rarity":"Uncommon","manufacturer":"Generic","inputs":["GATE_IN"],"outputs":["GATE_OUT","GATE_OUT"]},{"id":"trash_cable","name":"Bad Cable","type":"TRASH","value":0,"rarity":"Common","manufacturer":"China (Bulk)","inputs":["AUDIO_IN"],"outputs":["AUDIO_OUT"]},{"id":"curse_short","name":"Short Circuit","type":"CURSE","value":-5,"rarity":"Cursed","manufacturer":"Entropy","inputs":["AUDIO_IN"],"outputs":["AUDIO_OUT"]},{"id":"duck_003","name":"Abyss Swallow","type":"DUCKER","value":5,"rarity":"Rare","manufacturer":"Ancient Circuitry Guild","inputs":["GATE_IN"],"outputs":["CV_OUT"]},{"id":"vco_003","name":"Pulse Driver","type":"VCO","value":2,"rarity":"Common","manufacturer":"Thunderclap Systems","inputs":["CV_IN"],"outputs":["AUDIO_OUT"]},{"id":"vcf_003","name":"Grandma’s Notch Carver","type":"FILTER","value":2,"rarity":"Common","manufacturer":"Analog Granny Industries","inputs":["AUDIO_IN","CV_IN"],"outputs":["AUDIO_OUT"]},{"id":"lfo_003","name":"Orbit Modulator","type":"LFO","value":2,"rarity":"Uncommon","manufacturer":"Starlit Machines","inputs":["CV_IN"],"outputs":["CV_OUT"]},{"id":"env_003","name":"Elder Bark ADSR","type":"UTILITY","value":1,"rarity":"Common","manufacturer":"Analog Granny Industries","inputs":["GATE_IN"],"outputs":["CV_OUT"]},{"id":"vca_003","name":"Binary Clamp","type":"VCA","value":1,"rarity":"Common","manufacturer":"Starlit Machines","inputs":["AUDIO_IN","GATE_IN"],"outputs":["AUDIO_OUT"]},{"id":"eff_003","name":"Void Delay","type":"EFFECT","value":3,"rarity":"Uncommon","manufacturer":"Starlit Machines","inputs":["AUDIO_IN","CV_IN"],"outputs":["AUDIO_OUT"]},{"id":"seq_004","name":"Binary Stepper","type":"SEQ","value":2,"rarity":"Uncommon","manufacturer":"Starlit Machines","inputs":["GATE_IN"],"outputs":["CV_OUT"]},{"id":"trash_knob","name":"Missing Knob","type":"TRASH","value":0,"rarity":"Common","manufacturer":"Unknown","inputs":["CV_IN"],"outputs":["CV_OUT"]},{"id":"curse_whisper","name":"Eldritch Whisper","type":"CURSE","value":-3,"rarity":"Cursed","manufacturer":"Unknown","inputs":["AUDIO_IN"],"outputs":["AUDIO_OUT"]},{"id":"vco_004","name":"Twin Ember VCO","type":"VCO","value":3,"rarity":"Uncommon","manufacturer":"Luminous Forge","inputs":["CV_IN","CV_IN"],"outputs":["AUDIO_OUT"]},{"id":"vcf_004","name":"Thunderfold VCF","type":"FILTER","value":3,"rarity":"Uncommon","manufacturer":"Thunderclap Systems","inputs":["AUDIO_IN","CV_IN"],"outputs":["AUDIO_OUT"]},{"id":"lfo_004","name":"Fluctuation Engine","type":"LFO","value":2,"rarity":"Uncommon","manufacturer":"Vaporvale Laboratories","inputs":["CV_IN"],"outputs":["CV_OUT","GATE_OUT"]},{"id":"env_004","name":"Rustleaf Function Duo","type":"UTILITY","value":2,"rarity":"Uncommon","manufacturer":"Analog Granny Industries","inputs":["GATE_IN","CV_IN"],"outputs":["CV_OUT","GATE_OUT"]},{"id":"vca_004","name":"Echo-Leaf Attenuator","type":"VCA","value":1,"rarity":"Common","manufacturer":"Vaporvale Laboratories","inputs":["AUDIO_IN"],"outputs":["AUDIO_OUT"]},{"id":"eff_004","name":"Diffuse Echo","type":"EFFECT","value":3,"rarity":"Uncommon","manufacturer":"Vaporvale Laboratories","inputs":["AUDIO_IN","CV_IN"],"outputs":["AUDIO_OUT"]},{"id":"seq_005","name":"Driftline Euclid","type":"SEQ","value":2,"rarity":"Uncommon","manufacturer":"Analog Granny Industries","inputs":["GATE_IN"],"outputs":["GATE_OUT"]},{"id":"vco_005","name":"Binary Pulse Engine","type":"VCO","value":3,"rarity":"Uncommon","manufacturer":"Starlit Machines","inputs":["CV_IN"],"outputs":["AUDIO_OUT","CV_OUT"]},{"id":"vcf_005","name":"Orbit Shaper VCF","type":"FILTER","value":3,"rarity":"Uncommon","manufacturer":"Starlit Machines","inputs":["AUDIO_IN","CV_IN"],"outputs":["AUDIO_OUT"]},{"id":"lfo_005","name":"Pulse Wander LFO","type":"LFO","value":2,"rarity":"Uncommon","manufacturer":"Thunderclap Systems","inputs":["GATE_IN"],"outputs":["CV_OUT"]},{"id":"env_005","name":"Moonrise Decay Engine","type":"UTILITY","value":2,"rarity":"Uncommon","manufacturer":"Starlit Machines","inputs":["GATE_IN"],"outputs":["CV_OUT"]},{"id":"vca_005","name":"Rusted VCA","type":"VCA","value":2,"rarity":"Uncommon","manufacturer":"Analog Granny Industries","inputs":["AUDIO_IN","CV_IN"],"outputs":["AUDIO_OUT"]},{"id":"eff_005","name":"Cloudform Diffuser","type":"EFFECT","value":3,"rarity":"Uncommon","manufacturer":"Vaporvale Laboratories","inputs":["AUDIO_IN","CV_IN"],"outputs":["AUDIO_OUT"]},{"id":"seq_006","name":"Solar Path Sequencer","type":"SEQ","value":3,"rarity":"Rare","manufacturer":"Luminous Forge","inputs":["GATE_IN","CV_IN"],"outputs":["CV_OUT","GATE_OUT"]}];
+
+// ---------- Geometry (native pixels) ----------
+const MW = 24, MH = 64, GAP = 1, COLS = 16, ROWS = 3;
+const LEFT = 6, TOP = 2, LABEL_H = 8, RAIL = 3, ROW_H = LABEL_H + RAIL + MH + RAIL + 2;
+const NW = LEFT * 2 + COLS * (MW + GAP) - GAP;
+const NH = TOP * 2 + ROWS * ROW_H;
+const slotX = col => LEFT + col * (MW + GAP);
+const rowY = row => TOP + row * ROW_H + LABEL_H + RAIL;
+const ROW_LABELS = ['RHYTHM / GATE', 'BASS / FREQ', 'TEXTURE / ATMOS'];
+
+// ---------- Palette ----------
+const INK = '#0b0b10', SCREEN = '#0f1620', LCD = '#0c1a10';
+const MAN = {
+  'Thunderclap Systems':      { base: '#3a4a5c', tex: 'bolts',   logo: 'bolt'  },
+  'Vaporvale Laboratories':   { base: '#5d4a7a', tex: 'vapor',   logo: 'wave'  },
+  'Ancient Circuitry Guild':  { base: '#5a5233', tex: 'engrave', logo: 'tri'   },
+  'Luminous Forge':           { base: '#b8b2a2', tex: 'brushed', logo: 'sun'   },
+  'Analog Granny Industries': { base: '#7a4b2a', tex: 'wood',    logo: 'heart' },
+  'Starlit Machines':         { base: '#1e2a4a', tex: 'stars',   logo: 'star'  },
+  'Generic':                  { base: '#7c7c86', tex: 'none',    logo: 'box'   },
+  '_junk':                    { base: '#5a4636', tex: 'rust',    logo: 'box'   },
+};
+const RAR = { Common: '#6e6e84', Uncommon: '#3b82f6', Rare: '#f59e0b', Legendary: '#a855f7', Mythic: '#ec4899', Cursed: '#dc2626' };
+const LED = { VCO: '#22c55e', LFO: '#3b82f6', VCA: '#eab308', FILTER: '#a855f7', TRASH: '#7f1d1d', CURSE: '#dc2626', SEQ: '#f97316', DUCKER: '#ea580c', EFFECT: '#f59e0b', UTILITY: '#f59e0b', MASTER: '#f59e0b' };
+const ICON = { VCO: '#4ade80', LFO: '#60a5fa', VCA: '#facc15', FILTER: '#c084fc', SEQ: '#fb923c', DUCKER: '#fb923c', EFFECT: '#fbbf24', UTILITY: '#a1a1aa', TRASH: '#71717a', CURSE: '#ef4444', MASTER: '#fbbf24' };
+const CODE = { VCO: 'VCO', VCA: 'VCA', FILTER: 'VCF', LFO: 'LFO', EFFECT: 'FX', UTILITY: 'UTIL', SEQ: 'SEQ', DUCKER: 'DUCK', TRASH: 'JUNK', CURSE: 'HEX', MASTER: 'OUT', EMPTY: '' };
+const KNOBS = { VCO: ['fine'], FILTER: ['cutoff', 'resonance'], LFO: ['rate'], EFFECT: ['mix', 'time'], VCA: ['level'], SEQ: ['probability'], DUCKER: ['depth'], UTILITY: ['a', 'b'], TRASH: ['x'], MASTER: ['level'] };
+const JACK = { AUDIO: ['#c8c8d4', '#8a8a98'], CV: ['#3f3f4f', '#7a7a90'], GATE: ['#dc2626', '#7f1d1d'] };
+const CABLE_COLS = ['#ef4444', '#f59e0b', '#22c55e', '#3b82f6', '#e879f9', '#e8e8f0'];
+const FREE_RUNNING = new Set(['VCO', 'LFO', 'SEQ', 'TRASH']);
+
+// ---------- Helpers ----------
+function hash(s) { let h = 2166136261; for (const c of s) { h ^= c.charCodeAt(0); h = Math.imul(h, 16777619); } return h >>> 0; }
+function rng(seed) { let a = typeof seed === 'string' ? hash(seed) : seed; return () => { a |= 0; a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+function shade(hex, f) {
+  const n = parseInt(hex.slice(1), 16), r = n >> 16, g = n >> 8 & 255, b = n & 255;
+  const m = f >= 0 ? (c => c + (255 - c) * f) : (c => c * (1 + f));
+  return '#' + [r, g, b].map(c => Math.round(m(c)).toString(16).padStart(2, '0')).join('');
+}
+function luminance(hex) { const n = parseInt(hex.slice(1), 16); return (0.299 * (n >> 16) + 0.587 * (n >> 8 & 255) + 0.114 * (n & 255)) / 255; }
+
+// 3x5 bitmap font; each row is 3 bits, 4 = leftmost pixel.
+const FONT = {
+  A:[7,5,7,5,5],B:[6,5,6,5,6],C:[7,4,4,4,7],D:[6,5,5,5,6],E:[7,4,6,4,7],F:[7,4,6,4,4],G:[7,4,5,5,7],H:[5,5,7,5,5],
+  I:[7,2,2,2,7],J:[1,1,1,5,7],K:[5,5,6,5,5],L:[4,4,4,4,7],M:[5,7,7,5,5],N:[6,5,5,5,5],O:[7,5,5,5,7],P:[7,5,7,4,4],
+  Q:[7,5,5,7,1],R:[7,5,6,5,5],S:[7,4,7,1,7],T:[7,2,2,2,2],U:[5,5,5,5,7],V:[5,5,5,5,2],W:[5,5,7,7,5],X:[5,5,2,5,5],
+  Y:[5,5,2,2,2],Z:[7,1,2,4,7],0:[7,5,5,5,7],1:[2,6,2,2,7],2:[7,1,7,4,7],3:[7,1,3,1,7],4:[5,5,7,1,1],5:[7,4,7,1,7],
+  6:[7,4,7,5,7],7:[7,1,1,1,1],8:[7,5,7,5,7],9:[7,5,7,1,7],'+':[0,2,7,2,0],'-':[0,0,7,0,0],'.':[0,0,0,0,2],'/':[1,1,2,4,4],' ':[0,0,0,0,0],
+};
+function text(g, s, x, y, col) {
+  g.fillStyle = col;
+  for (const ch of s.toUpperCase()) {
+    const rows = FONT[ch] || FONT[' '];
+    rows.forEach((bits, ry) => { for (let rx = 0; rx < 3; rx++) if (bits & (4 >> rx)) g.fillRect(x + rx, y + ry, 1, 1); });
+    x += 4;
+  }
+}
+const textWidth = s => s.length * 4 - 1;
+function line(g, x0, y0, x1, y1) {
+  const dx = Math.abs(x1 - x0), dy = -Math.abs(y1 - y0), sx = x0 < x1 ? 1 : -1, sy = y0 < y1 ? 1 : -1;
+  let err = dx + dy;
+  for (;;) {
+    g.fillRect(x0, y0, 1, 1);
+    if (x0 === x1 && y0 === y1) break;
+    const e2 = 2 * err;
+    if (e2 >= dy) { err += dy; x0 += sx; }
+    if (e2 <= dx) { err += dx; y0 += sy; }
+  }
+}
+
+// ---------- Panel layout (shared by sprite builder, overlays and hit testing) ----------
+const HEADER_Y = 4, SCREEN_X = 4, SCREEN_Y = 13, SCREEN_W = 16, SCREEN_H = 13;
+const KNOB_Y = 29, LCD_Y = 39, IN_Y = 47, OUT_Y = 53;
+function jackXs(n) { const total = n * 5 + (n - 1) * 2; const x0 = Math.floor((MW - total) / 2); return Array.from({ length: n }, (_, i) => x0 + i * 7); }
+function jackRects(m) {
+  const r = [];
+  jackXs(m.inputs.length).forEach((x, i) => r.push({ kind: 'in', i, x, y: IN_Y, port: m.inputs[i] }));
+  jackXs(m.outputs.length).forEach((x, i) => r.push({ kind: 'out', i, x, y: OUT_Y + 1, port: m.outputs[i] }));
+  return r;
+}
+const portFamily = p => p.split('_')[0];
+
+// ---------- Static sprite builder ----------
+function drawJack(g, x, y, port) {
+  const [ring, lo] = JACK[portFamily(port)];
+  g.fillStyle = ring; g.fillRect(x + 1, y, 3, 1); g.fillRect(x, y + 1, 1, 3); g.fillRect(x + 4, y + 1, 1, 3); g.fillRect(x + 1, y + 4, 3, 1);
+  g.fillStyle = lo; g.fillRect(x + 4, y + 1, 1, 3); g.fillRect(x + 1, y + 4, 3, 1);
+  g.fillStyle = INK; g.fillRect(x + 1, y + 1, 3, 3);
+  g.fillStyle = '#2a2a36'; g.fillRect(x + 2, y + 2, 1, 1);
+}
+function drawKnob(g, x, y, v, cap, missing) {
+  if (missing) { g.fillStyle = '#9a9aa8'; g.fillRect(x + 2, y + 2, 3, 3); g.fillStyle = INK; g.fillRect(x + 3, y + 3, 1, 1); return; }
+  g.fillStyle = INK; g.fillRect(x + 1, y, 5, 7); g.fillRect(x, y + 1, 7, 5);
+  g.fillStyle = cap; g.fillRect(x + 1, y + 1, 5, 5);
+  g.fillStyle = shade(cap, 0.3); g.fillRect(x + 1, y + 1, 4, 1); g.fillRect(x + 1, y + 1, 1, 4);
+  g.fillStyle = shade(cap, -0.4); g.fillRect(x + 5, y + 2, 1, 4); g.fillRect(x + 2, y + 5, 4, 1);
+  const a = (v * 270 - 135) * Math.PI / 180, cx = x + 3, cy = y + 3;
+  g.fillStyle = '#f4f4f8';
+  g.fillRect(cx + Math.round(Math.sin(a) * 2.4), cy - Math.round(Math.cos(a) * 2.4), 1, 1);
+  g.fillRect(cx + Math.round(Math.sin(a) * 1.2), cy - Math.round(Math.cos(a) * 1.2), 1, 1);
+}
+function drawLogo(g, x, y, kind, col) {
+  g.fillStyle = col;
+  const shapes = { bolt: [2,6,2,4,0], wave: [0,5,2,0,0], tri: [0,2,5,7,0], sun: [5,2,7,2,5], heart: [5,7,7,2,0], star: [2,7,2,5,0], box: [7,5,7,0,0] };
+  shapes[kind].forEach((bits, ry) => { for (let rx = 0; rx < 3; rx++) if (bits & (4 >> rx)) g.fillRect(x + rx, y + ry, 1, 1); });
+}
+function drawTexture(g, man, base, rnd) {
+  const lo = shade(base, -0.18), hi = shade(base, 0.14);
+  switch (man.tex) {
+    case 'brushed': g.fillStyle = hi; for (let y = 12; y < 62; y += 3) g.fillRect(2, y, 20, 1); break;
+    case 'stars': for (let k = 0; k < 9; k++) { g.fillStyle = rnd() > 0.5 ? '#c7d2fe' : '#6366f1'; g.fillRect(2 + Math.floor(rnd() * 20), 12 + Math.floor(rnd() * 48), 1, 1); } break;
+    case 'vapor': g.fillStyle = '#f0abfc'; g.fillRect(1, 59, 22, 1); g.fillStyle = '#67e8f9'; g.fillRect(1, 61, 22, 1); break;
+    case 'engrave': g.fillStyle = lo; g.fillRect(2, 12, 20, 1); g.fillRect(2, 12, 1, 46); g.fillRect(21, 12, 1, 46); g.fillStyle = hi; g.fillRect(3, 13, 18, 1); break;
+    case 'wood': g.fillStyle = lo; for (let y = 12; y < 62; y += 2) { const x = 2 + Math.floor(rnd() * 14); g.fillRect(x, y, 3 + Math.floor(rnd() * 6), 1); } break;
+    case 'bolts': g.fillStyle = hi; g.fillRect(1, 37, 22, 1); g.fillStyle = lo; g.fillRect(1, 38, 22, 1); break;
+    case 'rust': for (let k = 0; k < 16; k++) { g.fillStyle = ['#7a3e1d', '#9a5a2a', '#3a2a20'][k % 3]; g.fillRect(1 + Math.floor(rnd() * 22), 4 + Math.floor(rnd() * 58), 1 + (k % 2), 1); } break;
+  }
+}
+function drawStaticIcon(g, m, rnd) {
+  const ox = SCREEN_X, oy = SCREEN_Y, col = ICON[m.type] || '#a1a1aa';
+  g.fillStyle = col;
+  switch (m.type) {
+    case 'FILTER': {
+      let py = 4;
+      for (let x = 0; x < 16; x++) { const y = x < 7 ? 4 : x === 7 ? 2 : Math.min(12, 3 + Math.round(Math.pow(x - 7, 1.35))); line(g, ox + Math.max(0, x - 1), oy + py, ox + x, oy + y); py = y; }
+      break;
+    }
+    case 'VCA': line(g, ox, oy + 12, ox + 3, oy + 2); line(g, ox + 3, oy + 2, ox + 6, oy + 6); line(g, ox + 6, oy + 6, ox + 11, oy + 6); line(g, ox + 11, oy + 6, ox + 15, oy + 12); break;
+    case 'EFFECT': [10, 7, 4, 2].forEach((h, i) => { g.globalAlpha = 1 - i * 0.2; g.fillRect(ox + 1 + i * 4, oy + 12 - h, 2, h); }); g.globalAlpha = 1; break;
+    case 'UTILITY':
+      [2, 7, 12].forEach(x => { g.fillStyle = '#3f3f4f'; g.fillRect(ox + x + 1, oy + 1, 1, 11); g.fillStyle = col; g.fillRect(ox + x, oy + 2 + Math.floor(rnd() * 8), 3, 2); });
+      break;
+    case 'DUCKER': for (let x = 0; x < 16; x++) { const p = x % 8; g.fillRect(ox + x, oy + (p === 0 ? 11 : Math.max(2, 11 - p * 2)), 1, 1); } break;
+    case 'CURSE': {
+      const skull = [0b0111110, 0b1111111, 0b1001001, 0b1001001, 0b1111111, 0b0110110, 0b0101010];
+      skull.forEach((bits, ry) => { for (let rx = 0; rx < 7; rx++) if (bits & (64 >> rx)) g.fillRect(ox + 4 + rx, oy + 3 + ry, 1, 1); });
+      break;
+    }
+    case 'MASTER': g.fillRect(ox + 4, oy + 5, 3, 3); line(g, ox + 7, oy + 5, ox + 10, oy + 2); line(g, ox + 7, oy + 7, ox + 10, oy + 10); g.fillRect(ox + 10, oy + 2, 1, 9); break;
+  }
+}
+function buildSprite(m, opts = {}) {
+  const c = document.createElement('canvas'); c.width = MW; c.height = MH;
+  const g = c.getContext('2d');
+  const P = (x, y, w, h, col) => { g.fillStyle = col; g.fillRect(x, y, w, h); };
+  const rnd = rng(m.id);
+  if (m.type === 'EMPTY') {
+    const base = '#2a2a33';
+    P(0, 0, MW, MH, INK); P(1, 1, 22, 62, base); P(1, 1, 22, 1, shade(base, 0.18)); P(22, 1, 1, 62, shade(base, -0.3));
+    for (let y = 10; y < 56; y += 4) P(5, y, 14, 1, INK);
+    P(3, 1, 2, 2, INK); P(19, 61, 2, 2, INK);
+  } else {
+    const man = m.type === 'TRASH' ? MAN._junk : (MAN[m.manufacturer] || MAN.Generic);
+    const base = m.type === 'CURSE' ? '#2a0f1a' : man.base;
+    const trim = RAR[m.rarity] || RAR.Common;
+    const ink = luminance(base) > 0.55 ? '#1c1c24' : '#e8e8f0';
+    // Body with 1px bevel
+    P(0, 0, MW, MH, INK); P(1, 1, 22, 62, base);
+    P(1, 1, 22, 1, shade(base, 0.25)); P(1, 1, 1, 62, shade(base, 0.15));
+    P(1, 62, 22, 1, shade(base, -0.35)); P(22, 1, 1, 62, shade(base, -0.25));
+    drawTexture(g, man, base, rnd);
+    // Rarity trim runs down both edges; header band is framed by it
+    P(1, 3, 1, 58, trim); P(22, 3, 1, 58, trim);
+    P(1, HEADER_Y, 22, 7, shade(base, -0.35)); P(1, HEADER_Y, 22, 1, trim); P(1, HEADER_Y + 6, 22, 1, trim);
+    text(g, CODE[m.type] || '?', 3, HEADER_Y + 1, '#e8e8f0');
+    P(18, HEADER_Y + 1, 4, 4, INK); // LED socket
+    // Screws: top-left, bottom-right like a real 2-screw panel
+    P(3, 1, 2, 2, '#9a9aa8'); P(4, 2, 1, 1, '#4c4c60');
+    P(19, 60, 2, 2, '#9a9aa8'); P(20, 61, 1, 1, '#4c4c60');
+    // Screen + icon
+    P(SCREEN_X - 1, SCREEN_Y - 1, SCREEN_W + 2, SCREEN_H + 2, INK); P(SCREEN_X, SCREEN_Y, SCREEN_W, SCREEN_H, SCREEN);
+    drawStaticIcon(g, m, rnd);
+    // Knobs, or an eye on curses
+    if (m.type === 'CURSE') {
+      P(8, KNOB_Y + 1, 7, 5, '#f5f5f5'); P(8, KNOB_Y + 1, 1, 1, base); P(14, KNOB_Y + 1, 1, 1, base); P(8, KNOB_Y + 5, 1, 1, base); P(14, KNOB_Y + 5, 1, 1, base);
+      P(10, KNOB_Y + 2, 3, 3, '#dc2626'); P(11, KNOB_Y + 3, 1, 1, INK);
+    } else {
+      const keys = KNOBS[m.type] || ['a'];
+      const xs = keys.length === 1 ? [8] : [3, 14];
+      const cap = m.rarity === 'Legendary' ? '#c4b5fd' : luminance(base) > 0.55 ? '#3f3f4f' : '#d4d4dc';
+      keys.forEach((k, i) => {
+        const v = m.settings?.[k] ?? (0.15 + rnd() * 0.7);
+        drawKnob(g, xs[i], KNOB_Y, v, cap, m.type === 'TRASH' && i === 0 && rnd() > 0.4);
+      });
+    }
+    // Value LCD
+    P(3, LCD_Y, 18, 7, INK); P(4, LCD_Y + 1, 16, 5, LCD);
+    const val = (m.value > 0 ? '+' : '') + m.value + 'V';
+    text(g, val, 4 + Math.floor((16 - textWidth(val)) / 2), LCD_Y + 1, m.value < 0 ? '#ef4444' : m.value === 0 ? '#52525b' : '#4ade80');
+    // Output backplate: inverted plate marks outputs, as on real panels
+    if (m.outputs.length) P(2, OUT_Y, 20, 7, ink === '#e8e8f0' ? '#d4d4dc' : '#1c1c24');
+    for (const j of jackRects(m)) drawJack(g, j.x, j.y, j.port);
+    drawLogo(g, 10, 59, man.logo, ink);
+    if (m.type === 'TRASH') { // dents
+      for (let k = 0; k < 5; k++) { const x = 2 + Math.floor(rnd() * 19), y = 12 + Math.floor(rnd() * 46); P(x, y, 2, 1, shade(base, -0.45)); P(x, y + 1, 2, 1, shade(base, 0.2)); }
+    }
+  }
+  if (opts.muted) {
+    const d = g.getImageData(0, 0, MW, MH), a = d.data;
+    for (let i = 0; i < a.length; i += 4) { const l = (a[i] * 0.3 + a[i + 1] * 0.59 + a[i + 2] * 0.11) * 0.55; a[i] = a[i + 1] = a[i + 2] = l; }
+    g.putImageData(d, 0, 0);
+  }
+  return c;
+}
+
+const spriteCache = new Map();
+function sprite(m, muted) {
+  const key = m.id + '|' + m.rarity + '|' + m.manufacturer + (muted ? '|m' : '');
+  let s = spriteCache.get(key);
+  if (!s) { s = buildSprite(m, { muted }); spriteCache.set(key, s); }
+  return s;
+}
+
+// ---------- Per-frame overlays (only the parts that move) ----------
+function drawOverlay(g, m, x, y, t, st) {
+  if (m.type === 'EMPTY') return;
+  const P = (px, py, w, h, col) => { g.fillStyle = col; g.fillRect(x + px, y + py, w, h); };
+  const muted = st.muted;
+  // LED
+  let lvl = st.active ? 1 : FREE_RUNNING.has(m.type) ? 0.45 + 0.4 * Math.sin(t * (2 + Math.abs(m.value)) + hash(m.id) % 7) : 0.15 + (st.activity || 0) * 0.8;
+  if (muted) lvl = 0;
+  const on = LED[m.type] || '#f59e0b';
+  g.globalAlpha = 1; P(19, HEADER_Y + 2, 2, 2, '#1a1a22');
+  g.globalAlpha = Math.max(0, Math.min(1, lvl)); P(19, HEADER_Y + 2, 2, 2, on);
+  if (lvl > 0.75) { g.globalAlpha = 0.35; P(18, HEADER_Y + 2, 1, 2, on); P(21, HEADER_Y + 2, 1, 2, on); P(19, HEADER_Y + 1, 2, 1, on); P(19, HEADER_Y + 4, 2, 1, on); }
+  g.globalAlpha = 1;
+  if (muted) return;
+  // Animated screens
+  const ox = x + SCREEN_X, oy = y + SCREEN_Y, col = ICON[m.type];
+  if (m.type === 'VCO' || m.type === 'LFO' || m.type === 'SEQ' || m.type === 'TRASH') {
+    g.fillStyle = SCREEN; g.fillRect(ox, oy, SCREEN_W, SCREEN_H);
+    g.fillStyle = col;
+    if (m.type === 'VCO') {
+      const ph = t * 6, f = 0.6 + Math.abs(m.value) * 0.08; let py = null;
+      for (let i = 0; i < 16; i++) { const yy = 6 + Math.round(Math.sin(i * f + ph) * 4.5); if (py !== null) line(g, ox + i - 1, oy + py, ox + i, oy + yy); py = yy; }
+    } else if (m.type === 'LFO') {
+      const ph = t * 4;
+      for (let i = 0; i < 16; i++) { const p = ((i + ph) % 12) / 12; g.fillRect(ox + i, oy + 1 + Math.round((p < 0.5 ? p * 2 : 2 - p * 2) * 10), 1, 1); }
+    } else if (m.type === 'SEQ') {
+      const r = rng(m.id);
+      for (let i = 0; i < 8; i++) { const h = 2 + Math.floor(r() * 9); g.fillStyle = i === st.step % 8 ? '#fef3c7' : col; g.fillRect(ox + i * 2, oy + 12 - h, 1, h); }
+    } else {
+      const r = rng((hash(m.id) + Math.floor(t * 12)) >>> 0);
+      for (let k = 0; k < 26; k++) { g.fillStyle = r() > 0.5 ? '#71717a' : '#3f3f46'; g.fillRect(ox + Math.floor(r() * 16), oy + Math.floor(r() * 13), 1, 1); }
+    }
+  }
+  // Legendary: a spark travels round the trim
+  if (m.rarity === 'Legendary' || m.rarity === 'Mythic') {
+    const per = 2 * (22 + 58), k = Math.floor(t * 40) % per;
+    const pt = k < 22 ? [1 + k, 3] : k < 80 ? [22, 3 + (k - 22)] : k < 102 ? [22 - (k - 80), 60] : [1, 60 - (k - 102)];
+    P(pt[0], pt[1], 1, 1, '#ffffff');
+  }
+  // Cursed: rows tear sideways now and then
+  if (m.rarity === 'Cursed') {
+    const r = rng((hash(m.id) + Math.floor(t * 8)) >>> 0);
+    if (r() > 0.6) {
+      const sy = 6 + Math.floor(r() * 50), h = 1 + Math.floor(r() * 3), dx = r() > 0.5 ? 1 : -1;
+      g.drawImage(st.sprite, 0, sy, MW, h, x + dx, y + sy, MW, h);
+      g.globalAlpha = 0.5; P(0, sy, MW, 1, '#dc2626'); g.globalAlpha = 1;
+    }
+  }
+}
+
+// ---------- Rack state ----------
+const deck = [];
+{
+  const mods = SAMPLE.slice();
+  const blankAt = new Set([7, 22, 31, 40]);
+  for (let i = 0, k = 0; i < COLS * ROWS; i++) {
+    if (blankAt.has(i) || k >= mods.length) deck.push({ id: 'blank_' + i, name: 'Blank Panel', type: 'EMPTY', value: 0, rarity: 'Common', manufacturer: 'Standard', inputs: [], outputs: [] });
+    else deck.push(mods[k++]);
+  }
+}
+const muted = new Set();
+let cables = [];
+{
+  // A few starting cables: each output goes to an input on a nearby module.
+  const r = rng('cables');
+  for (let s = 0; s < deck.length && cables.length < 9; s += 5) {
+    const m = deck[s]; if (!m.outputs.length) continue;
+    for (let d = 1; d < 6; d++) {
+      const t = deck[s + d] || deck[s - d * 3]; if (!t || !t.inputs.length || t === m) continue;
+      const ti = deck.indexOf(t);
+      cables.push({ from: { slot: s, i: 0 }, to: { slot: ti, i: Math.floor(r() * t.inputs.length) }, color: CABLE_COLS[cables.length % CABLE_COLS.length] });
+      break;
+    }
+  }
+}
+const slotPos = s => ({ x: slotX(s % COLS), y: rowY(Math.floor(s / COLS)) });
+function jackCenter(slot, kind, i) {
+  const m = deck[slot], p = slotPos(slot);
+  const j = jackRects(m).find(j => j.kind === kind && j.i === i);
+  return { x: p.x + j.x + 2, y: p.y + j.y + 2 };
+}
+
+function drawCable(g, a, b, col, t, speed) {
+  const dist = Math.hypot(b.x - a.x, b.y - a.y);
+  const cx = (a.x + b.x) / 2, cy = Math.max(a.y, b.y) + 8 + dist * 0.22;
+  const n = Math.ceil(dist * 1.4) + 8, pts = [];
+  let last = '';
+  for (let i = 0; i <= n; i++) {
+    const u = i / n, x = Math.round((1 - u) ** 2 * a.x + 2 * (1 - u) * u * cx + u * u * b.x), y = Math.round((1 - u) ** 2 * a.y + 2 * (1 - u) * u * cy + u * u * b.y);
+    const key = x + ',' + y; if (key !== last) { pts.push(x, y); last = key; }
+  }
+  g.fillStyle = 'rgba(0,0,0,0.45)';
+  for (let k = 0; k < pts.length; k += 2) g.fillRect(pts[k] + 1, pts[k + 1] + 1, 1, 1);
+  const hi = shade(col, 0.55), off = Math.floor(t * speed);
+  for (let k = 0, idx = 0; k < pts.length; k += 2, idx++) { g.fillStyle = (idx + off) % 7 === 0 ? hi : col; g.fillRect(pts[k], pts[k + 1], 1, 1); }
+  for (const p of [a, b]) { g.fillStyle = shade(col, -0.45); g.fillRect(p.x - 1, p.y - 1, 3, 3); g.fillStyle = col; g.fillRect(p.x, p.y, 1, 1); }
+}
+
+// ---------- Canvas plumbing: integer device pixels per native pixel ----------
+const rack = document.getElementById('rack'), rg = rack.getContext('2d');
+let zoomChoice = 0, S = 3, cssZoom = 3;
+function fit() {
+  const dpr = window.devicePixelRatio || 1;
+  const avail = rack.parentElement.clientWidth;
+  cssZoom = zoomChoice || Math.max(1, Math.min(4, Math.floor(avail / NW)));
+  S = Math.max(1, Math.round(cssZoom * dpr));
+  rack.width = NW * S; rack.height = NH * S;
+  rack.style.width = (rack.width / dpr) + 'px'; rack.style.height = (rack.height / dpr) + 'px';
+  rg.imageSmoothingEnabled = false;
+}
+document.querySelectorAll('[data-zoom]').forEach(b => b.addEventListener('click', () => {
+  zoomChoice = +b.dataset.zoom;
+  document.querySelectorAll('[data-zoom]').forEach(o => o.setAttribute('aria-pressed', String(o === b)));
+  fit();
+}));
+window.addEventListener('resize', fit);
+
+let hover = null, drag = null, selected = 0;
+const t0 = performance.now();
+const STEP_MS = 125;
+let frameMs = 0;
+
+function drawRack(t) {
+  const g = rg;
+  g.setTransform(S, 0, 0, S, 0, 0);
+  g.fillStyle = '#101016'; g.fillRect(0, 0, NW, NH);
+  const step = Math.floor((performance.now() - t0) / STEP_MS) % COLS;
+  for (let r = 0; r < ROWS; r++) {
+    const y = rowY(r);
+    text(g, ROW_LABELS[r], LEFT, y - RAIL - LABEL_H + 1, '#6e6e84');
+    for (const ry of [y - RAIL, y + MH]) {
+      g.fillStyle = '#4c4c60'; g.fillRect(LEFT - 2, ry, NW - LEFT * 2 + 4, RAIL);
+      g.fillStyle = '#8a8a98'; g.fillRect(LEFT - 2, ry, NW - LEFT * 2 + 4, 1);
+      g.fillStyle = '#23232e'; for (let x = LEFT; x < NW - LEFT; x += 5) g.fillRect(x, ry + 1, 2, 1);
+    }
+    g.fillStyle = '#ef4444'; g.fillRect(slotX(step) + 10, y + MH + 1, 4, 1);
+  }
+  for (let s = 0; s < deck.length; s++) {
+    const m = deck[s], { x, y } = slotPos(s), isMuted = muted.has(m.id);
+    const spr = sprite(m, isMuted);
+    g.drawImage(spr, x, y);
+    const active = (s % COLS) === step && m.type !== 'EMPTY' && !isMuted;
+    drawOverlay(g, m, x, y, t, { active, muted: isMuted, step, sprite: spr, activity: 0 });
+    if (active) { g.fillStyle = 'rgba(255,255,255,0.55)'; g.fillRect(x, y - 1, MW, 1); g.fillRect(x, y + MH, MW, 1); }
+    if (s === selected) { g.fillStyle = '#f59e0b'; g.fillRect(x - 1, y - 1, 1, MH + 2); g.fillRect(x + MW, y - 1, 1, MH + 2); }
+  }
+  for (const c of cables) {
+    const fm = deck[c.from.slot];
+    drawCable(g, jackCenter(c.from.slot, 'out', c.from.i), jackCenter(c.to.slot, 'in', c.to.i), c.color, t, portFamily(fm.outputs[c.from.i]) === 'AUDIO' ? 24 : 6);
+  }
+  if (drag) {
+    const a = jackCenter(drag.slot, drag.kind, drag.i);
+    drawCable(g, a, { x: Math.round(drag.x), y: Math.round(drag.y) }, drag.color, t, 24);
+  }
+  if (hover && hover.jack) {
+    const p = slotPos(hover.slot);
+    g.fillStyle = '#ffffff';
+    const jx = p.x + hover.jack.x, jy = p.y + hover.jack.y;
+    g.fillRect(jx - 1, jy - 1, 7, 1); g.fillRect(jx - 1, jy + 5, 7, 1); g.fillRect(jx - 1, jy, 1, 5); g.fillRect(jx + 5, jy, 1, 5);
+  }
+}
+
+// ---------- Hit testing ----------
+function toNative(e) { const r = rack.getBoundingClientRect(); return { x: (e.clientX - r.left) / r.width * NW, y: (e.clientY - r.top) / r.height * NH }; }
+function hit(nx, ny) {
+  const col = Math.floor((nx - LEFT) / (MW + GAP));
+  if (col < 0 || col >= COLS) return null;
+  for (let r = 0; r < ROWS; r++) {
+    const y = rowY(r), x = slotX(col);
+    if (ny >= y && ny < y + MH && nx >= x && nx < x + MW) {
+      const slot = r * COLS + col, m = deck[slot], lx = nx - x, ly = ny - y;
+      const jack = jackRects(m).find(j => lx >= j.x - 1 && lx < j.x + 6 && ly >= j.y - 1 && ly < j.y + 6) || null;
+      return { slot, m, jack };
+    }
+  }
+  return null;
+}
+const tip = document.getElementById('tip');
+rack.addEventListener('pointermove', e => {
+  const n = toNative(e);
+  hover = hit(n.x, n.y);
+  if (drag) { drag.x = n.x; drag.y = n.y; }
+  rack.style.cursor = hover?.jack ? 'crosshair' : hover && hover.m.type !== 'EMPTY' ? 'pointer' : 'default';
+  if (hover && hover.m.type !== 'EMPTY') {
+    tip.style.display = 'block';
+    tip.textContent = hover.jack ? `${hover.m.name} · ${hover.jack.port.replace('_', ' ')}` : `${hover.m.name} · ${hover.m.rarity}`;
+    tip.style.left = Math.min(e.clientX + 14, innerWidth - tip.offsetWidth - 8) + 'px';
+    tip.style.top = (e.clientY + 16) + 'px';
+  } else tip.style.display = 'none';
+});
+rack.addEventListener('pointerleave', () => { hover = null; tip.style.display = 'none'; });
+rack.addEventListener('pointerdown', e => {
+  const n = toNative(e), h = hit(n.x, n.y);
+  if (!h) return;
+  if (h.jack) {
+    rack.setPointerCapture(e.pointerId);
+    drag = { slot: h.slot, kind: h.jack.kind, i: h.jack.i, x: n.x, y: n.y, color: CABLE_COLS[cables.length % CABLE_COLS.length], moved: false, sx: n.x, sy: n.y };
+  } else if (h.m.type !== 'EMPTY') { selected = h.slot; renderInspector(); }
+});
+rack.addEventListener('pointerup', e => {
+  if (!drag) return;
+  const n = toNative(e), h = hit(n.x, n.y);
+  const moved = Math.hypot(n.x - drag.sx, n.y - drag.sy) > 2;
+  if (!moved) {
+    const isEnd = (end, kind) => end.slot === drag.slot && end.i === drag.i && kind === drag.kind;
+    cables = cables.filter(c => !isEnd(c.from, 'out') && !isEnd(c.to, 'in'));
+  } else if (h?.jack && h.jack.kind !== drag.kind) {
+    const out = drag.kind === 'out' ? { slot: drag.slot, i: drag.i } : { slot: h.slot, i: h.jack.i };
+    const inn = drag.kind === 'in' ? { slot: drag.slot, i: drag.i } : { slot: h.slot, i: h.jack.i };
+    if (out.slot !== inn.slot) cables.push({ from: out, to: inn, color: drag.color });
+  }
+  drag = null;
+});
+
+// ---------- Inspector ----------
+const insp = document.getElementById('inspect'), ig = insp.getContext('2d');
+const INSPECT_ZOOM = 4;
+function sizeInspector() {
+  const dpr = window.devicePixelRatio || 1, s = Math.round(INSPECT_ZOOM * dpr);
+  insp.width = MW * s; insp.height = MH * s;
+  insp.style.width = insp.width / dpr + 'px'; insp.style.height = insp.height / dpr + 'px';
+  ig.imageSmoothingEnabled = false; ig.setTransform(s, 0, 0, s, 0, 0);
+}
+function renderInspector() {
+  const m = deck[selected];
+  const rows = [['NAME', m.name], ['TYPE', m.type], ['MAKER', m.manufacturer || '-'], ['RARITY', m.rarity], ['VALUE', (m.value > 0 ? '+' : '') + m.value + 'v'], ['IN', m.inputs.join(' ') || '-'], ['OUT', m.outputs.join(' ') || '-']];
+  document.getElementById('inspectInfo').innerHTML = rows.map(([k, v]) => `<dt>${k}</dt><dd>${v.replace(/_/g, ' ')}</dd>`).join('');
+  document.getElementById('muteBtn').textContent = muted.has(m.id) ? 'UNMUTE' : 'MUTE';
+}
+document.getElementById('muteBtn').addEventListener('click', () => {
+  const m = deck[selected]; muted.has(m.id) ? muted.delete(m.id) : muted.add(m.id); renderInspector();
+});
+
+// ---------- Design sheet strips ----------
+const strips = [];
+function addStrip(rowId, items) {
+  const row = document.getElementById(rowId);
+  for (const it of items) {
+    const cell = document.createElement('div'); cell.className = 'cell';
+    const c = document.createElement('canvas'); cell.appendChild(c);
+    const cap = document.createElement('div'); cap.textContent = it.label; cell.appendChild(cap);
+    row.appendChild(cell);
+    strips.push({ c, g: c.getContext('2d'), m: it.m, st: it.st || {} });
+  }
+}
+function sizeStrips() {
+  const dpr = window.devicePixelRatio || 1, s = Math.round(3 * dpr);
+  for (const st of strips) { st.c.width = MW * s; st.c.height = MH * s; st.c.style.width = st.c.width / dpr + 'px'; st.c.style.height = st.c.height / dpr + 'px'; st.g.imageSmoothingEnabled = false; st.g.setTransform(s, 0, 0, s, 0, 0); }
+}
+{
+  const firstOf = type => SAMPLE.find(m => m.type === type);
+  const types = ['VCO', 'LFO', 'FILTER', 'VCA', 'EFFECT', 'UTILITY', 'SEQ', 'DUCKER', 'TRASH', 'CURSE'].filter(firstOf);
+  addStrip('stripType', types.map(t => ({ m: firstOf(t), label: t })).concat([{ m: deck.find(m => m.type === 'EMPTY'), label: 'BLANK' }]));
+  const ref = { ...firstOf('VCO'), rarity: 'Common' };
+  addStrip('stripMan', Object.keys(MAN).filter(k => k !== '_junk').map(k => ({ m: { ...ref, id: 'man_' + k, manufacturer: k }, label: k.split(' ')[0] })));
+  addStrip('stripRar', Object.keys(RAR).map(k => ({ m: { ...firstOf('FILTER'), id: 'rar_' + k, rarity: k }, label: k })));
+  const seq = firstOf('SEQ');
+  addStrip('stripState', [
+    { m: { ...seq, id: 'st_idle' }, label: 'IDLE' },
+    { m: { ...seq, id: 'st_hit' }, label: 'STEP HIT', st: { active: true } },
+    { m: { ...seq, id: 'st_mute' }, label: 'MUTED', st: { muted: true } },
+  ]);
+}
+function drawStrips(t) {
+  const step = Math.floor((performance.now() - t0) / STEP_MS);
+  for (const s of strips) {
+    const spr = sprite(s.m, s.st.muted);
+    s.g.clearRect(0, 0, MW, MH); s.g.drawImage(spr, 0, 0);
+    drawOverlay(s.g, s.m, 0, 0, t, { active: s.st.active ? step % 2 === 0 : false, muted: s.st.muted, step, sprite: spr });
+  }
+}
+
+// ---------- Weight stats ----------
+const statsEl = document.getElementById('stats');
+let atlasBytes = null;
+function measureAtlas() {
+  // What a pre-baked PNG atlas of every distinct panel in this page would weigh.
+  const sprites = [...spriteCache.values()];
+  const cols = 16, a = document.createElement('canvas');
+  a.width = cols * MW; a.height = Math.ceil(sprites.length / cols) * MH;
+  const g = a.getContext('2d');
+  sprites.forEach((s, i) => g.drawImage(s, (i % cols) * MW, Math.floor(i / cols) * MH));
+  a.toBlob(b => { atlasBytes = { bytes: b.size, n: sprites.length }; });
+}
+const pageBytes = new Blob([document.documentElement.outerHTML]).size;
+function kb(n) { return (n / 1024).toFixed(1) + ' KB'; }
+function renderStats() {
+  const rows = [
+    ['Image files', '0'],
+    ['This page (HTML+JS)', kb(pageBytes)],
+    ['Sprites cached', String(spriteCache.size)],
+    ['Sprite RAM', kb(spriteCache.size * MW * MH * 4)],
+    ['As PNG atlas', atlasBytes ? `${kb(atlasBytes.bytes)} / ${atlasBytes.n}` : '...'],
+    ['Draw per frame', frameMs.toFixed(2) + ' ms'],
+    ['Canvas', `${NW}x${NH} @${S}`],
+  ];
+  statsEl.innerHTML = rows.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join('');
+}
+
+// ---------- Loop ----------
+fit(); sizeInspector(); sizeStrips(); renderInspector();
+let lastStats = 0;
+function frame(now) {
+  const t = (now - t0) / 1000;
+  const a = performance.now();
+  drawRack(t);
+  frameMs = frameMs * 0.95 + (performance.now() - a) * 0.05;
+  ig.clearRect(0, 0, MW, MH);
+  const m = deck[selected], spr = sprite(m, muted.has(m.id));
+  ig.drawImage(spr, 0, 0); drawOverlay(ig, m, 0, 0, t, { muted: muted.has(m.id), step: 0, sprite: spr });
+  drawStrips(t);
+  if (now - lastStats > 500) { renderStats(); lastStats = now; if (!atlasBytes) measureAtlas(); }
+  requestAnimationFrame(frame);
+}
+requestAnimationFrame(frame);
+</script>
+</body>
+</html>
