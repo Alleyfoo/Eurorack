@@ -23,6 +23,14 @@ does not reset the studio or destroy a patch. The overall studio ending is
 deferred, and G1-P imposes none. Any later chapter/finale leaves the studio usable.
 Other choices remain pending; this partial acceptance does not authorize G1-P.
 
+**D2-A accepted for G1-P:** one chosen source (tone or noise), Filter, LFO and
+Output. This is starting material, not class/genre/difficulty/permanent branch;
+the other source remains obtainable/auditionable very early. No startup
+Purist/Glitcher/Weaver classes. **The starter kit teaches relationships, not a
+canonical signal chain.** VCA/Delay remain possible early project offers, not
+settled content. D6 is open: an A+B hybrid is under review; project palettes
+frame the offered experiment rather than block the accumulated studio.
+
 **Also accepted:** D3-A for G1-P, temporary curated modules for unrestricted
 audition and optional retention of a selected offer at closure, with no required
 currency/rarity hierarchy/blind purchase; other acquisition channels remain open.

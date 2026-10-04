@@ -1,7 +1,7 @@
 # G1-D — Game structure decision packet
 
 2026-10-04. Inspected current source at `adf6ab9`.
-**PARTIAL ACCEPTANCE — D1-B, D3-A for G1-P, D4-A with structural progression,
+**PARTIAL ACCEPTANCE — D1-B, D2-A for G1-P, D3-A for G1-P, D4-A with structural progression,
 D5-B+A, D8-A for G1-P and D9-A for G1-P accepted. Remaining choices for review.
 No implementation authorized.** See the acceptance record below.
 
@@ -94,7 +94,7 @@ KEEP preserves a useful role, not every current handler or presentation.
 
 ## 3. Major decisions for us to review
 
-D1-B, D3-A, D4-A, D5-B+A, D8-A and D9-A are accepted for the scope marked below. Other alternatives
+D1-B, D2-A, D3-A, D4-A, D5-B+A, D8-A and D9-A are accepted for the scope marked below. Other alternatives
 remain here as review history. All other choices and system dispositions are
 OPEN. Recommendations do not automatically become accepted requirements.
 No counts, timers, currency amounts or unlock tree are locked by these examples.
@@ -121,6 +121,22 @@ choose A if changing limited systems and restarting is the main attraction.
 
 ### D2. What does the first rack give the player?
 
+**ACCEPTED A for G1-P:** one small common studio kit. Start with one chosen sound
+source — tone or noise — plus Filter, LFO and Output. This is starting material,
+not a class, genre, difficulty or permanent branch. The other source remains
+obtainable/auditionable very early. Purist/Glitcher/Weaver are not startup choices;
+later characters/mentors/studios/manufacturers may frame projects without classes.
+
+**LOCKED RULE:** the starter kit teaches relationships, not a canonical signal chain.
+
+Routing, transformation, modulation and unplugging demonstrate cause and effect,
+not a preferred musical result. Noise → Output, LFO → pitch, deliberate silence
+and ugly resonance are equally legitimate. Pitch modulation is available on the
+tone source; noise uses LFO → Filter cutoff with the current S1-A behaviors.
+Source → Filter → Output is one demonstration, never “the correct patch.”
+VCA or Delay can introduce a genuinely new relationship in the first project;
+exact offers and project requirements remain unchosen.
+
 - **A — One small common kit:** source choice (tone or noise), filter and LFO,
   plus Output; a new relationship arrives soon. Clear teaching, less starter variety.
 - **B — Choose contrasting kits:** for example a source/filter/modulation system
@@ -128,7 +144,7 @@ choose A if changing limited systems and restarting is the main attraction.
 - **C — All S1-A modules available:** easy experimentation and no onboarding lock;
   acquisition needs a purpose beyond unlocking the existing palette.
 
-**Recommend A for the first prototype, B only if starter choice becomes central.**
+**Original recommendation A, now accepted with the specifics above.**
 Tone and noise are equally valid starting material. Output safety, mute and useful
 listening controls are available immediately. No clock or envelope is required.
 
@@ -211,8 +227,25 @@ the resulting music is correct. D4 decides whether it is checked or self-declare
 - **C — No space limit:** growth consists only of new behavior and archive tools.
   Freer exploration; acquisition choices may feel less consequential.
 
-**Recommend B for the first prototype; review A for the larger game.** It creates
-a clear constraint without inventing slot prices or forcing collection cleanup.
+**OPEN — revised recommendation: consider an A+B hybrid.** The original plain-B
+recommendation is superseded for review. Project palettes constrain the offered
+experiment, not the player's access to the accumulated studio. They must not
+remove ownership, disable studio modules globally or discard existing patches.
+
+Distinguish three things before accepting a scarcity model:
+
+- **Owned modules:** the persistent collection available to the studio.
+- **Installed rack space:** a possible limit on the current working system,
+  separate from ownership/storage. Whether this is a meaningful constraint,
+  its size and whether expansion is progression all remain open.
+- **Offered experiment:** temporary modules and a stated project question or
+  material constraint. The player can use their accumulated studio; a constrained
+  response can be framed within the experiment without locking the whole studio.
+
+Candidate A+B would use installed space for compositional choices and project
+offers for new possibilities, with persistent storage and free exploration.
+This is a recommendation only, not D6 acceptance or permission to add capacity
+prices, automatic module eviction, a separate workspace or any new schema.
 Existing 48 slots, capacity 10 and S1-A's twelve-module limit are implementation
 facts, not proposed progression rules. Store owned/offered/installed distinctions
 only as far as the accepted model needs them.
@@ -313,7 +346,7 @@ state without autoplay; audible ownership starts from a gesture as in S1-A.
 
 ## 4. A candidate start-to-completion walkthrough
 
-**ILLUSTRATIVE — combines accepted D1/D3/D4/D5/D8/D9 with still-open specifics.**
+**ILLUSTRATIVE — combines accepted D1/D2/D3/D4/D5/D8/D9 with still-open specifics.**
 This demonstrates their consequences so we can reject or revise the unaccepted
 parts. Concrete offered modules, prompts, engagement requirements, unlock map
 and capture format are not chosen merely because their general direction was accepted.
@@ -373,6 +406,7 @@ User acceptance, 2026-10-04:
 | Decision | Status | Accepted scope |
 |---|---|---|
 | D1 | ACCEPT B | Persistent studio, finite projects. Studio, owned modules, discoveries and archive persist. Projects have finite beginnings, situations and deliberate closing points. Closing a project does not reset the studio or destroy a patch. |
+| D2 | ACCEPT A for G1-P | One chosen source (tone or noise), Filter, LFO and Output. Starting material, not class/genre/difficulty/permanent branch. Other source obtainable/auditionable very early; no Purist/Glitcher/Weaver startup classes. |
 | D3 | ACCEPT A for G1-P | Projects may temporarily provide curated modules for unrestricted audition; at closure the player may retain a selected offered module. No currency, rarity hierarchy or blind purchase required for G1-P. Other acquisition channels remain open for later design. |
 | D4 | ACCEPT A with explicit structural progression | Closing a project opens specific opportunities/capabilities. No musical-quality, analyser, amplitude, conventional-topology or genre scoring. Minimal transparent interaction requirements may prove engagement; player-chosen closure remains authoritative. |
 | D5 | ACCEPT B+A hybrid | Situated mechanical/material constraints or questions, open sonic response. Tool/routing/action constraints may apply within projects; no prescribed good sound. Free studio exploration remains available outside projects. |
@@ -382,13 +416,15 @@ User acceptance, 2026-10-04:
 | D9-C | INCOMPATIBLE | Destructive run loss/reset conflicts with the accepted persistent-studio structure. |
 | Project/studio rule | LOCKED DESIGN | Projects introduce possibility; they do not confiscate the studio. |
 | Work-preservation rule | LOCKED DESIGN | Projects may close doors; they do not erase the player's work. |
+| Starter teaching rule | LOCKED DESIGN | The starter kit teaches relationships, not a canonical signal chain. Noise, silence, unconventional routes and ugly resonance are legitimate. |
 | Audition module / preserved work coupling | HARD REQUIREMENT; mechanism OPEN for D7/D10 | Returning temporary audition modules must never silently break a preserved patch or archive item. |
 | Overall studio ending | DEFERRED / OPEN | G1-P imposes no final studio ending. A later authored chapter/finale is optional if beneficial; studio remains usable afterward. |
-| D2, D6–D7, D10 | PENDING | Starter kit, scarcity/growth, capture and save strategy need further review. Concrete project offers, interactions, unlock mappings and audition-module preservation mechanism also remain unspecified. |
+| D6 | OPEN; A+B hybrid under review | Project palettes frame the offered experiment, not access to the accumulated studio. Ownership, installed space and experiment scope are distinct. Actual scarcity/expansion rules remain unaccepted. |
+| D7, D10 | PENDING | Capture/save strategy and audition-module preservation mechanism need review. Concrete project offers, interactions and unlock mappings also remain unspecified. |
 | System disposition table | RECOMMENDATIONS ONLY | Accepted directions constrain the table, but do not approve every cut/transformation or settle the full game's acquisition/resource systems. |
 | G1-P implementation | NOT AUTHORIZED | Partial design acceptance is not a request to implement the prototype. |
 
-Next review: D2 (starter palette), D6 (scarcity/growth),
+Next review: D6 (scarcity/growth; A+B hybrid under discussion),
 D7 (capture) and D10 (saves), then concrete project offers, engagement requirements
 and unlock mappings. D4 now settles structural progression through project
 closure; it does not select the actual opportunities or require musical grading.

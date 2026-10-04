@@ -70,6 +70,28 @@ that result is musically good.
 on the studio. A later authored chapter or finale may be considered if the full
 game benefits from it; the studio remains usable afterward.
 
+### Starter kit — LOCKED DESIGN
+
+**D2-A — accepted for G1-P:** one small common studio kit: one chosen sound
+source, tone or noise, plus Filter, LFO and Output. The choice is starting material,
+not a character class, genre, difficulty or permanent branch. The other source
+remains obtainable/auditionable very early. Do not restore Purist/Glitcher/Weaver
+as startup classes. Characters, studios, mentors or manufacturers may later frame
+projects without imposing classes; that framing remains future design.
+
+**The starter kit teaches relationships, not a canonical signal chain.**
+
+Source → Output demonstrates routing; Source → Filter → Output demonstrates
+transformation; LFO → pitch/cutoff demonstrates modulation where that input exists.
+Unplugging demonstrates real silence and the removal of a relationship. Noise →
+Output, LFO → pitch, deliberate silence and ugly resonance are equally legitimate.
+These are teaching examples, not a checklist of required successful topologies.
+Noise has no pitch input in S1-A; its starter modulation example uses filter cutoff.
+
+The first project has room to introduce VCA or Delay as a new relationship;
+concrete offers and project content still need review. Do not provide the whole
+S1-A palette as the initial owned kit merely because the sandbox already does.
+
 ### Projects introduce possibility — LOCKED DESIGN
 
 **Projects introduce possibility; they do not confiscate the studio.**
@@ -118,9 +140,9 @@ gates, curses or forced collection damage from the old shell.
 modules must never silently break a preserved patch or archive item. Capture/
 save design must resolve this coupling; D9 does not select the mechanism.
 
-These choices establish acquisition direction, structural progression, project
-framing and non-destructive recovery alongside studio persistence and closure.
-Starter kit, scarcity/growth, capture format, save schema and concrete project requirements
+These choices establish the starter kit, acquisition direction, structural
+progression, project framing and non-destructive recovery alongside studio
+persistence and closure. Scarcity/growth, capture format, save schema and concrete project requirements
 remain for joint review in the
 [G1-D packet](../plans/G1_D_DECISION_PACKET.md#6-acceptance-record--partial).
 G1-P implementation has not been authorized by this acceptance alone.

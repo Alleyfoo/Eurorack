@@ -31,6 +31,11 @@ free-studio recovery. Projects may close doors; they do not erase the player's w
 D9-B is reserved for later optional events with studio/history safe; D9-C is
 incompatible. D7/D10 must ensure returned audition modules never silently break
 preserved patches/archive items; the preservation mechanism remains open.
+D2-A is accepted for G1-P: chosen tone/noise source, Filter, LFO and Output;
+other source available very early, no class/genre/difficulty/permanent branch.
+The starter kit teaches relationships, not a canonical signal chain.
+D6 remains open with an A+B hybrid under review. Project palettes frame offered
+experiments, not access to the accumulated studio; do not infer a capacity rule.
 Follow the sequence in `docs/design/GAME_DESIGN.md`: structure, rack experience,
 content, end-to-end playability, then serious audio refinement. Clock/GATE or
 S1-B work needs a concrete gameplay reason; it is not the default next task.
