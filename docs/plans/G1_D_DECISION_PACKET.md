@@ -2,7 +2,7 @@
 
 2026-10-04. Inspected current source at `adf6ab9`.
 **PARTIAL ACCEPTANCE — D1-B, D2-A for G1-P, D3-A for G1-P, D4-A with structural progression,
-D5-B+A, D8-A for G1-P and D9-A for G1-P accepted. Remaining choices for review.
+D5-B+A, D6-A+B for G1-P, D8-A for G1-P and D9-A for G1-P accepted. Remaining choices for review.
 No implementation authorized.** See the acceptance record below.
 
 This packet distinguishes source-confirmed behavior from recommendations.
@@ -94,7 +94,7 @@ KEEP preserves a useful role, not every current handler or presentation.
 
 ## 3. Major decisions for us to review
 
-D1-B, D2-A, D3-A, D4-A, D5-B+A, D8-A and D9-A are accepted for the scope marked below. Other alternatives
+D1-B, D2-A, D3-A, D4-A, D5-B+A, D6-A+B, D8-A and D9-A are accepted for the scope marked below. Other alternatives
 remain here as review history. All other choices and system dispositions are
 OPEN. Recommendations do not automatically become accepted requirements.
 No counts, timers, currency amounts or unlock tree are locked by these examples.
@@ -220,6 +220,30 @@ the resulting music is correct. D4 decides whether it is checked or self-declare
 
 ### D6. What is scarce, and what does studio growth change?
 
+**ACCEPTED A+B hybrid for G1-P:** owned modules persist in generous studio
+storage. The currently installed rack has finite working space, creating
+compositional choices without destroying ownership. Projects may offer or
+foreground a limited palette for their experiment, but do not remove access to
+the accumulated studio or globally disable owned modules. Project constraints
+apply to the project response, not to the player's entire studio.
+
+No automatic eviction, forced selling, slot prices or destruction of modules.
+
+**LOCKED RULE:** rack space is a compositional constraint, not a progression currency.
+
+**Rack expansion — DEFERRED as a progression driver:** G1-P uses a fixed, modest
+installed-space limit, not a repeating +2-slots upgrade ladder. Later expansion
+may be an occasional structural unlock if playtesting finds additional simultaneous
+relationships interesting rather than merely convenient. Growth primarily means
+new behavior → new relationship → new kind of project.
+
+**Capacity number — prototype tuning, not a locked choice:** leave room for the
+starter system plus the auditioned module and potentially one additional
+relationship. In authorized G1-P work, choose a modest capacity and test whether
+the boundary creates a meaningful decision or annoyance. Existing 10/12/48-slot
+numbers have no design authority. No economy or expansion ladder is implied.
+Alternatives below record the original decision context.
+
 - **A — Installed space, separate storage:** choose a small working set; park
   owned modules and preserve patch snapshots. Expansion allows more relationships.
 - **B — Per-project palette:** studio storage is generous; projects lend a limited
@@ -227,25 +251,20 @@ the resulting music is correct. D4 decides whether it is checked or self-declare
 - **C — No space limit:** growth consists only of new behavior and archive tools.
   Freer exploration; acquisition choices may feel less consequential.
 
-**OPEN — revised recommendation: consider an A+B hybrid.** The original plain-B
-recommendation is superseded for review. Project palettes constrain the offered
-experiment, not the player's access to the accumulated studio. They must not
-remove ownership, disable studio modules globally or discard existing patches.
-
-Distinguish three things before accepting a scarcity model:
+**A+B accepted with the scope above; original plain-B recommendation superseded.**
+Distinguish three things in the chosen model:
 
 - **Owned modules:** the persistent collection available to the studio.
-- **Installed rack space:** a possible limit on the current working system,
-  separate from ownership/storage. Whether this is a meaningful constraint,
-  its size and whether expansion is progression all remain open.
+- **Installed rack space:** a fixed, modest limit on the current working system,
+  separate from ownership/storage. Exact capacity and its experiential value need
+  prototype tuning. Expansion is deferred as a progression driver.
 - **Offered experiment:** temporary modules and a stated project question or
   material constraint. The player can use their accumulated studio; a constrained
   response can be framed within the experiment without locking the whole studio.
 
-Candidate A+B would use installed space for compositional choices and project
-offers for new possibilities, with persistent storage and free exploration.
-This is a recommendation only, not D6 acceptance or permission to add capacity
-prices, automatic module eviction, a separate workspace or any new schema.
+Installed space creates compositional choices; project offers introduce new
+possibilities, with persistent storage and free exploration. D6 does not authorize
+capacity prices, automatic module eviction, a separate workspace or a save schema.
 Existing 48 slots, capacity 10 and S1-A's twelve-module limit are implementation
 facts, not proposed progression rules. Store owned/offered/installed distinctions
 only as far as the accepted model needs them.
@@ -346,7 +365,7 @@ state without autoplay; audible ownership starts from a gesture as in S1-A.
 
 ## 4. A candidate start-to-completion walkthrough
 
-**ILLUSTRATIVE — combines accepted D1/D2/D3/D4/D5/D8/D9 with still-open specifics.**
+**ILLUSTRATIVE — combines accepted D1/D2/D3/D4/D5/D6/D8/D9 with still-open specifics.**
 This demonstrates their consequences so we can reject or revise the unaccepted
 parts. Concrete offered modules, prompts, engagement requirements, unlock map
 and capture format are not chosen merely because their general direction was accepted.
@@ -410,6 +429,7 @@ User acceptance, 2026-10-04:
 | D3 | ACCEPT A for G1-P | Projects may temporarily provide curated modules for unrestricted audition; at closure the player may retain a selected offered module. No currency, rarity hierarchy or blind purchase required for G1-P. Other acquisition channels remain open for later design. |
 | D4 | ACCEPT A with explicit structural progression | Closing a project opens specific opportunities/capabilities. No musical-quality, analyser, amplitude, conventional-topology or genre scoring. Minimal transparent interaction requirements may prove engagement; player-chosen closure remains authoritative. |
 | D5 | ACCEPT B+A hybrid | Situated mechanical/material constraints or questions, open sonic response. Tool/routing/action constraints may apply within projects; no prescribed good sound. Free studio exploration remains available outside projects. |
+| D6 | ACCEPT A+B hybrid for G1-P | Generous persistent storage, finite installed working space, project palettes framing the response rather than restricting the entire studio. No automatic eviction, forced selling, slot prices or module destruction. |
 | D8 | ACCEPT A for G1-P | Project ends when the player chooses a result/version to keep and closes it. No musical-quality judgment. |
 | D9 | ACCEPT A for G1-P | No destructive progression failure. Attempts may be incomplete; owned modules, patches, discoveries, archive and studio remain safe. Silence/noise/instability/feedback/low amplitude/unconventional routing/unwanted aesthetics never constitute failure. Explicit recovery: revise, retry, abandon or return to free exploration. |
 | D9-B | RESERVED for later optional content | Situated temporary stakes may close an opportunity or lose a take without harming the studio, instrument or history. No G1-P event requirement. |
@@ -417,15 +437,16 @@ User acceptance, 2026-10-04:
 | Project/studio rule | LOCKED DESIGN | Projects introduce possibility; they do not confiscate the studio. |
 | Work-preservation rule | LOCKED DESIGN | Projects may close doors; they do not erase the player's work. |
 | Starter teaching rule | LOCKED DESIGN | The starter kit teaches relationships, not a canonical signal chain. Noise, silence, unconventional routes and ugly resonance are legitimate. |
+| Rack-space rule | LOCKED DESIGN | Rack space is a compositional constraint, not a progression currency. |
+| Rack expansion | DEFERRED as progression driver | Fixed modest limit in G1-P, no repeating +2-slot ladder. Later occasional structural unlock only if interesting simultaneous relationships justify it through playtesting. |
 | Audition module / preserved work coupling | HARD REQUIREMENT; mechanism OPEN for D7/D10 | Returning temporary audition modules must never silently break a preserved patch or archive item. |
 | Overall studio ending | DEFERRED / OPEN | G1-P imposes no final studio ending. A later authored chapter/finale is optional if beneficial; studio remains usable afterward. |
-| D6 | OPEN; A+B hybrid under review | Project palettes frame the offered experiment, not access to the accumulated studio. Ownership, installed space and experiment scope are distinct. Actual scarcity/expansion rules remain unaccepted. |
+| Exact installed capacity | PROTOTYPE TUNING | Enough for starter system, auditioned module and potentially one additional relationship; test meaningful boundary versus annoyance. No inherited 10/12/48 design mandate. |
 | D7, D10 | PENDING | Capture/save strategy and audition-module preservation mechanism need review. Concrete project offers, interactions and unlock mappings also remain unspecified. |
 | System disposition table | RECOMMENDATIONS ONLY | Accepted directions constrain the table, but do not approve every cut/transformation or settle the full game's acquisition/resource systems. |
 | G1-P implementation | NOT AUTHORIZED | Partial design acceptance is not a request to implement the prototype. |
 
-Next review: D6 (scarcity/growth; A+B hybrid under discussion),
-D7 (capture) and D10 (saves), then concrete project offers, engagement requirements
+Next review: D7 (capture) and D10 (saves), then concrete project offers, engagement requirements
 and unlock mappings. D4 now settles structural progression through project
 closure; it does not select the actual opportunities or require musical grading.
 Capture format is still open. D7/D10 must resolve how unretained audition modules

@@ -28,8 +28,17 @@ Output. This is starting material, not class/genre/difficulty/permanent branch;
 the other source remains obtainable/auditionable very early. No startup
 Purist/Glitcher/Weaver classes. **The starter kit teaches relationships, not a
 canonical signal chain.** VCA/Delay remain possible early project offers, not
-settled content. D6 is open: an A+B hybrid is under review; project palettes
-frame the offered experiment rather than block the accumulated studio.
+settled content.
+
+**D6-A+B accepted for G1-P:** generous persistent storage and finite installed
+working space. Project palettes constrain their response, not the entire studio;
+owned modules stay accessible. No automatic eviction, forced selling, slot prices
+or module destruction. **Rack space is a compositional constraint, not a progression
+currency.** G1-P has a fixed modest capacity; expansion as a progression driver is
+deferred, with no repeating +2-slot ladder. Exact capacity is prototype tuning:
+starter system, auditioned module and potentially one additional relationship.
+The existing 10/12/48 limits have no design authority. Later occasional expansion
+needs playtest evidence of interesting additional simultaneous relationships.
 
 **Also accepted:** D3-A for G1-P, temporary curated modules for unrestricted
 audition and optional retention of a selected offer at closure, with no required

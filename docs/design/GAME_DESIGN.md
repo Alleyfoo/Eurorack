@@ -114,6 +114,31 @@ tools, routing or actions, but must not prescribe what good music sounds like.
 Free studio exploration remains available outside projects. Project constraints
 do not authorize taking away the player's persistent studio or destroying patches.
 
+### Rack space — LOCKED DESIGN
+
+**D6-A+B — accepted for G1-P:** owned modules persist in generous studio storage.
+The currently installed rack has finite working space, creating compositional
+choices without destroying ownership. Projects may offer or foreground a limited
+palette for their experiment; they do not remove access to the accumulated studio
+or globally disable owned modules. Project constraints apply to the project
+response, not to the player's entire studio.
+
+No automatic eviction, forced selling, slot prices or destruction of modules.
+
+**Rack space is a compositional constraint, not a progression currency.**
+
+**Rack expansion as a progression driver — DEFERRED:** G1-P uses a fixed, modest
+installed-space limit. Do not create a repeating +2-slots upgrade ladder. Later,
+expansion may be an occasional structural unlock if playtesting shows additional
+simultaneous relationships are interesting rather than merely convenient.
+Growth primarily introduces new behavior, relationships and kinds of project.
+
+Exact capacity is a prototype tuning choice, not a locked design number. Provide
+room for the starter system, the auditioned module and potentially one additional
+relationship; test whether the boundary is meaningful or merely annoying.
+Existing 10/12/48-slot numbers carry no design authority. Selecting and testing
+capacity belongs to the authorized G1-P slice, not a new upgrade economy.
+
 ### Projects preserve work — LOCKED DESIGN
 
 **Projects may close doors; they do not erase the player's work.**
@@ -142,7 +167,8 @@ save design must resolve this coupling; D9 does not select the mechanism.
 
 These choices establish the starter kit, acquisition direction, structural
 progression, project framing and non-destructive recovery alongside studio
-persistence and closure. Scarcity/growth, capture format, save schema and concrete project requirements
+persistence and closure. Capture format, save schema, concrete project requirements
+and prototype capacity tuning
 remain for joint review in the
 [G1-D packet](../plans/G1_D_DECISION_PACKET.md#6-acceptance-record--partial).
 G1-P implementation has not been authorized by this acceptance alone.
