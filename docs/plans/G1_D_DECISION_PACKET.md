@@ -1,14 +1,15 @@
 # G1-D — Game structure decision packet
 
 2026-10-04. Inspected current source at `adf6ab9`.
-**PARTIAL ACCEPTANCE — D1-B, D2-A for G1-P, D3-A for G1-P, D4-A with structural progression,
-D5-B+A, D6-A+B for G1-P, D8-A for G1-P and D9-A for G1-P accepted. Remaining choices for review.
-No implementation authorized.** See the acceptance record below.
+**D1–D10 DIRECTIONS ACCEPTED for the scope recorded below.** D7 requires snapshots
+in G1-P, with optional audio as the long-term direction. Concrete prototype
+content/task remains to scope. No runtime implementation requested by this record.
 
 This packet distinguishes source-confirmed behavior from recommendations.
 KEEP / CUT / TRANSFORM below are proposed dispositions for the future game,
 not instructions to delete or rewrite the existing shell. The governing musical
-values and real cable authority remain locked. The shape of the game does not.
+values, real cable authority and accepted structure govern the future game.
+Recommendations beyond the accepted scope remain provisional.
 
 ## 1. The complete current run
 
@@ -94,9 +95,9 @@ KEEP preserves a useful role, not every current handler or presentation.
 
 ## 3. Major decisions for us to review
 
-D1-B, D2-A, D3-A, D4-A, D5-B+A, D6-A+B, D8-A and D9-A are accepted for the scope marked below. Other alternatives
-remain here as review history. All other choices and system dispositions are
-OPEN. Recommendations do not automatically become accepted requirements.
+D1–D10 directions are accepted for the scope marked below. Other alternatives
+remain here as review history. Concrete project choices and unaccepted system
+dispositions remain open. Recommendations do not automatically become requirements.
 No counts, timers, currency amounts or unlock tree are locked by these examples.
 
 ### D1. Is this a run, or a studio that grows?
@@ -271,9 +272,12 @@ only as far as the accepted model needs them.
 
 ### D7. What does the player capture?
 
-**Hard requirement, mechanism OPEN with D10:** returning temporary audition
-modules must never silently break a preserved patch or archive item. Capture
-format choices below must satisfy this; D9 acceptance does not choose a solution.
+**ACCEPT B as the long-term direction; require A in G1-P.** Every closed project
+stores a patch snapshot plus optional title/note. Optional audio may be added
+later once recording is reliable; recording is never required for project closure.
+The archive is an immutable record, including the borrowed modules used in the
+project even when they were not retained as owned modules. Alternatives below
+record the decision context; D10 describes the accepted preservation model.
 
 - **A — Patch snapshot and short note:** keeps modules, controls and routes for
   revisiting; cheap to test, but cannot promise the exact same evolving sound.
@@ -282,10 +286,10 @@ format choices below must satisfy this; D9 acceptance does not choose a solution
 - **C — Audio only:** keeps the result without managing patch versions, but loses
   the relationship the player learned and cannot restore the instrument.
 
-**Recommend B as the direction, A as G1-P's minimum if we accept that limit.**
+**Original recommendation accepted with the scope above.**
 Sound is not deterministic replay; snapshots and recordings serve different
 purposes. Never require high fidelity or audible loudness to preserve a project.
-Recording capability must be verified before it becomes a progression gate.
+Recording is never a project-closure gate.
 
 ### D8. What finishes, and why keep going afterward?
 
@@ -329,9 +333,9 @@ below preserve the original decision context, not equally available future choic
 
 **LOCKED RULE:** projects may close doors; they do not erase the player's work.
 
-**D7/D10 coupling — hard consistency requirement, solution OPEN:** temporary
+**D7/D10 coupling — hard consistency requirement, accepted model below:** temporary
 audition modules must never silently break a preserved patch or archive item
-when returned. Resolve under capture/save design, not by inventing a D9 policy.
+when returned. Archive dependency preservation is separate from studio ownership.
 
 - **A — No destructive progression failure:** abandon, revise or revisit projects;
   opportunities remain available. Stakes come from choosing and performing.
@@ -347,9 +351,38 @@ forced bloat or permanent module loss by inheritance from the old shell.
 
 ### D10. What persists, and what happens to old saves?
 
-**Hard requirement, mechanism OPEN with D7:** returning temporary audition
-modules must never silently break preserved patches or archive items. Save/load
-and archive restoration must honor this alongside the accepted persistent studio.
+**ACCEPT A — separate versioned new-studio save.** Leave the legacy save untouched.
+Persist owned modules, current studio patch, active project state and loans,
+structural progression/unlocks, and archived project snapshots. Loading never
+autostarts audio. No legacy-save migration is required in G1-P.
+
+The accepted three-layer model is:
+
+| Layer | Authority and preservation |
+|---|---|
+| Studio | What the player owns and freely uses; current studio patch persists. |
+| Project | Its own temporary working branch; may contain loan modules. |
+| Archive | Immutable record of what the project actually became, including borrowed modules used in that project. |
+
+**LOCKED RULE:** archives preserve dependencies without granting ownership.
+
+An archived borrowed Delay remains in that archived patch after the project,
+but does not become available for arbitrary future studio patches. Preserving
+module/control/cable relationships must not depend on continued studio ownership.
+Editing or forking work leaves the original archive unchanged. Exact schema,
+branch seeding/merging and UI are not settled by this conceptual model.
+
+**LOCKED RULE:** a missing dependency is a state to explain, never a cable to
+silently delete.
+
+When reopening/forking an archive with a dependency not owned/available, show
+the state and offer reacquire/substitute/retain-as-archive. Never silently remove
+the module or its cables. These are explicit resolution choices, not permission
+to invent a currency shop, grant ownership or rewrite the immutable archive.
+Concrete reacquisition/substitution UX still needs a scoped prototype task.
+
+G1-P does not require perfect audio replay or long-term DSP compatibility.
+The alternatives below record the original save-strategy decision context.
 
 - **A — Separate new studio save:** persist accepted progression, owned modules,
   installed graph and captures; leave the legacy save/route usable. Safest prototype
@@ -359,16 +392,17 @@ and archive restoration must honor this alongside the accepted persistent studio
 - **C — Replace/migrate in place:** translate the whole old economy and deck.
   High risk of importing systems we chose to cut and pretending positions are cables.
 
-**Recommend A.** Define the accepted fields before schema work. Later import, if
+**Original recommendation A, now accepted with the scope above.** Later import, if
 wanted, requires a user-facing choice and validated compatibility mapping. Restore
 state without autoplay; audible ownership starts from a gesture as in S1-A.
 
 ## 4. A candidate start-to-completion walkthrough
 
-**ILLUSTRATIVE — combines accepted D1/D2/D3/D4/D5/D6/D8/D9 with still-open specifics.**
+**ILLUSTRATIVE — combines accepted D1–D10 directions with still-open specifics.**
 This demonstrates their consequences so we can reject or revise the unaccepted
-parts. Concrete offered modules, prompts, engagement requirements, unlock map
-and capture format are not chosen merely because their general direction was accepted.
+parts. Concrete offered modules, prompts, engagement requirements and unlock map
+are not chosen merely because their general direction was accepted. Snapshot
+capture and the Studio/Project/Archive model are now accepted.
 
 1. **First visit:** arrive in a small studio and choose tone or noise as material.
    Start audio, route it to Output, change a control, unplug it and hear silence.
@@ -380,13 +414,16 @@ and capture format are not chosen merely because their general direction was acc
    One changes how level moves; the other introduces memory/feedback. Choose the
    relationship you want to keep. Declining does not strand the studio.
 4. **Consequence/progression:** close the opportunity deliberately and retain the
-   selected module and a snapshot/note. A visible next opportunity opens because
+   selected module and an immutable snapshot with optional title/note, including
+   dependencies on unretained audition modules without granting ownership.
+   A visible next opportunity opens because
    this project was closed, not because amplitude or rarity passed a threshold.
 5. **Middle growth:** later projects offer contrasting palettes/constraints using
    available behaviors. Revisit a saved system or begin another; collection and
    personal archive persist. Broader content is authored after structure/rack work.
 6. **Project completion:** choose a version as this project's closing work, keep
-   it, and optionally record a moment. It may be awkward, noisy or deliberately
+   it as a snapshot, and optionally record a moment later when supported. Audio
+   recording is never required. It may be awkward, noisy or deliberately
    silent. Show what was kept and why this project is now marked closed.
 7. **Continuation / later end:** reopen the studio freely. Another project asks a
    different question. Whether a larger chapter or overall game has an authored
@@ -418,7 +455,7 @@ Test the chosen loop with questions that can change the design:
 - Do consecutive projects feel different enough to justify continuation?
   The full-game/chapter ending remains unresolved until we choose and test it.
 
-## 6. Acceptance record — partial
+## 6. Acceptance record — accepted directions
 
 User acceptance, 2026-10-04:
 
@@ -430,29 +467,33 @@ User acceptance, 2026-10-04:
 | D4 | ACCEPT A with explicit structural progression | Closing a project opens specific opportunities/capabilities. No musical-quality, analyser, amplitude, conventional-topology or genre scoring. Minimal transparent interaction requirements may prove engagement; player-chosen closure remains authoritative. |
 | D5 | ACCEPT B+A hybrid | Situated mechanical/material constraints or questions, open sonic response. Tool/routing/action constraints may apply within projects; no prescribed good sound. Free studio exploration remains available outside projects. |
 | D6 | ACCEPT A+B hybrid for G1-P | Generous persistent storage, finite installed working space, project palettes framing the response rather than restricting the entire studio. No automatic eviction, forced selling, slot prices or module destruction. |
+| D7 | ACCEPT B long-term; A required in G1-P | Every closed project stores a patch snapshot plus optional title/note. Optional audio later when reliable; recording never required for project closure. |
 | D8 | ACCEPT A for G1-P | Project ends when the player chooses a result/version to keep and closes it. No musical-quality judgment. |
 | D9 | ACCEPT A for G1-P | No destructive progression failure. Attempts may be incomplete; owned modules, patches, discoveries, archive and studio remain safe. Silence/noise/instability/feedback/low amplitude/unconventional routing/unwanted aesthetics never constitute failure. Explicit recovery: revise, retry, abandon or return to free exploration. |
 | D9-B | RESERVED for later optional content | Situated temporary stakes may close an opportunity or lose a take without harming the studio, instrument or history. No G1-P event requirement. |
 | D9-C | INCOMPATIBLE | Destructive run loss/reset conflicts with the accepted persistent-studio structure. |
+| D10 | ACCEPT A | Separate versioned new-studio save, legacy save untouched. Persist owned modules/current studio patch/active project and loans/structural progression and unlocks/archived project snapshots. Load never autostarts audio. |
 | Project/studio rule | LOCKED DESIGN | Projects introduce possibility; they do not confiscate the studio. |
 | Work-preservation rule | LOCKED DESIGN | Projects may close doors; they do not erase the player's work. |
 | Starter teaching rule | LOCKED DESIGN | The starter kit teaches relationships, not a canonical signal chain. Noise, silence, unconventional routes and ugly resonance are legitimate. |
 | Rack-space rule | LOCKED DESIGN | Rack space is a compositional constraint, not a progression currency. |
 | Rack expansion | DEFERRED as progression driver | Fixed modest limit in G1-P, no repeating +2-slot ladder. Later occasional structural unlock only if interesting simultaneous relationships justify it through playtesting. |
-| Audition module / preserved work coupling | HARD REQUIREMENT; mechanism OPEN for D7/D10 | Returning temporary audition modules must never silently break a preserved patch or archive item. |
+| Audition module / preserved work coupling | ACCEPTED MODEL; hard requirement | Project working branch may use loans; immutable archive preserves those dependencies without granting arbitrary future studio availability. Returning loans must not silently break preserved work. |
+| Archive ownership rule | LOCKED DESIGN | Archives preserve dependencies without granting ownership. |
+| Missing dependency rule | LOCKED DESIGN | A missing dependency is a state to explain, never a cable to silently delete. Show unavailable dependency on reopen/fork and offer reacquire/substitute/retain-as-archive; preserve original module/cables/archive. |
 | Overall studio ending | DEFERRED / OPEN | G1-P imposes no final studio ending. A later authored chapter/finale is optional if beneficial; studio remains usable afterward. |
 | Exact installed capacity | PROTOTYPE TUNING | Enough for starter system, auditioned module and potentially one additional relationship; test meaningful boundary versus annoyance. No inherited 10/12/48 design mandate. |
-| D7, D10 | PENDING | Capture/save strategy and audition-module preservation mechanism need review. Concrete project offers, interactions and unlock mappings also remain unspecified. |
+| Concrete prototype task | TO SCOPE | Project offers, transparent engagement requirements, unlock map, exact capacity and dependency-resolution UI remain unspecified. No perfect replay, legacy migration or long-term DSP compatibility required. |
 | System disposition table | RECOMMENDATIONS ONLY | Accepted directions constrain the table, but do not approve every cut/transformation or settle the full game's acquisition/resource systems. |
-| G1-P implementation | NOT AUTHORIZED | Partial design acceptance is not a request to implement the prototype. |
+| G1-P implementation | NOT REQUESTED YET | Accepted design directions do not themselves request implementation of a concrete prototype slice. |
 
-Next review: D7 (capture) and D10 (saves), then concrete project offers, engagement requirements
-and unlock mappings. D4 now settles structural progression through project
-closure; it does not select the actual opportunities or require musical grading.
-Capture format is still open. D7/D10 must resolve how unretained audition modules
-relate to preserved patches/archive restoration. Preserved work must never silently
-break when a temporary module is returned; the hard requirement is accepted,
-while the solution remains open.
+Next: scope the concrete G1-P slice with project offers, transparent engagement
+requirements and unlock mappings. D1–D10 supply enough architecture; do not expand
+them into a full economy or audio-replay system. Exact capacity is prototype
+tuning. Snapshot format must represent modules, controls, cables and borrowed
+dependencies, without granting ownership or silently deleting unavailable routes.
+Reacquisition/substitution mechanics must respect the accepted channels and
+remain explicit rather than silently invented.
 
 Record the user's choices and changes here or in a linked accepted structure
 document before G1-P starts. Identify intentionally deferred choices and the

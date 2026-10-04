@@ -162,16 +162,54 @@ persistent-studio structure. Do not inherit half-wallet penalties, lives, boss
 gates, curses or forced collection damage from the old shell.
 
 **Hard consistency requirement for D7/D10:** returning temporary audition
-modules must never silently break a preserved patch or archive item. Capture/
-save design must resolve this coupling; D9 does not select the mechanism.
+modules must never silently break a preserved patch or archive item. The accepted
+Studio/Project/Archive model below resolves preservation separately from ownership.
+
+### Capture, saves and dependency preservation — LOCKED DESIGN
+
+**D7 — B accepted as the long-term direction; A required in G1-P:** every closed
+project stores a patch snapshot plus optional title/note. Optional audio may be
+added later when recording is reliable. Recording is never required for project
+closure. A snapshot preserves the system; it does not promise exact audio replay.
+
+**D10-A — accepted:** a separate versioned new-studio save leaves the legacy save
+untouched. Persist owned modules, current studio patch, active project state and
+loans, structural progression/unlocks, and archived project snapshots. Loading
+never autostarts audio.
+
+| Layer | Meaning |
+|---|---|
+| Studio | What the player owns and freely uses; its current patch persists independently of a project. |
+| Project | Its own temporary working branch, which may contain loans. |
+| Archive | Immutable record of what the project actually became, including borrowed modules used in that project. |
+
+**Archives preserve dependencies without granting ownership.**
+
+An archived borrowed Delay remains part of that archived patch even when not
+retained as owned. Archiving does not make it available for arbitrary future
+studio patches. Project editing or a later fork must not mutate the original
+archive. Exact branch initialization/merge UI and save serialization remain
+implementation details to scope; do not silently overwrite the studio patch.
+
+**A missing dependency is a state to explain, never a cable to silently delete.**
+
+When an archived patch is reopened/forked and a dependency is not owned/available,
+present that state and offer reacquire, substitute or retain-as-archive. Never
+silently remove the module or its cables. The archive remains intact; concrete
+reacquisition channels and substitution UX still need scoped design.
+
+G1-P does not require perfect audio replay, legacy-save migration or long-term
+DSP compatibility. Preserve an honest snapshot and explicit dependency state
+without pretending a stored record grants unrestricted module availability.
 
 These choices establish the starter kit, acquisition direction, structural
 progression, project framing and non-destructive recovery alongside studio
-persistence and closure. Capture format, save schema, concrete project requirements
-and prototype capacity tuning
-remain for joint review in the
-[G1-D packet](../plans/G1_D_DECISION_PACKET.md#6-acceptance-record--partial).
-G1-P implementation has not been authorized by this acceptance alone.
+persistence and closure, now including snapshot capture and separate versioned
+saves. D1–D10 directions are accepted for their recorded scope in the
+[G1-D packet](../plans/G1_D_DECISION_PACKET.md#6-acceptance-record--accepted-directions).
+Concrete project offers, engagement requirements, unlock mapping and prototype
+capacity still need a scoped G1-P task. Design acceptance alone does not request
+runtime implementation.
 
 ## Player verbs — LOCKED DESIGN
 
@@ -360,8 +398,8 @@ the minimum usable capture when the run needs it; advanced recording work can wa
   controls/connection conversions are useful without misleading the player?
 - What experience makes exploratory objectives legible without reducing them
   to tonality, amplitude, or topology bonus checks?
-- How should capture support discovery: audio only, patch snapshot, performance
-  replay, or a later library? S0 commits to none of those storage designs.
+- How should archive browsing, branch restoration and explicit dependency
+  resolution make the accepted snapshot model useful and understandable?
 - Which outer-loop systems survive playtesting, and how are existing saves
   handled if their meaning eventually changes?
 - How should deliberate silence, unstable feedback and slowly evolving patches
@@ -369,9 +407,8 @@ the minimum usable capture when the run needs it; advanced recording work can wa
 - What timing and lifecycle architecture remains responsive under sustained
   modulation/feedback on target browsers and modest hardware?
 
-Present the remaining project-progression and system-retention questions in
-G1-D for joint review. Persistent studio/finite projects and player-chosen project
-closure are accepted; the overall studio ending is deferred. Implement
-G1-P only after user acceptance. Use listening evidence
+D1–D10 structural directions are accepted; scope concrete G1-P content and its
+implementation task using those decisions. The overall studio ending remains
+deferred. Use listening evidence
 and an end-to-end prototype to refine the structure before expanding content or
 audio fidelity. Catalogue promises and illustrative objectives are not requirements.

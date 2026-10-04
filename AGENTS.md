@@ -30,7 +30,7 @@ D9-A is accepted for G1-P: no destructive failure, explicit revise/retry/abandon
 free-studio recovery. Projects may close doors; they do not erase the player's work.
 D9-B is reserved for later optional events with studio/history safe; D9-C is
 incompatible. D7/D10 must ensure returned audition modules never silently break
-preserved patches/archive items; the preservation mechanism remains open.
+preserved patches/archive items; use the accepted Studio/Project/Archive model.
 D2-A is accepted for G1-P: chosen tone/noise source, Filter, LFO and Output;
 other source available very early, no class/genre/difficulty/permanent branch.
 The starter kit teaches relationships, not a canonical signal chain.
@@ -40,6 +40,17 @@ eviction, forced selling, slot prices or module destruction. Rack space is a
 compositional constraint, not a progression currency. G1-P uses a fixed modest
 limit; exact capacity is prototype tuning, not inherited 10/12/48. Expansion as
 progression is deferred; do not implement a repeating +2-slot ladder.
+D7: snapshots with optional title/note required for every closed project in G1-P;
+optional audio long-term, never required for closure. D10-A: separate versioned
+new-studio save, legacy untouched; load never autostarts audio. Persist owned
+modules, current studio patch, project/loans, progression/unlocks and archive.
+Projects are working branches; archives are immutable and preserve borrowed
+dependencies without granting ownership. A missing dependency is a state to
+explain, never a cable to silently delete. On archive reopen/fork, show unavailable
+dependencies with reacquire/substitute/retain-as-archive choices. Exact schema,
+content and resolution UI need a concrete task; no runtime implementation requested
+by design acceptance alone. No perfect replay, migration or long-term DSP
+compatibility required for G1-P.
 Follow the sequence in `docs/design/GAME_DESIGN.md`: structure, rack experience,
 content, end-to-end playability, then serious audio refinement. Clock/GATE or
 S1-B work needs a concrete gameplay reason; it is not the default next task.

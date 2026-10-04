@@ -1,6 +1,7 @@
 # G1 — Game Structure / Progression Prototype
 
-**NEXT: G1-D — design archaeology and decision packet only. No code.**
+**D1–D10 directions accepted; next scope a concrete G1-P task. No runtime work
+requested by this document update.**
 G1 is split into two stages. The worker must not silently decide the game because
 systems happen to exist in the old shell.
 
@@ -14,14 +15,17 @@ systems happen to exist in the old shell.
 
 The [G1-D decision packet](G1_D_DECISION_PACKET.md) is a review artifact.
 Recommendations are not locked design. User acceptance must be recorded with
-the chosen alternatives, changes and unresolved items before G1-P begins.
+the chosen alternatives, changes and unresolved items before G1-P begins. The
+directions are now accepted for the recorded scope; concrete content and the
+implementation task remain to scope.
 
 **Accepted so far:** D1-B, persistent studio with finite projects; D8-A for
 G1-P, player chooses a result/version to keep and closes the project without
 musical grading. Studio, owned modules, discoveries and archive persist; closure
 does not reset the studio or destroy a patch. The overall studio ending is
 deferred, and G1-P imposes none. Any later chapter/finale leaves the studio usable.
-Other choices remain pending; this partial acceptance does not authorize G1-P.
+Concrete prototype choices remain to scope; design acceptance alone is not an
+implementation request.
 
 **D2-A accepted for G1-P:** one chosen source (tone or noise), Filter, LFO and
 Output. This is starting material, not class/genre/difficulty/permanent branch;
@@ -59,7 +63,24 @@ D9-B remains a later optional situated-event pattern with the studio/history saf
 D9-C is incompatible with the chosen structure. **Projects may close doors; they
 do not erase the player's work.** D7/D10 must resolve how temporary audition
 modules return without ever silently breaking a preserved patch or archive item;
-the requirement is locked, the mechanism remains open.
+the requirement is locked and the accepted preservation model follows below.
+
+**D7 accepted:** B long-term, A required in G1-P. Every closed project stores a
+patch snapshot plus optional title/note. Optional audio comes later when reliable;
+recording is never required for closure. **D10-A accepted:** separate versioned
+new-studio save, leaving legacy save untouched; persist owned modules, current
+studio patch, active project/loans, structural progression/unlocks and archived
+snapshots. Loading never autostarts audio.
+
+The preservation model is now accepted: **Studio** is what the player owns and
+freely uses; **Project** is its own working branch that may contain loans;
+**Archive** is the immutable record including borrowed dependencies even when
+not retained as owned. **Archives preserve dependencies without granting ownership.**
+On reopen/fork, unavailable dependencies are shown with reacquire/substitute/
+retain-as-archive choices. **A missing dependency is a state to explain, never
+a cable to silently delete.** Never remove the module/cables silently or grant
+general studio use merely by archiving. No perfect replay, legacy migration or
+long-term DSP compatibility required for G1-P. Exact schema/UI remain to scope.
 
 Governing rule: **Audio fidelity is deferred; audio architecture is not.**
 Reuse the working Studio engine and S1-A's authoritative visible graph. Crude
@@ -111,6 +132,10 @@ as already answered or turn a worker recommendation into implementation authorit
 | End state | What a completed run means, how the player recognizes it, and whether continued exploration or a new run follows. |
 | Save/resume | What must persist across the run, how patch and progression state relate, and how existing saves are preserved or explicitly migrated. |
 
+This table records the original G1-D review areas. D1–D10 now answer their
+structural direction for G1-P; use the acceptance record rather than reopening
+those choices or treating the table as permission to design replacements.
+
 For each proposed system, name the player action, consequence, reason to repeat
 it and interaction with the audible patch. Describe a concrete first session,
 middle progression and late-game/completion path. Separate locked decisions,
@@ -118,7 +143,7 @@ illustrative content and questions that require playtesting.
 
 ## Small progression prototype
 
-Only after the user accepts the structure, G1-P scopes the smallest playable slice that can test
+With the structural directions accepted, scope the smallest G1-P slice that can test
 its transitions with existing crude audio. Prefer a small authored palette and
 a few representative opportunities over a catalogue or a complex economy.
 Specify the slice's starting state, acquisition/discovery step, unlock, capture
