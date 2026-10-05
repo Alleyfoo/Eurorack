@@ -1,7 +1,8 @@
 # R1 catalogue source audit and contradiction report
 
-2026-10-05. Review draft against `2541d6b`. No runtime changes or acceptance of
-the new roles. Read with [role review](R1_FUNCTIONAL_ROLE_REVIEW.md),
+2026-10-05. Source comparison against `2541d6b`; runtime unchanged. R1 was later
+accepted in direction with [four amendments](../plans/R1_ACCEPTANCE_AMENDMENTS.md).
+Read with [role review](R1_FUNCTIONAL_ROLE_REVIEW.md),
 [behavior vocabulary](../design/MODULE_DEFINITION_DRAFT.md) and
 [coverage matrix](R1_PATCH_FAMILY_COVERAGE.md).
 
@@ -26,9 +27,13 @@ documents are secondary evidence. Historical names, ordering and metadata cannot
 be independently certified against the original in this session. In particular,
 the three absent entries have **recovery-document evidence only**. Do not call
 them source-verified, invent historical IDs, or overwrite conflicting metadata.
-The coverage pass uses the roadmap's 15 explicit families and primary manufacturer
-manuals for functional distinctions; it does not claim to reproduce the missing
-research's full requirements. Original-source corroboration remains an exit item.
+The original coverage pass used the roadmap's 15 explicit families and primary
+manufacturer manuals. The user subsequently corroborated the bible's real-module/
+port/recipe direction and the research's functional network vocabulary, and added
+the 16th synthesized-percussion family. This is user-supplied corroboration, not
+direct agent inspection of the originals. General direction/vocabulary evidence
+is now accepted; exact historical metadata remains annotated. It does not require
+another broad research pass before separately authorizing the seven-behavior seam.
 
 ## Contradictions and proposed disposition
 
@@ -48,6 +53,7 @@ research's full requirements. Original-source corroboration remains an exit item
 | #95 | Precision addition cannot maintain a frequency ratio under arbitrary linear FM. | Specify pitch-domain addition/transposition. Ratio controls belong to the oscillator contract, especially #8. |
 | #64 / #70 / #71 / #84 | “buffer” alone does not distinguish four processors. | Continuous overlapping grains / clocked slice reordering / contiguous tape looping / independent triggered sample voices. Asset and buffer preservation are separate required state decisions. |
 | #42 / master safety | A musical feedback soft limiter could be mistaken for guaranteed speaker protection. | Character limiter is local musical behavior; existing master safety remains mandatory regardless of installed modules. |
+| #94 / transparent fan-out | The original pure-mult contract offers no useful behavior beyond free cable branching while occupying rack space. | Amend #94 to independently transposed pitch/divided-clock lanes. Retain free fan-out and the historical KEEP label; record the functional change explicitly. Buffering alone is not a gameplay distinction. |
 | S1-A vs proposed instrument | Current `patchModel.ts` has seven kinds and no active GATE ports. Pitch is CV into `osc.detune` with route scale 1200; filter CV scale 2400; gain CV scale 0.5. | Preserve these exact semantics in R2's first adapter. Future pitch-octave semantics require an explicit versioned conversion, never reinterpret saved values. |
 | Capability vs actual runtime | Catalogue descriptions promise many things the current seven-kind graph doesn't implement. | Mark registry entries implemented/planned separately. Never silently render a missing processor as an oscillator or generic gain. |
 
@@ -55,9 +61,11 @@ research's full requirements. Original-source corroboration remains an exit item
 
 All 100 current-source comparisons and all 53 rework/donor recommendations are
 recorded. The split is preserved as archaeology, not reclassified to disguise
-role changes. Proposed contracts are reviewable but unapproved. R2 remains gated
-on acceptance plus original-source corroboration or an explicit decision to
-proceed with documented provenance gaps. No `constants.ts`, runtime/save schema,
+role changes. R1 is accepted in direction with four amendments, documented in the
+acceptance record. R2 awaits explicit implementation authorization after this
+correction pass; general source-direction corroboration has been supplied by the
+user. Exact historical annotations remain without blocking that small seam.
+No `constants.ts`, runtime/save schema,
 DSP, starter presets or adventure UI changes belong to this pass.
 
 ## Row evidence

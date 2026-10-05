@@ -19,7 +19,8 @@ The recovered project identity and long-horizon production order are now recorde
 `docs/archive/OLD_DESIGN_BIBLE_RECOVERY.md` records which old world/story ideas
 survive and which incremental mechanics are superseded.
 `docs/content/MODULE_CATALOGUE_REHAB_V1.md` is the 100-module rehabilitation
-proposal; its new functional-role assignments are design proposals until reviewed.
+proposal; read it with the amended R1 role review and acceptance record. Functional
+direction is accepted; exact future panels/DSP and runtime implementation remain scoped.
 
 Audio fidelity is deferred; audio architecture is not. D1–D10 acceptance is
 recorded in `docs/plans/G1_D_DECISION_PACKET.md`. A subsequent user work order
@@ -47,11 +48,16 @@ Unsupported/corrupt saves remain stored and show an error instead of resetting.
 Only one working branch is supported in this slice. Optional audio recording,
 legacy migration and perfect DSP replay remain outside scope.
 
-The immediate next milestone is **R1 — rehabilitate the 100-module catalogue**
-from `PROJECT_REVIVAL_ROADMAP.md`: verify the recovered rows against source,
-resolve the 45 REWORK and 8 DUPLICATE/donor proposals, draft the canonical
-ModuleDefinition/ports/controls vocabulary, and produce the research-family
-coverage matrix. Stop for review before runtime catalogue migration.
+**R1 is accepted in direction with four amendments**, recorded in
+`docs/plans/R1_ACCEPTANCE_AMENDMENTS.md`: directly mapped CV → pitch, 16-family
+coverage including synthesized percussion, #94 pitch/clock distribution with
+free fan-out, and a narrow R2 boundary. The documentation correction pass does
+not authorize R2. Stop until the user explicitly authorizes its implementation.
+Then implement only the seven existing behaviors through the definition/behavior/
+instance/port/control seam, with preset and archive preservation fixtures.
+Do not build the full capability ontology, event algebra/scheduler, resource
+manifest/store or 100-module validation universe in R2. Historical metadata gaps
+remain annotated; don't restart broad research as a prerequisite for that seam.
 
 The current G1-P tiny starter and six ordinary-module limit are historical
 prototype evidence, not the target full-game onboarding. The full game is now

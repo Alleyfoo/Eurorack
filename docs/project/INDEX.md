@@ -23,7 +23,10 @@ For the R1 design-review gate, read the
 [100 functional-role contracts](../content/R1_FUNCTIONAL_ROLE_REVIEW.md),
 [module-definition draft](../design/MODULE_DEFINITION_DRAFT.md) and
 [patch-family coverage witnesses](../content/R1_PATCH_FAMILY_COVERAGE.md).
-These are review drafts; no catalogue/runtime migration is authorized by them.
+R1 is accepted in direction with [four amendments](../plans/R1_ACCEPTANCE_AMENDMENTS.md).
+The corrected packet covers 16 families and narrows R2 to the seven-behavior seam
+with preset/archive preservation fixtures. R2 implementation awaits explicit
+authorization; historical metadata annotations do not require renewed broad research.
 Next, read [G1 — Game Structure / Progression Prototype](../plans/G1_GAME_STRUCTURE_PROPOSAL.md).
 Its [G1-D decision packet](../plans/G1_D_DECISION_PACKET.md) now records accepted
 D1–D10 directions and provisional content recommendations. The user's subsequent

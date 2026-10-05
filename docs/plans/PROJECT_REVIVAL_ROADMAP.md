@@ -103,14 +103,17 @@ A new worker can explain:
 
 # R1 — Rehabilitate the 100-module catalogue
 
-**2026-10-05 review draft available:**
+**2026-10-05: R1 accepted in direction, with four documentation amendments.**
+See the [acceptance record](R1_ACCEPTANCE_AMENDMENTS.md) and amended packet:
 [source audit](../content/R1_CATALOGUE_SOURCE_AUDIT.md),
 [role contracts](../content/R1_FUNCTIONAL_ROLE_REVIEW.md),
 [behavior vocabulary](../design/MODULE_DEFINITION_DRAFT.md),
 [coverage matrix](../content/R1_PATCH_FAMILY_COVERAGE.md).
-All 100 current-source rows and 53 rework/donor proposals are reviewed. Original
-bible/catalogue and synthesis research corroboration remain pending because the
-originals are not in the checkout. No role acceptance or R2 implementation yet.
+All 100 current-source rows and 53 rework/donor proposals are reviewed. The user
+corroborated the original bible/research's functional direction and added
+percussion coverage. Exact historical metadata gaps remain annotated, not a
+requirement for another broad research pass. Review the four amendments; R2 still
+requires explicit implementation authorization.
 
 ### Goal
 
@@ -189,15 +192,21 @@ functional roles. At minimum cover:
 - Krell/self-running patch;
 - tape/microsound;
 - sample kit.
+- complex / percussive synthesis (added by the user's R1 review).
 
 ### Exit gate
 
 Stop for design review once the catalogue roles and behavior vocabulary are
 coherent. Do **not** implement 100 DSP modules in R1.
+The current gate is review of the four amendments: direct mapped CV → pitch,
+16th percussion witness, useful #94 pitch/clock distribution, and narrowed R2.
 
 ---
 
 # R2 — Build the data-driven module foundation
+
+**Not yet authorized.** The scope below supersedes broader implementation
+suggestions in the conceptual schema. Acceptance of R1 direction does not start R2.
 
 ### Goal
 
@@ -206,9 +215,10 @@ layer while keeping existing routes working.
 
 ### Deliverables
 
-- Add the canonical `ModuleDefinition` / port / control / capability types.
-- Add a registry for reusable runtime behaviors.
-- Represent the existing S1-A behaviors through the new registry first:
+- Add minimal `ModuleDefinition` / behavior / instance / port / control / patch
+  types, stable IDs and version identity. Optional descriptive metadata is enough;
+  no capability ontology or generic claim-validation engine.
+- Add a direct registry/binding seam for exactly the existing S1-A behaviors:
   oscillator, noise, filter, VCA, LFO, delay and Output.
 - Keep module identity separate from behavior: several fictional modules may
   later use related processors with different controls/character.
@@ -221,16 +231,27 @@ layer while keeping existing routes working.
   - missing behavior definitions.
 - Provide an adapter boundary so legacy `MASTER_POOL` does not suddenly become
   the new audio authority.
+- Prove one explicit ordinary preset fixture round-trips and builds through the
+  seam. Prove existing Studio/project/archive round trips preserve exact IDs,
+  controls, cables and dependency provenance, with immutable originals and
+  unchanged explicit loan/substitution handling. No starter-selection UI needed.
+- Preserve S1-A numeric ranges, CV scaling (including LFO → pitch), audio cycle
+  policy and Studio context/master lifecycle. Loading never starts sound.
 
 ### Non-goals
 
-No broad catalogue DSP implementation. No new adventure UI. No starter selection
-until patch serialization is stable.
+No full capability ontology, event algebra/scheduler, resource manifests/store,
+100-module registry/validation universe, new DSP, stereo Output, broad catalogue
+migration, new adventure UI or starter-selection/content suite. Minimal version
+checks and existing archive preservation are required; future asset/buffer and
+cross-definition compatibility machinery wait for the behavior that needs them.
 
 ### Exit evidence
 
 A patch can be described purely as module definitions/instances/cables and built
-by the existing visible graph without display-name conditionals.
+by the existing visible graph without display-name conditionals. An ordinary
+preset fixture and existing archive/dependency flows preserve their exact data
+through that seam. All three routes and save boundaries retain current behavior.
 
 ---
 
@@ -503,16 +524,10 @@ The Sampo remains a special mythic capstone idea. Do not reduce it to “Utility
 
 # Immediate next work order
 
-After R0 documentation is committed, Codex should start **R1 only**:
-
-1. Verify the 100-row rehabilitation table against current `constants.ts` and
-   recovered historical evidence.
-2. Produce a contradiction report for names, manufacturers, missing entries and
-   duplicate identities.
-3. Review the 45 REWORK proposals and eight donor slots for functional overlap.
-4. Draft the canonical module-definition / port / control vocabulary.
-5. Produce the research-family coverage matrix.
-6. Stop for review before runtime/catalogue migration.
-
-This is intentionally enough work for a substantial Codex session without giving
-it permission to redesign the game or implement a hundred synthesizers.
+R1 is accepted in direction and the four-amendment documentation pass is recorded
+in [R1 acceptance](R1_ACCEPTANCE_AMENDMENTS.md). Review the amended pitch policy,
+percussion witness, #94 contract and narrow R2 checklist. **Stop before runtime
+work until the user explicitly authorizes R2.** Once authorized, follow only the
+seven-behavior scope above and the schema's R2 implementation boundary. Exact
+catalogue-history annotations can remain follow-up evidence; don't restart broad
+research or build future-phase infrastructure to clear this gate.

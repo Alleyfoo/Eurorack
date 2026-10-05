@@ -1,7 +1,9 @@
 # R1 patch-family coverage — constructive design witnesses
 
-2026-10-05. Uses the **15 minimum families named in R1-C**, not a claim to have
-read the unavailable original research. Each witness demonstrates a path through
+2026-10-05. Covers **16 families**: the original 15 R1-C families plus the user's
+research-backed complex/percussive synthesis amendment. See the
+[acceptance/source-corroboration record](../plans/R1_ACCEPTANCE_AMENDMENTS.md).
+The agent has not directly read the original research. Each witness demonstrates a path through
 the [proposed role contracts](R1_FUNCTIONAL_ROLE_REVIEW.md), including control/
 event relationships. These are design graphs, **not runnable presets or audio
 tests**. No catalogue role is implemented by this pass. Current seven-kind
@@ -20,8 +22,9 @@ grading requirements. Unplugged silence remains a valid alternative.
 | Family | Required capabilities and catalogue homes | Concrete proposed cable witness | Dependencies / limitations |
 |---|---|---|---|
 | Subtractive voice | rich periodic source #2; low-pass #11; ADSR #31; gain #41; pitch/gate sequence #76; clock #79 | #79 clock → #76 clock; #76 pitch → #2 pitch; #76 gate → #31 gate; #2 audio → #11 audio → #41 signal → Output; #31 envelope → #41 gain. | Set gain bias zero and ADSR sustain above zero for this articulated example. True ladder character deferred; current graph can approximate only continuous source/filter/VCA. |
-| Pad / drone | dual source #6 or cluster #9; slow phase modulation #23; open VCA #41; reverb #61 | #6 a/b audio → #87 a/b → #41 → #61 → Output; #23 phase0 → #41 gain with open bias. | #6 a/b frequency controls establish beating; no generic CV-to-pitch cable is assumed. Stereo spread via #9/#68 is an optional extension requiring stereo Output. |
+| Pad / drone | dual source #6 or cluster #9; slow phase modulation #23; open VCA #41; reverb #61 | #6 a/b audio → #87 a/b → #41 → #61 → Output; #23 phase0 → #41 gain with open bias; phase90 → #6 pitch-b directly using its generic-CV depth mapping. | #6 a/b frequency controls establish beating; small pitch depth adds drift, without a converter or quantizer. Stereo spread via #9/#68 is an optional extension requiring stereo Output. |
 | Pluck / LPG | source #1; LPG #13; transient excitation/event #77/#79 | #79 → #77; #77 lane1 trigger → #13 strike; #1 audio → #13 → Output. | Strike produces the advertised LPG decay. Alternative #33 → #41 plus #11 uses separate amplitude/filter envelopes. No pitch sequence required for a repeated pluck. |
+| Complex / percussive synthesis | pitched body #1/#8; transient/noise #56; three independent AD envelope instances #33; pitch-depth trim #93; separate gain instances #41; mixer #87 | #79 → #77; lane1 trigger fans freely to #33 pitch/body/noise envelopes and #56. Pitch envelope → #93 → #1 pitch directly as mapped CV; #1 audio → #41 body; #56 audio → #41 noise; body/noise envelopes → their respective gains; both gain outputs → #87 → Output. | Separate pitch/body/noise decays create a struck body and short noisy attack. Optional #8 external FM adds inharmonicity; #56 → #10 adds a resonant branch. These are synthesized elements with no sample kit or obligatory LPG. Positive AD durations, zero gain biases and explicit pitch depth required; event/AD behavior is future scope. |
 | Noise texture | continuous colored noise #57; filter #11/#19; slow modulation #21/#58; gain #41; time processing #62 | #57 → #19 → #41 → #62 → Output; #58 → #19 center; #21 → #41 gain. | Center input must declare generic CV-to-frequency mapping. Open gain bias permits breaths rather than only abrupt negative clipping. Delay may be feed-forward; feedback optional. |
 | FM / PM | carrier #8; independent audio modulator #1/#6; modulation-depth scaling #93 or #41; index contour #33 | #1 audio → #93 lane1 → #8 linear-fm; #8 audio → Output. Separate PM variant connects that output to #8 phase inlet instead. #33 envelope → #8 index, triggered manually or by #77. | #8 requires real audio-rate linear-FM and phase bindings with separate units. Generic S1-A pitch-CV detune is insufficient. Through-zero FM is not implied. |
 | Wavetable | table source #3; independent pitch #76/#99; position modulation #23/#25; scaling #93 | #76 pitch → #3 pitch; #25 a → #93 lane1 → #3 position; #3 audio → Output; #79 → #76. | Valid bundled table assets; separate position and pitch inputs. No fallback ordinary oscillator qualifies as wavetable coverage. |
@@ -35,10 +38,17 @@ grading requirements. Unplugged silence remains a valid alternative.
 | Tape / microsound | contiguous capture #71; clocked slice reassembly #70; CV speed control #23/#93; clock #79 | #57 audio → #71 record; #71 audio → #70 record → Output; #23 → #93 → #71 speed; #79 clock → #70 advance. | First capture material deliberately. Keep contiguous speed/reverse loop distinct from rearranged slices. #59 can degrade material but cannot substitute for either buffer function. Assets/frozen buffers must survive or be explicitly reported missing. |
 | Sample kit | independent sample lanes/assets #84; multi-lane triggers #77; clock #79; per-lane levels #87/#86 or declared kit mix | #79 → #77; lane1–4 triggers → #84 lane1–4; #84 mix → Output. Optional separate audio outputs route to a mixer. | Require four asset mappings and explicit choke/polyphony/retrigger settings. Bundled fictional kit can demonstrate it; no sample import service or cloud dependency implied. Current Rhythm Scratcher has no audio samples/output. |
 
-The pad witness deliberately omits a generic CV-to-pitch connection: #6's minimum
-P inlet does not accept an unscaled C output. Event witnesses use the explicitly
-proposed inlet adapters in the role review. These checks are why a catalogue name
-or a list of generic CV ports is insufficient evidence.
+Pitch inlets directly accept generic CV under their declared mapping, including
+the pad's LFO and percussion pitch envelope. Calibrated pitch metadata remains
+useful for sequencing and precision sums. Event witnesses use the explicitly
+proposed inlet adapters in the role review.
+
+#94's amended pitch/clock bank can optionally replace a plain timing/pitch split
+in a multi-voice witness: #76 pitch → #94 pitch, #79 clock → #94 clock; independent
+lane pitch outputs → separate oscillator instances and lane clocks → their AD
+envelope triggers. Lane transpositions/divisions create contrasting voices while
+ordinary direct duplication still costs no rack space. It is optional coverage,
+not required hardware or an R2 behavior.
 
 ## A causal witness worth checking carefully
 
@@ -64,7 +74,7 @@ these events is later behavior work, not part of R1.
 
 ## What coverage does and does not establish
 
-All 15 roadmap families have proposed functional homes and explicit witnesses.
+All 16 amended roadmap families have proposed functional homes and explicit witnesses.
 Some require settings/assets/adapters or event support yet to be defined precisely.
 Current source proves none of the broader module identities' DSP contracts. It
 provides continuous oscillator/noise/filter/VCA/LFO/Delay/Output behavior, so only
@@ -76,7 +86,8 @@ The manual checks support a few important distinctions: resonator versus exciter
 FM versus pitch modulation, event completion versus clock, stochastic recurrence
 versus independent choices, and granular capture versus looping material. The
 following are primary references for those distinctions, not replacements for
-the unavailable project research:
+the project research's full text, whose relevant direction was corroborated by
+the user rather than directly inspected by the agent:
 
 - [Rings](https://pichenettes.github.io/mutable-instruments-documentation/modules/rings/manual/): external excitation and resonant material controls.
 - [DPO](https://www.makenoisemusic.com/wp-content/uploads/2024/03/dpo-manual.pdf): separate linear/exponential FM inputs and depth.
@@ -87,8 +98,10 @@ the unavailable project research:
 
 ## Gaps to keep visible at review
 
-- Original bible/catalogue and research-source corroboration remain pending.
-  Original research may name more families or stronger requirements than these 15.
+- User-supplied corroboration closes the general bible/research direction gap and
+  identifies percussion as an additional family. Exact historical metadata and
+  any further unquoted research requirements remain annotated; another broad
+  research pass is not a prerequisite for the seven-behavior seam.
 - Vocal/formant means vowel-like timbre; speech/vocoder capability has no accepted home.
 - #100 intentionally has no coverage role. Output/master safety is infrastructure,
   never an acquisition gate. Input capture/import is also not assumed implemented.
@@ -99,6 +112,7 @@ the unavailable project research:
 - Several processors can serve multiple identities. No implication that all 100
   must ship before a playable chapter or that serious DSP precedes game completion.
 
-Review the role changes and vocabulary first. After acceptance, R2 implements only
-the data model/registry seam around existing behavior. Starter presets remain R3;
+R1 is accepted in direction; review the four amendments before authorizing R2.
+R2 is only the seven-behavior seam with preset/archive preservation fixtures, not
+the capability/event/resource frameworks described for later phases. Starter presets remain R3;
 broader crude capabilities remain R5 and serious DSP remains R9.

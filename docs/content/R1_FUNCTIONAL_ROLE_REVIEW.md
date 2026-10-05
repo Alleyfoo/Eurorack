@@ -1,6 +1,8 @@
 # R1 functional role review — all 100 slots
 
-2026-10-05. **Recommendations for review, not accepted runtime definitions.**
+2026-10-05. **Accepted in direction, with four documentation amendments.** See
+[acceptance record](../plans/R1_ACCEPTANCE_AMENDMENTS.md). These remain future
+contracts, not implemented runtime definitions or finalized panel/DSP specifications.
 The historical 47 KEEP / 45 REWORK / 8 DUPLICATE split stays unchanged.
 KEEP means retain a useful concept; it does not certify its legacy ports or DSP.
 See [source audit](R1_CATALOGUE_SOURCE_AUDIT.md) for exact names/IDs/provenance,
@@ -12,8 +14,11 @@ processor count or implementation order. `A` = mono audio; `C` = generic CV;
 `P` = octave-relative pitch CV; `G` = sustained gate; `T` = trigger edge;
 `K` = clock pulse stream; `L/R` = two separate audio ports. Arrows give direction.
 “depth” is the amount of a named modulation input, not a generic score multiplier.
-All controls require typed ranges/defaults during R2; only the existing seven
-S1-A kinds receive exact initial adapter contracts in that phase.
+Only the existing seven S1-A kinds receive typed ranges/defaults and adapter
+contracts in R2. Other contracts receive exact ranges when their behavior is scoped.
+Every P inlet also accepts generic C directly through a declared pitch-depth
+mapping (default one octave per unit unless stated otherwise). P retains calibrated
+octave units for sequencing/precision arithmetic; LFO → pitch needs no converter.
 
 Proposed event-inlet adapters used by the coverage witnesses: #13 strike, #33
 trigger, #52 sample and #55 event input consume a CLOCK's rising edges; #56 trigger
@@ -182,7 +187,7 @@ motivates #83 without making it a hardware clone.
 | 91 KEEP | Cloudform Mod Matrix | `mix.cv-matrix`; C inputs/outputs1–4 | manual signed cell coefficients, output offsets; many-to-many CV combination, no per-cell gain-CV ports as in #45. |
 | 92 KEEP | Grandma’s Patch Shelf | `route.mult-trim`; A/C in, A/C copies out | manual trim per copy; simple mult plus attenuation. Ideal digital duplication, no simulated passive loading. |
 | 93 REWORK | Solar Quad Attenuator | `cv.attenuvert-quad`; A/C inputs/outputs1–4 | signed gain per lane; independent attenuation/inversion with no offset. |
-| 94 KEEP | Thunderclap Mult | `route.mult`; A/C/G in, copies out | none; pure transparent fan-out, including events. Branching cables may already perform this; retain a physical grouping role without claiming a unique DSP necessity. |
+| 94 KEEP | Thunderclap Mult | `route.pitch-clock-bank`; P in (C mapped), K in, T reset in, P/K paired outputs1–4 | per-lane interval transpose, integer clock division, enable; several independent pitch/time relationships. Pitch-only or clock-only use valid. Functional amendment to historical KEEP; ordinary fan-out remains free. |
 | 95 REWORK | Crystal Linker | `pitch.add`; P a/b in, P sum out | transpose; precise octave-domain sum. A constant offset implies transposition, not multiplication of linear FM frequencies. |
 | 96 KEEP | Vapor Flux Switch | `route.switch`; A/C/G a/b in, G select in, same-domain out | manual selection, switching fade policy; two-way selected route, unlike clock-advanced #82. |
 | 97 REWORK | Elder Chain Mixer | `mix.dc`; A/C a/b in/out | signed levels, master; DC-coupled modulation/audio sum. Does not advertise pitch calibration unless that is explicitly tested. |
@@ -190,15 +195,17 @@ motivates #83 without making it a hardware clone.
 | 99 REWORK | Rune Divider | `pitch.quantize`; C in, P out, T note-change out | allowed intervals, root, octave range; optional pitch constraint. No clock division and no musical success grading. |
 | 100 KEEP | Sampo Module | `story.sampo` RESERVED; ports TBD | Fictional capstone preserved. No registered processor, silent fallback or coverage credit until later authored scope. |
 
-## Decisions proposed at this gate
+## Direction accepted at this gate
 
-1. Retain all 100 identities and the historical split. Approve the eight donor
+1. Retain all 100 identities and the historical split. Retain the eight donor
    directions as revised here, without deleting or renaming slots by accident.
 2. Prefer composable distinctions over rarity-based versions: #39 peak latch,
    #89 window detector, #25 correlated targets, #58 walk, #18 resonant filter loop,
    #67 tuned comb, #47 track/hold, #52 edge sample/hold, #48 opto gain.
 3. Allow processor reuse: #17/#19 can configure a filter core; #35 configures AR;
-   #46/#49 share a multiplier core; #92/#94 share fan-out; #61/#75 share reverb.
+   #46/#49 share a multiplier core; #61/#75 share reverb. #94 can reuse pitch
+   offset/clock-divider processing but exposes paired independent lanes; simple
+   duplication is not its gameplay justification.
    Useful controls and routing distinguish fictional products. A catalogue slot
    need not justify a wholly separate DSP implementation.
 4. Keep manufacturer/history independent of acquisition provenance. Resolve #63/
@@ -206,5 +213,11 @@ motivates #83 without making it a hardware clone.
 5. Reserve Sampo. Treat assets, buffers, event execution and feedback as explicit
    contracts in the schema, not deductions from marketing descriptions.
 
-These are worker recommendations. Review may accept a subset or revise a role;
-neither this document nor a coverage witness authorizes runtime implementation.
+The user accepted these distinctions and the overall direction, requesting the
+CV/pitch, percussion, #94 and R2-boundary amendments recorded in the acceptance
+document. #94 now distributes independently transposed pitches and divided clocks;
+#95 sums pitches, #98 shifts one operating point and #85 changes a single clock
+ratio. Buffered precision alone would not distinguish #94 from ideal cable fan-out.
+The amended #94 is the concrete resolution selected for this correction pass,
+not an implemented processor. Neither direction acceptance nor a coverage witness
+authorizes runtime implementation; R2 remains a separate authorization gate.

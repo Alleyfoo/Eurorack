@@ -1,10 +1,13 @@
 # R1 draft — module definitions, ports, controls and capabilities
 
-2026-10-05. **Design proposal only.** No exported TypeScript types, registry or
+2026-10-05. **Accepted in direction, amended at the R1 gate.** See the
+[acceptance record](../plans/R1_ACCEPTANCE_AMENDMENTS.md). No exported TypeScript types, registry or
 save migration is implemented here. Read the [role contracts](../content/R1_FUNCTIONAL_ROLE_REVIEW.md),
 [source audit](../content/R1_CATALOGUE_SOURCE_AUDIT.md) and
 [coverage witnesses](../content/R1_PATCH_FAMILY_COVERAGE.md). R2 starts only after
-review; initially it adapts the seven existing S1-A kinds, not the entire catalogue.
+explicit authorization; it adapts only the seven existing S1-A kinds. The broad
+shapes and vocabulary below describe future contracts, not the R2 implementation
+checklist. Capability ontology, event execution and resource manifests are deferred.
 
 ## Identity and ownership
 
@@ -77,7 +80,7 @@ The registry checks that the port binding exists on the selected behavior versio
 |---|---|---|
 | AUDIO | Continuous sound, nominal normalized samples; mono jack unless explicit stereo bundle. | Channel mapping, DC handling, gain/clipping; out-of-nominal values can be musical. |
 | CV | Continuous generic dimensionless control, usually bipolar [-1,1] or unipolar [0,1]. | Range and transfer function; Hz modulation, parameter fraction and gain are different bindings. |
-| PITCH_CV | Continuous logarithmic pitch: 1 unit = one octave, 0 = definition's declared reference frequency. | Reference Hz, sum/transpose law and bounds; quantization is optional processing. |
+| PITCH_CV | Calibrated logarithmic pitch within the continuous CV family: 1 unit = one octave, 0 = definition's declared reference frequency. | Reference Hz, sum/transpose law and bounds; generic CV also connects using the inlet's declared pitch mapping. Quantization is optional processing. |
 | GATE | High/low state with duration. | Sustain/release, threshold/hysteresis when converting an analog waveform, behavior on disconnect. |
 | TRIG | Timestamped rising-edge event. | Pulse width if rendered continuously, retrigger policy and response latency. |
 | CLOCK | Timestamped pulse stream used for period/advance semantics. | Start/stop/reset policy, missing-clock timeout, ratio and phase semantics. |
@@ -86,16 +89,16 @@ EOC/EOS/sync describe a port's **meaning**, not extra signal domains. A completi
 port can emit a gate or trigger, but must declare which. Clock is a timing role
 with stronger consumer expectations than an arbitrary event. “Audio-rate” is a
 processing-rate requirement, not a seventh domain or permission to reinterpret
-an audio cable as calibrated pitch. Internal signal representation is an R2/R5
-implementation choice, constrained by these meanings.
+an audio cable as calibrated pitch. R2 retains the current AUDIO/CV representation;
+extended signal/event representation is a later scoped implementation choice.
 
 ### Connection policy proposal
 
 | From → to | Default |
 |---|---|
 | Matching domains | Connect if direction, channels, cardinality and binding agree. |
-| PITCH_CV → CV | Only a port explicitly accepting pitch units; no normalized-CV assumption. |
-| CV → PITCH_CV | Only an explicit pitch-mapping inlet or a converter such as #99. No mandatory scale quantization. |
+| PITCH_CV → CV | Patchable continuous CV; the receiving port declares how octave-valued numbers affect its parameter, including depth/bounds. Preserve calibrated metadata where precision is promised. |
+| CV → PITCH_CV | Directly patchable using the pitch inlet's declared generic-CV depth/transfer law. No converter or quantizer required for LFO → pitch. |
 | AUDIO → modulation/FM/PM | Only an explicit audio-rate input declaring units, depth and processing rate, such as #8. |
 | CLOCK → TRIG | Allowed only where the input declares rising-edge consumption; reset/transport metadata does not transfer. |
 | GATE → TRIG | Explicit rising-edge adapter on that input. Held high fires once, not every frame. |
@@ -110,10 +113,21 @@ domains need an explicit conversion. Pitch-transparent utilities must additional
 declare unit preservation. A gain stage cannot advertise precision pitch handling
 just because its samples happen to include DC.
 
+PITCH_CV is semantic/unit metadata within the continuous CV family, not a separate
+class of cable. Pitch-capable catalogue inlets accept generic CV and declare its
+mapping as part of their contract. For example, a generic bipolar LFO may map to
+`cvDepthOctaves * input`, with default depth one octave per unit, while calibrated
+PITCH_CV contributes one octave per unit without normalization. An inlet depth
+control or an optional external attenuverter changes the modulation amount; no
+utility is required merely to permit the cable. Precision addition/sequencing
+retains calibrated units and explicit reference-frequency semantics. No pitch
+mapping silently quantizes, makes music "correct", or reinterprets an old save.
+
 Default input cardinality is one cable. Summing ports opt into multiple incoming
 cables with a documented sum/normalization rule; event inputs explicitly choose
 reject, merge or per-lane consumption. Output fan-out is allowed and transparent.
-This makes the physical mult optional grouping rather than a special access gate.
+No physical mult is required to split a cable. #94 instead proposes paired pitch
+transposition/clock-division lanes; plain buffering/duplication alone adds no value.
 R2's compatibility adapter retains S1-A's existing additive fan-in where present.
 
 Disconnected inputs have explicit constants or silence. No hidden sequencer,
@@ -146,6 +160,10 @@ are saved when provided; no schema claims exact DSP replay from a seed alone.
 
 ## Capabilities and processor registry
 
+This is future design vocabulary. R2 needs only direct bindings for its seven
+implemented behaviors; optional descriptive tags do not require a capability
+ontology, derivation engine or general claim validator.
+
 A capability is a validated functional assertion with bindings and constraints,
 not an inheritance category. For example `pitch.input` points to the pitch inlet,
 `modulation.wavetable-position` points to a separate inlet/control,
@@ -173,6 +191,10 @@ exist; static tags are evidence to validate, not proof of implementation.
 
 ## Feedback, events and lifecycle
 
+Keep current audio lifecycle and S1-A cycle policy in R2. The event-loop contracts
+below constrain later event behaviors; they do not request an R2 event algebra,
+scheduler, loop solver or generic timing framework.
+
 Audio cycles require a positive causal delay on every cycle. A behavior descriptor
 must identify the actual inlet-to-outlet paths that provide delay; marking a whole
 module “delay” is insufficient if a dry bypass path remains instantaneous. R2
@@ -198,6 +220,10 @@ routes, timers and buffers that belong to it when released.
 
 ## Persistence, dependencies and unavailable behavior
 
+Version identity and immutable preservation apply immediately. Asset manifests,
+new substitution machinery and captured-material storage below are future
+requirements when those behaviors are introduced, outside the seven-kind R2 seam.
+
 Patch format, definition and behavior versions are separate. Archives pin the
 definition versions or embed validated definition manifests so a later port
 rename cannot reinterpret an old cable. Ownership/provenance remains distinct
@@ -218,7 +244,10 @@ resolve it on reopen. Do not present a silently emptied loop as a faithful archi
 DSP phase, live delay tails and exact chaotic state replay remain optional unless
 explicitly included; storing a patch does not promise bit-exact performance.
 
-## R2 adapter boundary and acceptance checks
+## R2 implementation boundary — seven existing behaviors only
+
+This section is the complete implementation boundary once R2 is explicitly
+authorized. The broader conceptual sections above do not expand it.
 
 Start with `prototype.oscillator`, `prototype.noise`, `prototype.filter`,
 `prototype.vca`, `prototype.lfo`, `prototype.delay`, `prototype.output` definitions.
@@ -233,23 +262,41 @@ as a side effect of the first adapter.
 
 Do not reinterpret `eurorack_studio_save_v1` or legacy saves in place. R2 may
 use a boundary adapter with round-trip preservation first; any subsequent new
-save version/migration needs its own reviewed task. Definition manifests may
-prepare future archives without turning historical cards into audible processors.
+save version/migration needs its own reviewed task. Minimal stable definition/
+behavior version fields and resolution checks are enough; retain supported
+versions or explain an unsupported one without deleting stored data. No definition
+or asset manifest framework is needed for these seven fixed definitions. Existing
+same-kind archive resolution remains valid for their unchanged port contracts;
+general cross-definition control/port substitution is deferred.
 
 Review/check requirements for that first implementation:
 
-- Unique stable definition, instance, port, control and cable IDs; endpoint
-  direction/channel/domain/cardinality validation before live graph mutation.
-- Registry binding and capability validation; no missing-processor fallback;
-  finite controls and behavior-specific settings, assets/version errors explained.
-- Serialization round trips preserve exact IDs and all cables; corrupt/unsupported
-  data remains stored. Archive manifests and dependency mappings remain immutable.
+- Minimal definition/behavior/instance/port/control/patch types and a direct
+  registry for exactly the seven existing behaviors. No dispatch by display names.
+- Unique stable IDs, valid endpoints and current signal compatibility, finite
+  numeric controls and existing cycle/fan-in rules checked before graph mutation.
+  Unknown behavior/version fails explicitly; no generic audible fallback.
+- One ordinary explicit preset fixture round-trips definitions, instances,
+  controls and cables and builds through the same visible graph. No new preset
+  abstraction, authored starter suite or selection UI required.
+- Studio/project/archive round trips preserve exact instance IDs, numeric values,
+  every cable and dependency provenance. Forking/loan resolution reuses existing
+  explicit behavior and never mutates the original snapshot or grants ownership.
+- Definition/behavior version identity is sufficient to detect incompatible
+  records; corrupt/unsupported stored data remains intact with an explanation.
 - The seven-kind adapter preserves the existing route effects and lifecycle;
   Studio and patch routes still work; legacy default route/save untouched.
-- Causal cycle checks, failed validation before partial audio mutation, bounded
+- Existing audio cycle checks, failed validation before partial audio mutation, bounded
   output and reliable cleanup. No sound/context allocation on load.
 - Tests demonstrate observable contracts (signal mapping, repeated module instances,
-  immutable snapshots, missing dependencies), not only JSON matching its own schema.
+  immutable snapshots, existing missing-loan resolution), not only JSON matching
+  its own schema.
 
-This document proposes semantics to review. It authorizes none of the future
-100-module implementations, sequencer runtime, recording service or content UI.
+Explicitly defer the full capability ontology/claim-validation engine, six-domain
+event algebra and scheduler, asset/resource manifests or local buffer store,
+100-module registration/validation, new DSP and stereo Output. Those enter only
+with a later behavior/content need and scoped authorization. R2 may preserve
+optional metadata for future use without implementing the machinery behind it.
+
+R1 acceptance in direction and this narrowed checklist do not authorize starting
+R2. No runtime changes are part of the four-amendment documentation pass.
