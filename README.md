@@ -49,13 +49,20 @@ See [G1-P implementation and validation](docs/project/G1_P_STUDIO_SLICE.md).
 
 ## Project direction
 
-**Audio fidelity is deferred; audio architecture is not.** The
-[G1 — Game Structure / Progression Prototype](docs/plans/G1_GAME_STRUCTURE_PROPOSAL.md):
-G1-D decisions were reviewed together; the authorized G1-P slice now implements
-the first persistent project loop. Playtest it, then prioritize rack/player experience, gameplay
-content and an end-to-end playable game before the serious audio pass.
-Clock/GATE waits until gameplay needs it. See the
-[governing sequence](docs/design/GAME_DESIGN.md#development-priority--locked-design).
+**Audio fidelity is deferred; audio architecture is not.** G1-P proves persistent
+Studio / Project / Archive state, but its tiny starter and six-module limit are
+prototype evidence rather than the intended full game.
+
+The recovered project direction is a **low-pressure Eurorack adventure** with a
+working modular instrument from the start, a rehabilitated 100-module fictional
+catalogue, dismantlable starter-patch graphs, a compact strange city and finite
+adventures that introduce new relationships without turning the studio into a
+task manager.
+
+See the [Project revival roadmap](docs/plans/PROJECT_REVIVAL_ROADMAP.md), the
+[100-module rehabilitation audit](docs/content/MODULE_CATALOGUE_REHAB_V1.md),
+the [recovered old design-bible authority map](docs/archive/OLD_DESIGN_BIBLE_RECOVERY.md),
+and the [governing design](docs/design/GAME_DESIGN.md).
 
 ## Production build
 
