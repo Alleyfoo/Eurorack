@@ -14,6 +14,13 @@ context/master ownership; do not create a competing engine or hidden backing
 sequence. Module positions must not determine DSP behavior. Patch state remains
 separate from the legacy save schema.
 
+The recovered project identity and long-horizon production order are now recorded in
+`docs/plans/PROJECT_REVIVAL_ROADMAP.md`. Read it after the governing design.
+`docs/archive/OLD_DESIGN_BIBLE_RECOVERY.md` records which old world/story ideas
+survive and which incremental mechanics are superseded.
+`docs/content/MODULE_CATALOGUE_REHAB_V1.md` is the 100-module rehabilitation
+proposal; its new functional-role assignments are design proposals until reviewed.
+
 Audio fidelity is deferred; audio architecture is not. D1–D10 acceptance is
 recorded in `docs/plans/G1_D_DECISION_PACKET.md`. A subsequent user work order
 authorized the concrete G1-P slice, now implemented and documented in
@@ -40,12 +47,20 @@ Unsupported/corrupt saves remain stored and show an error instead of resetting.
 Only one working branch is supported in this slice. Optional audio recording,
 legacy migration and perfect DSP replay remain outside scope.
 
-The next task is human playtesting of the complete two-project loop and installed
-space boundary, followed by scoped rack/player experience work. Preserve the
-accepted design rules; further content and serious DSP need separate scope.
-Follow the sequence in `docs/design/GAME_DESIGN.md`: structure, rack experience,
-content, end-to-end playability, then serious audio refinement. Clock/GATE or
-S1-B work needs a concrete gameplay reason; it is not the default next task.
+The immediate next milestone is **R1 — rehabilitate the 100-module catalogue**
+from `PROJECT_REVIVAL_ROADMAP.md`: verify the recovered rows against source,
+resolve the 45 REWORK and 8 DUPLICATE/donor proposals, draft the canonical
+ModuleDefinition/ports/controls vocabulary, and produce the research-family
+coverage matrix. Stop for review before runtime catalogue migration.
+
+The current G1-P tiny starter and six ordinary-module limit are historical
+prototype evidence, not the target full-game onboarding. The full game is now
+directed toward several working, dismantlable starter patch graphs and a rack
+capacity derived from useful systems rather than an inherited number.
+
+Preserve the accepted design rules; serious DSP still follows a playable game.
+Clock/GATE should be implemented only when an accepted module behavior or starter/
+content need requires it, not as an isolated milestone.
 
 Reusable controls and module displays live in `components/`. Game calculations,
 Web Audio synthesis, and local storage persistence are separated in `services/`.
