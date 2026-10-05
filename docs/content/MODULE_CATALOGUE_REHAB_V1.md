@@ -160,3 +160,10 @@ That lets one behavior be reused by several fictional modules without pretending
 ## Next pass
 
 Before starter presets are authored, review the **45 REWORK** roles and the **8 donor proposals** for musical identity. Once those are accepted, define ports and controls for each functional behavior, then build 3–4 starter patches as explicit module-instance + cable graphs.
+
+R1 review drafts now record the [100-row source audit and contradictions](R1_CATALOGUE_SOURCE_AUDIT.md),
+[all role recommendations](R1_FUNCTIONAL_ROLE_REVIEW.md),
+[module vocabulary](../design/MODULE_DEFINITION_DRAFT.md) and
+[15-family coverage witnesses](R1_PATCH_FAMILY_COVERAGE.md).
+They preserve this v1 table as recovery evidence. Proposed revisions are unapproved;
+the original bible and research sources still need independent corroboration.

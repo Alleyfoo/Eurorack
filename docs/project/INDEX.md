@@ -18,6 +18,12 @@ For current production direction, read the
 [Project revival roadmap](../plans/PROJECT_REVIVAL_ROADMAP.md), then the
 [recovered old design-bible authority map](../archive/OLD_DESIGN_BIBLE_RECOVERY.md)
 and the [100-module rehabilitation audit](../content/MODULE_CATALOGUE_REHAB_V1.md).
+For the R1 design-review gate, read the
+[source audit and contradiction report](../content/R1_CATALOGUE_SOURCE_AUDIT.md),
+[100 functional-role contracts](../content/R1_FUNCTIONAL_ROLE_REVIEW.md),
+[module-definition draft](../design/MODULE_DEFINITION_DRAFT.md) and
+[patch-family coverage witnesses](../content/R1_PATCH_FAMILY_COVERAGE.md).
+These are review drafts; no catalogue/runtime migration is authorized by them.
 Next, read [G1 — Game Structure / Progression Prototype](../plans/G1_GAME_STRUCTURE_PROPOSAL.md).
 Its [G1-D decision packet](../plans/G1_D_DECISION_PACKET.md) now records accepted
 D1–D10 directions and provisional content recommendations. The user's subsequent

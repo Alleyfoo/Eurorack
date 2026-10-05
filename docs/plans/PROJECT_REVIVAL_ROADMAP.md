@@ -103,6 +103,15 @@ A new worker can explain:
 
 # R1 — Rehabilitate the 100-module catalogue
 
+**2026-10-05 review draft available:**
+[source audit](../content/R1_CATALOGUE_SOURCE_AUDIT.md),
+[role contracts](../content/R1_FUNCTIONAL_ROLE_REVIEW.md),
+[behavior vocabulary](../design/MODULE_DEFINITION_DRAFT.md),
+[coverage matrix](../content/R1_PATCH_FAMILY_COVERAGE.md).
+All 100 current-source rows and 53 rework/donor proposals are reviewed. Original
+bible/catalogue and synthesis research corroboration remain pending because the
+originals are not in the checkout. No role acceptance or R2 implementation yet.
+
 ### Goal
 
 Turn the old catalogue from 100 amusing card objects into 100 fictional modules
