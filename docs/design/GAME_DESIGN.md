@@ -34,6 +34,23 @@ Relationships should suggest modular instruments without requiring a calibrated
 electrical engineering simulator. Technical simplification must preserve the
 player's ability to hear and influence the patch's behavior.
 
+## Adventure pace — LOCKED DESIGN
+
+This is a **low-pressure adventure**. The game waits for the player.
+
+While the player is patching, listening or simply leaving a system running, the
+game must not create an accumulating burden of messages, meetings, chores,
+deadlines or expiring routine obligations. Curiosity should pull the player toward
+the next place, person or machine; obligation should not push them there.
+
+Opportunities may quietly become available and remain available. Later optional
+situated events may have real timing or one-shot stakes only when their fiction
+and gameplay justify it. Constant workplace-style attention pressure is not a
+default progression tool.
+
+The persistent rack is home: adventures introduce strange possibilities into
+that calm space rather than turning the studio into a task manager.
+
 ## Musical values — LOCKED DESIGN
 
 Noise is valid music. The game must support and respect noise, drones, irregular
@@ -71,6 +88,19 @@ on the studio. A later authored chapter or finale may be considered if the full
 game benefits from it; the studio remains usable afterward.
 
 ### Starter kit — LOCKED DESIGN
+
+**Post-G1 full-game direction:** D2-A below remains the accepted starter for the
+implemented G1-P structure test; it is **not** the target richness of the finished
+game. The full game should begin from one of a few **working, dismantlable starter
+patches/racks** built from ordinary module instances and explicit cables. A starter
+is an example, not a correct answer.
+
+The initial instrument must already support several meaningful relationships and
+an interesting audible state; the player should not be forced to listen to a bare
+sine wave while earning basic synthesis functionality. Exact starter contents,
+preset count and installed capacity remain open until the rehabilitated catalogue
+and research coverage are reviewed. The current six-module G1-P capacity carries
+no full-game authority.
 
 **D2-A — accepted for G1-P:** one small common studio kit: one chosen sound
 source, tone or noise, plus Filter, LFO and Output. The choice is starting material,
