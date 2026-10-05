@@ -14,6 +14,10 @@ or override the governing design established here.
 ## Read in this order
 
 For the implemented S1-A slice, read [Visible patch authority](S1_A_PATCH_AUTHORITY.md).
+For current production direction, read the
+[Project revival roadmap](../plans/PROJECT_REVIVAL_ROADMAP.md), then the
+[recovered old design-bible authority map](../archive/OLD_DESIGN_BIBLE_RECOVERY.md)
+and the [100-module rehabilitation audit](../content/MODULE_CATALOGUE_REHAB_V1.md).
 Next, read [G1 — Game Structure / Progression Prototype](../plans/G1_GAME_STRUCTURE_PROPOSAL.md).
 Its [G1-D decision packet](../plans/G1_D_DECISION_PACKET.md) now records accepted
 D1–D10 directions and provisional content recommendations. The user's subsequent
