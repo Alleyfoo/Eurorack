@@ -74,7 +74,8 @@ test('clock/dividers count rising edges, respect held pulses and reset before co
     const held = kernel('clock.divide', 1000, { division: 2, phase: 0 });
     assert.deepEqual(Array.from({ length: 10 }, () => held.sample([1, 0])[0]), Array(10).fill(1));
     held.sample([0, 0]); assert.equal(held.sample([1, 0])[0], 0);
-    assert.equal(held.sample([1, 1])[0], 1);
+    assert.equal(held.sample([1, 1])[0], 0, 'reset clears count without inventing an edge in held CLOCK');
+    held.sample([0, 0]); assert.equal(held.sample([1, 0])[0], 1, 'first actual post-reset edge emits at phase zero');
     for (let i = 0; i < 100; i++) assert.equal(held.sample([0, 0])[0], 0);
 });
 

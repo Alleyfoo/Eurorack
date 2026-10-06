@@ -59,7 +59,7 @@ export class StarterKernel {
             }
             case 'clock.divide': {
                 // Reset before a coincident source edge; phase zero emits on first edge.
-                if (rising(input[1], this.resetPrevious)) { this.count = 0; this.selected = false; this.previous = 0; }
+                if (rising(input[1], this.resetPrevious)) { this.count = 0; this.selected = false; }
                 this.resetPrevious = input[1];
                 if (rising(input[0], this.previous)) { this.selected = this.count % c.division === c.phase % c.division; this.count = (this.count + 1) % c.division; }
                 this.previous = input[0];
