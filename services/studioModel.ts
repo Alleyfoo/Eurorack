@@ -1,4 +1,5 @@
-import { connectionError, createPatchModule, PATCH_DEFINITIONS, type PatchDefinition, type PatchKind, type PatchModule, type SandboxPatch } from './patchModel.ts';
+import { toModuleInstance, toModulePatch } from './patchAdapter.ts';
+import { createPatchModule, PATCH_DEFINITIONS, type PatchDefinition, type PatchKind, type PatchModule, type SandboxPatch } from './patchModel.ts';
 
 export const INSTALLED_CAPACITY = 6; // G1-P tuning, not a progression ladder.
 export type SourceChoice = 'oscillator' | 'noise';
@@ -83,30 +84,11 @@ export function resumeBranch(state: StudioState): StudioState {
 }
 
 function validatePatch(patch: SandboxPatch): void {
-    if (!patch || !Array.isArray(patch.modules) || !Array.isArray(patch.cables)) throw new Error('Invalid saved patch.');
+    // The same definition/binding/control/topology preflight used by the live graph.
+    toModulePatch(patch);
     if (patch.modules.length > INSTALLED_CAPACITY + 1 || patch.modules.filter(m => m.kind === 'output').length !== 1 || patch.modules.at(-1)?.kind !== 'output') throw new Error('Patch needs one fixed Output and at most six ordinary modules.');
-    const ids = new Set<string>();
-    for (const module of patch.modules) {
-        validateModule(module);
-        if (ids.has(module.id)) throw new Error('Duplicate module instance in patch.');
-        ids.add(module.id);
-    }
-    const accepted: SandboxPatch = { modules: patch.modules, cables: [] };
-    const cableIds = new Set<string>();
-    for (const cable of patch.cables) {
-        if (!cable || typeof cable.id !== 'string' || cableIds.has(cable.id) || !cable.from || !cable.to) throw new Error('Invalid cable record.');
-        const error = connectionError(accepted, cable.from, cable.to);
-        if (error) throw new Error(error);
-        cableIds.add(cable.id); accepted.cables.push(cable);
-    }
 }
-function validateModule(module: PatchModule): void {
-    if (!module || typeof module.id !== 'string' || !module.id || !Object.hasOwn(PATCH_DEFINITIONS, module.kind) || !module.controls) throw new Error('Unknown saved module dependency. Stored data has been preserved.');
-    for (const control of PATCH_DEFINITIONS[module.kind].controls) {
-        const value = module.controls[control.id];
-        if (!Number.isFinite(value) || value < control.min || value > control.max || (control.id === 'waveform' && !Number.isInteger(value))) throw new Error('Invalid saved module control.');
-    }
-}
+function validateModule(module: PatchModule): void { toModuleInstance(module); }
 function checkInventory(modules: StudioModule[]): void {
     if (!Array.isArray(modules)) throw new Error('Invalid instance inventory.');
     const ids = new Set<string>();

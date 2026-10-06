@@ -1,0 +1,1198 @@
+{
+  "version": 1,
+  "starter": "oscillator",
+  "owned": [
+    {
+      "id": "pre-r2-1",
+      "kind": "oscillator",
+      "controls": {
+        "frequency": 110,
+        "waveform": 0
+      },
+      "definition": {
+        "name": "Oscillator",
+        "subtitle": "Continuous tone",
+        "ports": [
+          {
+            "id": "pitch",
+            "label": "PITCH",
+            "family": "CV",
+            "direction": "in"
+          },
+          {
+            "id": "out",
+            "label": "SIGNAL",
+            "family": "AUDIO",
+            "direction": "out"
+          }
+        ],
+        "controls": [
+          {
+            "id": "frequency",
+            "label": "Frequency",
+            "min": 40,
+            "max": 1200,
+            "step": 1,
+            "initial": 110,
+            "unit": "Hz"
+          },
+          {
+            "id": "waveform",
+            "label": "Waveform",
+            "min": 0,
+            "max": 3,
+            "step": 1,
+            "initial": 0,
+            "unit": ""
+          }
+        ]
+      },
+      "provenance": {
+        "origin": "starter"
+      }
+    },
+    {
+      "id": "pre-r2-2",
+      "kind": "filter",
+      "controls": {
+        "cutoff": 800,
+        "resonance": 1
+      },
+      "definition": {
+        "name": "Filter",
+        "subtitle": "Resonant low-pass",
+        "ports": [
+          {
+            "id": "in",
+            "label": "SIGNAL",
+            "family": "AUDIO",
+            "direction": "in"
+          },
+          {
+            "id": "cutoff",
+            "label": "CUTOFF",
+            "family": "CV",
+            "direction": "in"
+          },
+          {
+            "id": "out",
+            "label": "SIGNAL",
+            "family": "AUDIO",
+            "direction": "out"
+          }
+        ],
+        "controls": [
+          {
+            "id": "cutoff",
+            "label": "Cutoff",
+            "min": 40,
+            "max": 12000,
+            "step": 1,
+            "initial": 800,
+            "unit": "Hz"
+          },
+          {
+            "id": "resonance",
+            "label": "Resonance",
+            "min": 0.1,
+            "max": 20,
+            "step": 0.1,
+            "initial": 1,
+            "unit": ""
+          }
+        ]
+      },
+      "provenance": {
+        "origin": "starter"
+      }
+    },
+    {
+      "id": "pre-r2-3",
+      "kind": "lfo",
+      "controls": {
+        "rate": 0.3,
+        "amount": 0.5
+      },
+      "definition": {
+        "name": "LFO",
+        "subtitle": "Slow bipolar motion",
+        "ports": [
+          {
+            "id": "out",
+            "label": "MODULATION",
+            "family": "CV",
+            "direction": "out"
+          }
+        ],
+        "controls": [
+          {
+            "id": "rate",
+            "label": "Rate",
+            "min": 0.02,
+            "max": 20,
+            "step": 0.01,
+            "initial": 0.3,
+            "unit": "Hz"
+          },
+          {
+            "id": "amount",
+            "label": "Amount",
+            "min": 0,
+            "max": 1,
+            "step": 0.01,
+            "initial": 0.5,
+            "unit": ""
+          }
+        ]
+      },
+      "provenance": {
+        "origin": "starter"
+      }
+    },
+    {
+      "id": "pre-r2-4",
+      "kind": "noise",
+      "controls": {
+        "level": 0.3
+      },
+      "definition": {
+        "name": "Noise",
+        "subtitle": "Broadband source",
+        "ports": [
+          {
+            "id": "out",
+            "label": "SIGNAL",
+            "family": "AUDIO",
+            "direction": "out"
+          }
+        ],
+        "controls": [
+          {
+            "id": "level",
+            "label": "Level",
+            "min": 0,
+            "max": 1,
+            "step": 0.01,
+            "initial": 0.3,
+            "unit": ""
+          }
+        ]
+      },
+      "provenance": {
+        "origin": "project-loan",
+        "projectId": "material-memory"
+      }
+    }
+  ],
+  "studioPatch": {
+    "modules": [
+      {
+        "id": "pre-r2-1",
+        "kind": "oscillator",
+        "controls": {
+          "frequency": 110,
+          "waveform": 0
+        },
+        "definition": {
+          "name": "Oscillator",
+          "subtitle": "Continuous tone",
+          "ports": [
+            {
+              "id": "pitch",
+              "label": "PITCH",
+              "family": "CV",
+              "direction": "in"
+            },
+            {
+              "id": "out",
+              "label": "SIGNAL",
+              "family": "AUDIO",
+              "direction": "out"
+            }
+          ],
+          "controls": [
+            {
+              "id": "frequency",
+              "label": "Frequency",
+              "min": 40,
+              "max": 1200,
+              "step": 1,
+              "initial": 110,
+              "unit": "Hz"
+            },
+            {
+              "id": "waveform",
+              "label": "Waveform",
+              "min": 0,
+              "max": 3,
+              "step": 1,
+              "initial": 0,
+              "unit": ""
+            }
+          ]
+        },
+        "provenance": {
+          "origin": "starter"
+        }
+      },
+      {
+        "id": "pre-r2-2",
+        "kind": "filter",
+        "controls": {
+          "cutoff": 800,
+          "resonance": 1
+        },
+        "definition": {
+          "name": "Filter",
+          "subtitle": "Resonant low-pass",
+          "ports": [
+            {
+              "id": "in",
+              "label": "SIGNAL",
+              "family": "AUDIO",
+              "direction": "in"
+            },
+            {
+              "id": "cutoff",
+              "label": "CUTOFF",
+              "family": "CV",
+              "direction": "in"
+            },
+            {
+              "id": "out",
+              "label": "SIGNAL",
+              "family": "AUDIO",
+              "direction": "out"
+            }
+          ],
+          "controls": [
+            {
+              "id": "cutoff",
+              "label": "Cutoff",
+              "min": 40,
+              "max": 12000,
+              "step": 1,
+              "initial": 800,
+              "unit": "Hz"
+            },
+            {
+              "id": "resonance",
+              "label": "Resonance",
+              "min": 0.1,
+              "max": 20,
+              "step": 0.1,
+              "initial": 1,
+              "unit": ""
+            }
+          ]
+        },
+        "provenance": {
+          "origin": "starter"
+        }
+      },
+      {
+        "id": "pre-r2-3",
+        "kind": "lfo",
+        "controls": {
+          "rate": 0.3,
+          "amount": 0.5
+        },
+        "definition": {
+          "name": "LFO",
+          "subtitle": "Slow bipolar motion",
+          "ports": [
+            {
+              "id": "out",
+              "label": "MODULATION",
+              "family": "CV",
+              "direction": "out"
+            }
+          ],
+          "controls": [
+            {
+              "id": "rate",
+              "label": "Rate",
+              "min": 0.02,
+              "max": 20,
+              "step": 0.01,
+              "initial": 0.3,
+              "unit": "Hz"
+            },
+            {
+              "id": "amount",
+              "label": "Amount",
+              "min": 0,
+              "max": 1,
+              "step": 0.01,
+              "initial": 0.5,
+              "unit": ""
+            }
+          ]
+        },
+        "provenance": {
+          "origin": "starter"
+        }
+      },
+      {
+        "id": "pre-r2-5",
+        "kind": "output",
+        "controls": {},
+        "definition": {
+          "name": "Output",
+          "subtitle": "Listen here",
+          "ports": [
+            {
+              "id": "in",
+              "label": "MIX",
+              "family": "AUDIO",
+              "direction": "in"
+            }
+          ],
+          "controls": []
+        },
+        "provenance": {
+          "origin": "infrastructure"
+        }
+      }
+    ],
+    "cables": []
+  },
+  "active": {
+    "id": "pre-r2-6",
+    "projectId": "level-motion",
+    "patch": {
+      "modules": [
+        {
+          "id": "pre-r2-1",
+          "kind": "oscillator",
+          "controls": {
+            "frequency": 110,
+            "waveform": 0
+          },
+          "definition": {
+            "name": "Oscillator",
+            "subtitle": "Continuous tone",
+            "ports": [
+              {
+                "id": "pitch",
+                "label": "PITCH",
+                "family": "CV",
+                "direction": "in"
+              },
+              {
+                "id": "out",
+                "label": "SIGNAL",
+                "family": "AUDIO",
+                "direction": "out"
+              }
+            ],
+            "controls": [
+              {
+                "id": "frequency",
+                "label": "Frequency",
+                "min": 40,
+                "max": 1200,
+                "step": 1,
+                "initial": 110,
+                "unit": "Hz"
+              },
+              {
+                "id": "waveform",
+                "label": "Waveform",
+                "min": 0,
+                "max": 3,
+                "step": 1,
+                "initial": 0,
+                "unit": ""
+              }
+            ]
+          },
+          "provenance": {
+            "origin": "starter"
+          }
+        },
+        {
+          "id": "pre-r2-2",
+          "kind": "filter",
+          "controls": {
+            "cutoff": 800,
+            "resonance": 1
+          },
+          "definition": {
+            "name": "Filter",
+            "subtitle": "Resonant low-pass",
+            "ports": [
+              {
+                "id": "in",
+                "label": "SIGNAL",
+                "family": "AUDIO",
+                "direction": "in"
+              },
+              {
+                "id": "cutoff",
+                "label": "CUTOFF",
+                "family": "CV",
+                "direction": "in"
+              },
+              {
+                "id": "out",
+                "label": "SIGNAL",
+                "family": "AUDIO",
+                "direction": "out"
+              }
+            ],
+            "controls": [
+              {
+                "id": "cutoff",
+                "label": "Cutoff",
+                "min": 40,
+                "max": 12000,
+                "step": 1,
+                "initial": 800,
+                "unit": "Hz"
+              },
+              {
+                "id": "resonance",
+                "label": "Resonance",
+                "min": 0.1,
+                "max": 20,
+                "step": 0.1,
+                "initial": 1,
+                "unit": ""
+              }
+            ]
+          },
+          "provenance": {
+            "origin": "starter"
+          }
+        },
+        {
+          "id": "pre-r2-3",
+          "kind": "lfo",
+          "controls": {
+            "rate": 0.3,
+            "amount": 0.5
+          },
+          "definition": {
+            "name": "LFO",
+            "subtitle": "Slow bipolar motion",
+            "ports": [
+              {
+                "id": "out",
+                "label": "MODULATION",
+                "family": "CV",
+                "direction": "out"
+              }
+            ],
+            "controls": [
+              {
+                "id": "rate",
+                "label": "Rate",
+                "min": 0.02,
+                "max": 20,
+                "step": 0.01,
+                "initial": 0.3,
+                "unit": "Hz"
+              },
+              {
+                "id": "amount",
+                "label": "Amount",
+                "min": 0,
+                "max": 1,
+                "step": 0.01,
+                "initial": 0.5,
+                "unit": ""
+              }
+            ]
+          },
+          "provenance": {
+            "origin": "starter"
+          }
+        },
+        {
+          "id": "pre-r2-7",
+          "kind": "vca",
+          "controls": {
+            "level": 0.5
+          },
+          "definition": {
+            "name": "VCA",
+            "subtitle": "Amplitude / open drone",
+            "ports": [
+              {
+                "id": "in",
+                "label": "SIGNAL",
+                "family": "AUDIO",
+                "direction": "in"
+              },
+              {
+                "id": "gain",
+                "label": "GAIN",
+                "family": "CV",
+                "direction": "in"
+              },
+              {
+                "id": "out",
+                "label": "SIGNAL",
+                "family": "AUDIO",
+                "direction": "out"
+              }
+            ],
+            "controls": [
+              {
+                "id": "level",
+                "label": "Bias",
+                "min": 0,
+                "max": 1,
+                "step": 0.01,
+                "initial": 0.5,
+                "unit": ""
+              }
+            ]
+          },
+          "provenance": {
+            "origin": "project-loan",
+            "projectId": "level-motion"
+          }
+        },
+        {
+          "id": "pre-r2-5",
+          "kind": "output",
+          "controls": {},
+          "definition": {
+            "name": "Output",
+            "subtitle": "Listen here",
+            "ports": [
+              {
+                "id": "in",
+                "label": "MIX",
+                "family": "AUDIO",
+                "direction": "in"
+              }
+            ],
+            "controls": []
+          },
+          "provenance": {
+            "origin": "infrastructure"
+          }
+        }
+      ],
+      "cables": [
+        {
+          "id": "second-project",
+          "from": {
+            "moduleId": "pre-r2-1",
+            "portId": "out"
+          },
+          "to": {
+            "moduleId": "pre-r2-7",
+            "portId": "in"
+          }
+        }
+      ]
+    },
+    "inventory": [
+      {
+        "id": "pre-r2-1",
+        "kind": "oscillator",
+        "controls": {
+          "frequency": 110,
+          "waveform": 0
+        },
+        "definition": {
+          "name": "Oscillator",
+          "subtitle": "Continuous tone",
+          "ports": [
+            {
+              "id": "pitch",
+              "label": "PITCH",
+              "family": "CV",
+              "direction": "in"
+            },
+            {
+              "id": "out",
+              "label": "SIGNAL",
+              "family": "AUDIO",
+              "direction": "out"
+            }
+          ],
+          "controls": [
+            {
+              "id": "frequency",
+              "label": "Frequency",
+              "min": 40,
+              "max": 1200,
+              "step": 1,
+              "initial": 110,
+              "unit": "Hz"
+            },
+            {
+              "id": "waveform",
+              "label": "Waveform",
+              "min": 0,
+              "max": 3,
+              "step": 1,
+              "initial": 0,
+              "unit": ""
+            }
+          ]
+        },
+        "provenance": {
+          "origin": "starter"
+        }
+      },
+      {
+        "id": "pre-r2-2",
+        "kind": "filter",
+        "controls": {
+          "cutoff": 800,
+          "resonance": 1
+        },
+        "definition": {
+          "name": "Filter",
+          "subtitle": "Resonant low-pass",
+          "ports": [
+            {
+              "id": "in",
+              "label": "SIGNAL",
+              "family": "AUDIO",
+              "direction": "in"
+            },
+            {
+              "id": "cutoff",
+              "label": "CUTOFF",
+              "family": "CV",
+              "direction": "in"
+            },
+            {
+              "id": "out",
+              "label": "SIGNAL",
+              "family": "AUDIO",
+              "direction": "out"
+            }
+          ],
+          "controls": [
+            {
+              "id": "cutoff",
+              "label": "Cutoff",
+              "min": 40,
+              "max": 12000,
+              "step": 1,
+              "initial": 800,
+              "unit": "Hz"
+            },
+            {
+              "id": "resonance",
+              "label": "Resonance",
+              "min": 0.1,
+              "max": 20,
+              "step": 0.1,
+              "initial": 1,
+              "unit": ""
+            }
+          ]
+        },
+        "provenance": {
+          "origin": "starter"
+        }
+      },
+      {
+        "id": "pre-r2-3",
+        "kind": "lfo",
+        "controls": {
+          "rate": 0.3,
+          "amount": 0.5
+        },
+        "definition": {
+          "name": "LFO",
+          "subtitle": "Slow bipolar motion",
+          "ports": [
+            {
+              "id": "out",
+              "label": "MODULATION",
+              "family": "CV",
+              "direction": "out"
+            }
+          ],
+          "controls": [
+            {
+              "id": "rate",
+              "label": "Rate",
+              "min": 0.02,
+              "max": 20,
+              "step": 0.01,
+              "initial": 0.3,
+              "unit": "Hz"
+            },
+            {
+              "id": "amount",
+              "label": "Amount",
+              "min": 0,
+              "max": 1,
+              "step": 0.01,
+              "initial": 0.5,
+              "unit": ""
+            }
+          ]
+        },
+        "provenance": {
+          "origin": "starter"
+        }
+      },
+      {
+        "id": "pre-r2-4",
+        "kind": "noise",
+        "controls": {
+          "level": 0.3
+        },
+        "definition": {
+          "name": "Noise",
+          "subtitle": "Broadband source",
+          "ports": [
+            {
+              "id": "out",
+              "label": "SIGNAL",
+              "family": "AUDIO",
+              "direction": "out"
+            }
+          ],
+          "controls": [
+            {
+              "id": "level",
+              "label": "Level",
+              "min": 0,
+              "max": 1,
+              "step": 0.01,
+              "initial": 0.3,
+              "unit": ""
+            }
+          ]
+        },
+        "provenance": {
+          "origin": "project-loan",
+          "projectId": "material-memory"
+        }
+      },
+      {
+        "id": "pre-r2-7",
+        "kind": "vca",
+        "controls": {
+          "level": 0.5
+        },
+        "definition": {
+          "name": "VCA",
+          "subtitle": "Amplitude / open drone",
+          "ports": [
+            {
+              "id": "in",
+              "label": "SIGNAL",
+              "family": "AUDIO",
+              "direction": "in"
+            },
+            {
+              "id": "gain",
+              "label": "GAIN",
+              "family": "CV",
+              "direction": "in"
+            },
+            {
+              "id": "out",
+              "label": "SIGNAL",
+              "family": "AUDIO",
+              "direction": "out"
+            }
+          ],
+          "controls": [
+            {
+              "id": "level",
+              "label": "Bias",
+              "min": 0,
+              "max": 1,
+              "step": 0.01,
+              "initial": 0.5,
+              "unit": ""
+            }
+          ]
+        },
+        "provenance": {
+          "origin": "project-loan",
+          "projectId": "level-motion"
+        }
+      }
+    ],
+    "loans": [
+      {
+        "id": "pre-r2-7",
+        "kind": "vca",
+        "controls": {
+          "level": 0.5
+        },
+        "definition": {
+          "name": "VCA",
+          "subtitle": "Amplitude / open drone",
+          "ports": [
+            {
+              "id": "in",
+              "label": "SIGNAL",
+              "family": "AUDIO",
+              "direction": "in"
+            },
+            {
+              "id": "gain",
+              "label": "GAIN",
+              "family": "CV",
+              "direction": "in"
+            },
+            {
+              "id": "out",
+              "label": "SIGNAL",
+              "family": "AUDIO",
+              "direction": "out"
+            }
+          ],
+          "controls": [
+            {
+              "id": "level",
+              "label": "Bias",
+              "min": 0,
+              "max": 1,
+              "step": 0.01,
+              "initial": 0.5,
+              "unit": ""
+            }
+          ]
+        },
+        "provenance": {
+          "origin": "project-loan",
+          "projectId": "level-motion"
+        }
+      }
+    ],
+    "engaged": true
+  },
+  "view": "studio",
+  "unlocked": [
+    "material-memory",
+    "level-motion"
+  ],
+  "closed": [
+    "material-memory"
+  ],
+  "archives": [
+    {
+      "id": "pre-r2-8",
+      "projectId": "material-memory",
+      "title": "Pre-R2 archive",
+      "note": "Returned Delay must remain a dependency.",
+      "createdAt": "2026-10-06T09:00:00.000Z",
+      "patch": {
+        "modules": [
+          {
+            "id": "pre-r2-1",
+            "kind": "oscillator",
+            "controls": {
+              "frequency": 321,
+              "waveform": 0
+            },
+            "definition": {
+              "name": "Oscillator",
+              "subtitle": "Continuous tone",
+              "ports": [
+                {
+                  "id": "pitch",
+                  "label": "PITCH",
+                  "family": "CV",
+                  "direction": "in"
+                },
+                {
+                  "id": "out",
+                  "label": "SIGNAL",
+                  "family": "AUDIO",
+                  "direction": "out"
+                }
+              ],
+              "controls": [
+                {
+                  "id": "frequency",
+                  "label": "Frequency",
+                  "min": 40,
+                  "max": 1200,
+                  "step": 1,
+                  "initial": 110,
+                  "unit": "Hz"
+                },
+                {
+                  "id": "waveform",
+                  "label": "Waveform",
+                  "min": 0,
+                  "max": 3,
+                  "step": 1,
+                  "initial": 0,
+                  "unit": ""
+                }
+              ]
+            },
+            "provenance": {
+              "origin": "starter"
+            }
+          },
+          {
+            "id": "pre-r2-2",
+            "kind": "filter",
+            "controls": {
+              "cutoff": 800,
+              "resonance": 1
+            },
+            "definition": {
+              "name": "Filter",
+              "subtitle": "Resonant low-pass",
+              "ports": [
+                {
+                  "id": "in",
+                  "label": "SIGNAL",
+                  "family": "AUDIO",
+                  "direction": "in"
+                },
+                {
+                  "id": "cutoff",
+                  "label": "CUTOFF",
+                  "family": "CV",
+                  "direction": "in"
+                },
+                {
+                  "id": "out",
+                  "label": "SIGNAL",
+                  "family": "AUDIO",
+                  "direction": "out"
+                }
+              ],
+              "controls": [
+                {
+                  "id": "cutoff",
+                  "label": "Cutoff",
+                  "min": 40,
+                  "max": 12000,
+                  "step": 1,
+                  "initial": 800,
+                  "unit": "Hz"
+                },
+                {
+                  "id": "resonance",
+                  "label": "Resonance",
+                  "min": 0.1,
+                  "max": 20,
+                  "step": 0.1,
+                  "initial": 1,
+                  "unit": ""
+                }
+              ]
+            },
+            "provenance": {
+              "origin": "starter"
+            }
+          },
+          {
+            "id": "pre-r2-3",
+            "kind": "lfo",
+            "controls": {
+              "rate": 0.3,
+              "amount": 0.5
+            },
+            "definition": {
+              "name": "LFO",
+              "subtitle": "Slow bipolar motion",
+              "ports": [
+                {
+                  "id": "out",
+                  "label": "MODULATION",
+                  "family": "CV",
+                  "direction": "out"
+                }
+              ],
+              "controls": [
+                {
+                  "id": "rate",
+                  "label": "Rate",
+                  "min": 0.02,
+                  "max": 20,
+                  "step": 0.01,
+                  "initial": 0.3,
+                  "unit": "Hz"
+                },
+                {
+                  "id": "amount",
+                  "label": "Amount",
+                  "min": 0,
+                  "max": 1,
+                  "step": 0.01,
+                  "initial": 0.5,
+                  "unit": ""
+                }
+              ]
+            },
+            "provenance": {
+              "origin": "starter"
+            }
+          },
+          {
+            "id": "pre-r2-4",
+            "kind": "noise",
+            "controls": {
+              "level": 0.3
+            },
+            "definition": {
+              "name": "Noise",
+              "subtitle": "Broadband source",
+              "ports": [
+                {
+                  "id": "out",
+                  "label": "SIGNAL",
+                  "family": "AUDIO",
+                  "direction": "out"
+                }
+              ],
+              "controls": [
+                {
+                  "id": "level",
+                  "label": "Level",
+                  "min": 0,
+                  "max": 1,
+                  "step": 0.01,
+                  "initial": 0.3,
+                  "unit": ""
+                }
+              ]
+            },
+            "provenance": {
+              "origin": "project-loan",
+              "projectId": "material-memory"
+            }
+          },
+          {
+            "id": "pre-r2-9",
+            "kind": "delay",
+            "controls": {
+              "time": 0.25,
+              "input": 0.6,
+              "return": 0.4
+            },
+            "definition": {
+              "name": "Delay",
+              "subtitle": "Patch your own feedback",
+              "ports": [
+                {
+                  "id": "in",
+                  "label": "SIGNAL",
+                  "family": "AUDIO",
+                  "direction": "in"
+                },
+                {
+                  "id": "return",
+                  "label": "RETURN",
+                  "family": "AUDIO",
+                  "direction": "in"
+                },
+                {
+                  "id": "out",
+                  "label": "SIGNAL",
+                  "family": "AUDIO",
+                  "direction": "out"
+                }
+              ],
+              "controls": [
+                {
+                  "id": "time",
+                  "label": "Time",
+                  "min": 0.01,
+                  "max": 2,
+                  "step": 0.01,
+                  "initial": 0.25,
+                  "unit": "s"
+                },
+                {
+                  "id": "input",
+                  "label": "Input trim",
+                  "min": 0,
+                  "max": 1,
+                  "step": 0.01,
+                  "initial": 0.6,
+                  "unit": ""
+                },
+                {
+                  "id": "return",
+                  "label": "Return trim",
+                  "min": 0,
+                  "max": 1.5,
+                  "step": 0.01,
+                  "initial": 0.4,
+                  "unit": ""
+                }
+              ]
+            },
+            "provenance": {
+              "origin": "project-loan",
+              "projectId": "material-memory"
+            }
+          },
+          {
+            "id": "pre-r2-5",
+            "kind": "output",
+            "controls": {},
+            "definition": {
+              "name": "Output",
+              "subtitle": "Listen here",
+              "ports": [
+                {
+                  "id": "in",
+                  "label": "MIX",
+                  "family": "AUDIO",
+                  "direction": "in"
+                }
+              ],
+              "controls": []
+            },
+            "provenance": {
+              "origin": "infrastructure"
+            }
+          }
+        ],
+        "cables": [
+          {
+            "id": "loan-input",
+            "from": {
+              "moduleId": "pre-r2-1",
+              "portId": "out"
+            },
+            "to": {
+              "moduleId": "pre-r2-9",
+              "portId": "in"
+            }
+          },
+          {
+            "id": "loan-return",
+            "from": {
+              "moduleId": "pre-r2-9",
+              "portId": "out"
+            },
+            "to": {
+              "moduleId": "pre-r2-9",
+              "portId": "return"
+            }
+          },
+          {
+            "id": "generic-pitch",
+            "from": {
+              "moduleId": "pre-r2-3",
+              "portId": "out"
+            },
+            "to": {
+              "moduleId": "pre-r2-1",
+              "portId": "pitch"
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "prototypeComplete": false
+}

@@ -1,6 +1,7 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import Oscilloscope from './Oscilloscope';
 import { PatchAudioGraph } from '../services/patchAudioGraph.ts';
+import { toModulePatch } from '../services/patchAdapter.ts';
 import { openStudioPatchSession } from '../services/audioEngine';
 import { connectionError, createPatchModule, findPort, PALETTE, PATCH_DEFINITIONS, removePatchModule, setPatchControl, WAVEFORMS, type PatchEndpoint, type PatchKind, type PatchModule, type PatchPort, type SandboxPatch } from '../services/patchModel.ts';
 import './patchSandbox.css';
@@ -40,7 +41,7 @@ export default function PatchWorkspace({ patch, setPatch, installable, capacity 
     useEffect(() => () => { const runtime = engine.current; engine.current = null; void runtime?.dispose(); }, []);
     useEffect(() => {
         if (!engine.current) return;
-        try { engine.current.apply(patch); } catch (error) { setMessage(error instanceof Error ? error.message : 'Could not apply this patch.'); }
+        try { engine.current.apply(toModulePatch(patch)); } catch (error) { setMessage(error instanceof Error ? error.message : 'Could not apply this patch.'); }
     }, [patch]);
     useEffect(() => { engine.current?.setOutput(volume, muted); }, [volume, muted]);
 
@@ -74,13 +75,15 @@ export default function PatchWorkspace({ patch, setPatch, installable, capacity 
         const runtime = engine.current ?? new PatchAudioGraph(openStudioPatchSession); engine.current = runtime;
         runtime.setOutput(volume, muted);
         try {
-            await runtime.start(patchRef.current);
+            await runtime.start(toModulePatch(patchRef.current));
             if (engine.current !== runtime) return;
-            runtime.apply(patchRef.current);
+            runtime.apply(toModulePatch(patchRef.current));
             setAnalyser(runtime.getAnalyser()); setStarted(true);
             setMessage('Audio is live. The patch is silent until a source reaches Output.');
         } catch (error) {
             setMessage(error instanceof Error ? error.message : 'Audio could not start. Try again.');
+            if (engine.current === runtime) { engine.current = null; setStarted(false); setAnalyser(null); }
+            await runtime.dispose();
         } finally { setBusy(false); }
     };
 

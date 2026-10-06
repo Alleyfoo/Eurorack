@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "test:patch": "node --experimental-strip-types --test tests/patchModel.test.ts",
+    "test:patch": "node --experimental-strip-types --test tests/patchModel.test.ts tests/modulePatch.test.ts tests/patchAudioGraph.test.ts",
     "test:studio": "node --experimental-strip-types --test tests/studioModel.test.ts"
   },
   "dependencies": {
