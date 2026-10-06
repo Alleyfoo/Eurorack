@@ -105,6 +105,12 @@ four contrasting graphs, derives their required behavior subset and compares
 not change runtime capacity or authorize executable starters. The current
 six-module G1-P capacity carries no full-game authority.
 
+R3-A's four systems pass in direction, with their selected behavior now provided
+by [R3-S](../project/R3S_STARTER_SUBSTRATE.md) in isolated fixtures. R3-B must also
+resolve **starter inventory fairness/convergence**: seven versus ten ordinary
+owned modules must not make the opening choice a permanent progression/class
+advantage. This is an open design gate; R3-S changes no inventory or capacity.
+
 **D2-A — accepted for G1-P:** one small common studio kit: one chosen sound
 source, tone or noise, plus Filter, LFO and Output. The choice is starting material,
 not a character class, genre, difficulty or permanent branch. The other source

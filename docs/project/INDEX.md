@@ -27,11 +27,12 @@ R1/R1A are closed with [four accepted amendments](../plans/R1_ACCEPTANCE_AMENDME
 The corrected packet covers 16 families. The separately authorized
 [R2 seam is accepted and closed](R2_DATA_DRIVEN_PATCH_SEAM.md), preserving
 the seven current behaviors and v1 saves.
-[R3-A starter-system design](../plans/R3A_STARTER_SYSTEM_DESIGN.md) proposes four
-explicit graphs and their minimum behavior/capacity requirements. Review this
-design before separately authorizing the necessary behavior subset and R3-B
-executable starters. Historical metadata annotations do not require renewed
-broad research.
+[R3-A starter-system design](../plans/R3A_STARTER_SYSTEM_DESIGN.md) passes in direction;
+all four graphs are accepted targets for the separately authorized
+[R3-S behavior substrate](R3S_STARTER_SUBSTRATE.md), now implemented with isolated
+native fixtures, event/domain contracts and rendered evidence. Stop before R3-B;
+auditory review, inventory fairness, capacity and new persistence remain review
+gates. Historical metadata annotations do not require renewed broad research.
 Next, read [G1 — Game Structure / Progression Prototype](../plans/G1_GAME_STRUCTURE_PROPOSAL.md).
 Its [G1-D decision packet](../plans/G1_D_DECISION_PACKET.md) now records accepted
 D1–D10 directions and provisional content recommendations. The user's subsequent

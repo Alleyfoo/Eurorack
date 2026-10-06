@@ -1,6 +1,6 @@
 # Project revival roadmap — from prototype rack to chill Eurorack adventure
 
-2026-10-05; R2 acceptance and R3 split updated 2026-10-06.
+2026-10-05; R3-A acceptance and R3-S implementation updated 2026-10-06.
 
 This is the long-horizon execution map after recovering the old design bible,
 the 100-module catalogue lineage, the new synthesis research and the implemented
@@ -267,7 +267,9 @@ through that seam. All three routes and save boundaries retain current behavior.
 
 **Ordering amended by the user's R2 acceptance.** The seven current behaviors
 can prove the seam but cannot determine the opening's full musical vocabulary.
-R3-A design is authorized; new behavior and R3-B are separate work orders.
+R3-A passes in direction, and all four graphs are accepted as behavior targets.
+The separately authorized R3-S substrate is now implemented; R3-B remains a
+separate work order after its review.
 
 ### Goal
 
@@ -310,7 +312,13 @@ not the full R5 list. Review the selection and requirements before implementatio
 draft values and sound descriptions remain audition hypotheses. Design-only data
 is explicitly ineligible for runtime loading and does not redefine R2 IDs.
 
-### Starter-required behavior milestone — separately authorize after R3-A review
+### R3-S — Starter-required behavior substrate
+
+**Explicitly authorized after R3-A review; now implemented and numerically/browser
+validated.** See [contracts, IDs, fixtures and evidence](../project/R3S_STARTER_SUBSTRATE.md).
+Only selected modes are exposed through an opt-in native registry. The seven
+R2 definitions and v1 save meanings remain intact. Rendered audition recordings
+are available; human listening judgment is still outstanding.
 
 Pull forward only the necessary subset of old R5 proven by selected graphs.
 Implement in bounded bundles through the accepted definition/behavior seam;
@@ -328,6 +336,12 @@ Only after required behaviors are implemented and validated, author selected
 starters in the actual graph format and tune them by listening. Use the ordinary
 visible graph with no protected cables or hidden sequence. Starter selection,
 new persistence and any runtime capacity change need explicit scope in this order.
+
+**Inventory fairness/convergence is a review gate, not R3-S work.** Three starters
+have seven owned ordinary modules and Rhythm has ten. R3-B must decide how quickly
+inventories converge or demonstrate that the count difference does not create a
+permanent strategic class/progression advantage. No inventory changes are implied
+by implementing their required behaviors.
 
 Each must already produce a recognizably different, interesting result with one
 deliberate Start gesture. None should require the player to earn basic articulation
@@ -582,11 +596,12 @@ The Sampo remains a special mythic capstone idea. Do not reduce it to “Utility
 
 # Immediate next work order
 
-R1/R1A and R2 are accepted and closed. R3-A design work is now proposed in the
-[starter-system packet](R3A_STARTER_SYSTEM_DESIGN.md). Review its four systems,
-eleven bounded missing items, capacity experiment and partial catalogue modes.
-Then explicitly authorize only the selected behavior subset; R3-B follows its
-validation under a separate order. **Stop after R3-A design validation: no new
-DSP, runnable presets, save migration or starter UI is authorized here.**
+R1/R1A and R2 are accepted and closed. R3-A passes in direction, retaining all four
+systems. The separately authorized [R3-S substrate](../project/R3S_STARTER_SUBSTRATE.md)
+is implemented with native audition fixtures and rendered evidence. Review its
+selected modes, audio/event/domain behavior and recordings before any R3-B order.
+**Stop before R3-B gameplay, save migration, inventory or capacity changes.**
+Capacity (11/12), starter inventory fairness/convergence and persistence remain
+explicit decisions for that future scope. Broader old R5 remains later work.
 Exact catalogue-history annotations remain follow-up evidence, without requiring
 broad research or future-phase infrastructure to use the seven working behaviors.

@@ -68,10 +68,12 @@ and the [governing design](docs/design/GAME_DESIGN.md).
 [R2 is accepted and closed](docs/project/R2_DATA_DRIVEN_PATCH_SEAM.md): the
 seven existing behaviors now use versioned definitions and a direct behavior
 registry, preserving v1 saves and current sound.
-[R3-A proposes four starter systems](docs/plans/R3A_STARTER_SYSTEM_DESIGN.md), with
+[R3-A's four starter systems are accepted in direction](docs/plans/R3A_STARTER_SYSTEM_DESIGN.md), with
 explicit draft graphs, minimum missing behaviors and rack-capacity experiments.
-It is design only; behavior implementation and R3-B executable starters require
-separate authorization.
+[R3-S implements their required selected behaviors](docs/project/R3S_STARTER_SUBSTRATE.md)
+through an opt-in native registry and isolated audition fixtures. It preserves
+the seven-behavior Studio/v1 boundary. R3-B gameplay and new persistence remain
+unauthorized; capacity and starter inventory fairness remain open.
 
 ## Production build
 

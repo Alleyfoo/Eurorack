@@ -5,9 +5,12 @@ and authorization of the seven-behavior R2 slice. Architectural replacement bene
 existing behavior; no new instrument, catalogue content or DSP was added in R2.
 
 **Accepted and closed by the user on 2026-10-06**, after reviewing `421c575`,
-`fd75c89` and `2f46380`. The next authorized work is
-[R3-A design only](../plans/R3A_STARTER_SYSTEM_DESIGN.md), followed by separately
-authorized starter-required behaviors and R3-B executable starters.
+`fd75c89` and `2f46380`. [R3-A design](../plans/R3A_STARTER_SYSTEM_DESIGN.md)
+was subsequently accepted in
+direction, and the separately authorized [R3-S substrate](R3S_STARTER_SUBSTRATE.md)
+is now implemented. That opt-in native registry adds selected modes without
+changing these seven definitions, v1 saves or their sample behavior. R3-B remains
+unauthorized. This document records R2's historical implementation boundary.
 
 ## Runtime authority
 

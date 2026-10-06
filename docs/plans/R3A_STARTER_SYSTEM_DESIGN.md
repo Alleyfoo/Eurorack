@@ -5,6 +5,15 @@ and `2f46380`, then requested starter design before additional DSP. This packet
 proposes four systems. It authorizes no behavior implementation or executable
 starter release. **The game design chooses which synth capabilities we build.**
 
+Subsequent user review of `0207bfa` / `b25d452` accepted the direction and retained
+all four graphs as targets for the separately authorized
+[R3-S selected behavior substrate](../project/R3S_STARTER_SUBSTRATE.md), now
+implemented. This original design dataset remains unchanged; native audition
+fixtures record their two level adjustments separately. Eleven versus twelve
+positions remains open. R3-B must also resolve starter inventory fairness: three
+systems grant seven ordinary modules while Rhythm grants ten. No permanent
+progression/class advantage should follow from choosing the larger inventory.
+
 Read with the [governing design](../design/GAME_DESIGN.md),
 [accepted role contracts](../content/R1_FUNCTIONAL_ROLE_REVIEW.md),
 [16 research-family witnesses](../content/R1_PATCH_FAMILY_COVERAGE.md) and

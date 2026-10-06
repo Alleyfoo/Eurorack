@@ -55,13 +55,17 @@ free fan-out, and a narrow R2 boundary. **R1/R1A and R2 are accepted and closed*
 documented in
 `docs/project/R2_DATA_DRIVEN_PATCH_SEAM.md`. Seven existing behaviors now use the
 definition/behavior/instance/port/control seam with a frozen v1 compatibility
-adapter and preset/archive preservation fixtures. The user authorized **R3-A design
-only**, now proposed in `docs/plans/R3A_STARTER_SYSTEM_DESIGN.md` with explicit draft
-graphs in `docs/content/R3A_STARTER_GRAPHS.json`. Review the four candidates, minimum
-behavior requirements and capacity experiment before a separately authorized
-starter-required behavior milestone, then R3-B executable starters. **Stop before
-new behavior or R3-B implementation.** Draft data is not runtime ModulePatch data;
-do not register it automatically or migrate v1 saves in place.
+adapter and preset/archive preservation fixtures. **R3-A passes in direction; all
+four starter graphs are accepted as R3-S behavior targets.** R3-S is implemented
+and numerically/browser validated in `docs/project/R3S_STARTER_SUBSTRATE.md`.
+The opt-in `STARTER_REGISTRY` supports only selected modes; the default seven-entry
+registry and v1 adapter remain frozen. Solar Quad uses immutable A/A/C/C and CV×4
+definitions tied to one product identity. New native fixtures are isolated from
+Studio saves/UI; draft R3-A data remains ineligible for direct runtime loading.
+**Stop before R3-B, save migration, inventory/acquisition or capacity changes.**
+Auditory review, 11/12 capacity playtesting, new persistence and starter inventory
+fairness/convergence are explicit R3-B review gates. Seven versus ten owned
+ordinary modules must not become a permanent strategic class advantage.
 Do not build the full capability ontology, event algebra/scheduler, resource
 manifest/store or 100-module validation universe in R2. Historical metadata gaps
 remain annotated; don't restart broad research as a prerequisite for that seam.
@@ -87,6 +91,7 @@ Shared game data and types live in `constants.ts` and `types.ts`.
 - `npm run preview`: serve the production bundle locally.
 - `npm run test:patch`: run graph policy tests (Node.js 22.18+ or 24).
 - `npm run test:studio`: run progression, ownership, archive and save tests.
+- `npm run test:substrate`: run selected R3-S domain, stream DSP and lifecycle tests.
 
 Graph policy and Studio model tests are configured; no lint or formatting script exists. The production
 build bundles the active application; it does not perform TypeScript checking.
