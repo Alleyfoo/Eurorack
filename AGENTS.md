@@ -56,14 +56,17 @@ documented in
 `docs/project/R2_DATA_DRIVEN_PATCH_SEAM.md`. Seven existing behaviors now use the
 definition/behavior/instance/port/control seam with a frozen v1 compatibility
 adapter and preset/archive preservation fixtures. **R3-A passes in direction; all
-four starter graphs are accepted as R3-S behavior targets.** R3-S is implemented
-and numerically/browser validated in `docs/project/R3S_STARTER_SUBSTRATE.md`.
+four starter graphs are accepted as R3-S behavior targets.** R3-S is technically
+accepted; its continuous AUDIO/CV routes use the existing ramp/fade, while event
+routes remain immediate. Evidence is in `docs/project/R3S_STARTER_SUBSTRATE.md`.
 The opt-in `STARTER_REGISTRY` supports only selected modes; the default seven-entry
 registry and v1 adapter remain frozen. Solar Quad uses immutable A/A/C/C and CV×4
 definitions tied to one product identity. New native fixtures are isolated from
 Studio saves/UI; draft R3-A data remains ineligible for direct runtime loading.
 **Stop before R3-B, save migration, inventory/acquisition or capacity changes.**
-Auditory review, 11/12 capacity playtesting, new persistence and starter inventory
+Auditory review must distinguish normalized timbre copies from raw same-gain level
+comparisons. Listen before tuning, especially Crossed Embers. Capacity (11/12),
+new persistence and starter inventory
 fairness/convergence are explicit R3-B review gates. Seven versus ten owned
 ordinary modules must not become a permanent strategic class advantage.
 Do not build the full capability ontology, event algebra/scheduler, resource

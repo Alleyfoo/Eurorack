@@ -71,9 +71,12 @@ registry, preserving v1 saves and current sound.
 [R3-A's four starter systems are accepted in direction](docs/plans/R3A_STARTER_SYSTEM_DESIGN.md), with
 explicit draft graphs, minimum missing behaviors and rack-capacity experiments.
 [R3-S implements their required selected behaviors](docs/project/R3S_STARTER_SUBSTRATE.md)
-through an opt-in native registry and isolated audition fixtures. It preserves
+through an opt-in native registry and isolated audition fixtures, and is technically
+accepted. Continuous routes ramp/fade; event routes remain immediate. It preserves
 the seven-behavior Studio/v1 boundary. R3-B gameplay and new persistence remain
-unauthorized; capacity and starter inventory fairness remain open.
+unauthorized; listening, persistence design, capacity and starter inventory
+convergence remain open. Normalized auditions serve timbre review; raw same-gain
+recordings serve level comparison.
 
 ## Production build
 

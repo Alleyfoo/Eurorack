@@ -6,6 +6,12 @@ and `b25d452`. R3-A passes in direction; all four graphs are accepted as behavio
 targets. Initial audition values remain provisional. R3-B gameplay, inventory,
 capacity changes and save migration are not authorized by this work order.
 
+**Technical implementation accepted by the user on 2026-10-06**, after review of
+`5edcace`, `6b3f4d5`, `af77d97` and `076f8df`. Follow-up `3762d37` narrows immediate
+routing to event inputs: ordinary AUDIO/CV cables use the existing route ramp/fade.
+Human listening remains outstanding. Persistence and inventory convergence need
+design review after listening; R3-B is still not authorized.
+
 Read the [starter designs](../plans/R3A_STARTER_SYSTEM_DESIGN.md),
 [R1 roles](../content/R1_FUNCTIONAL_ROLE_REVIEW.md),
 [conceptual schema](../design/MODULE_DEFINITION_DRAFT.md) and
@@ -89,7 +95,11 @@ and [Web Audio rendering rules](https://webaudio.github.io/web-audio-api/#render
 - After module preparation and complete wiring, newly created worklets activate
   at a common audio time 25 ms ahead. Before activation they output zero and advance
   no phase, contour or counter. Native selected controls initialize immediately;
-  R2's control smoothing remains unchanged. Event routes never smooth pulses.
+  R2's control smoothing remains unchanged. CLOCK/TRIG routes connect and disconnect
+  immediately, without smoothing pulses. AUDIO/CV routes use the existing 15 ms
+  `setTargetAtTime` constant on connection/removal and disconnect after 100 ms.
+  These ramps are for continuous cable repatching; they do not detect or schedule
+  events. Stop clears outstanding fade timers and disconnects everything immediately.
 - Clock phase zero emits on its first active sample. Divider phase zero emits on
   the first actual input edge, then every Nth edge. Reset clears counter/output
   before a coincident rising edge. It does not turn an already-held CLOCK into a
@@ -132,13 +142,16 @@ only in the test harness; live checks separately use `openStudioPatchSession`.
 No hidden oscillator, sequence or exciter was used. The
 [durable numerical evidence](R3S_AUDIO_EVIDENCE.json) records samples, per-second
 RMS, every ordinary-module ablation, event traces, lifecycle and recording hashes.
+Its original evidence is retained; `postRouting` records refreshed renders and
+native/lifecycle checks after `3762d37`. All fixture values remain unchanged.
+Initial transients can differ because continuous routes now ramp at startup.
 
 | Fixture | Render duration | Peak / RMS before Studio compressor | Observed relationship evidence |
 |---|---:|---:|---|
-| Slow Machine | 20 s | 0.02535 / 0.00718 | One-second RMS varies roughly 0.00389–0.00955; LFO ablation changes output. Both source ablations differ. |
-| Three Against Five | 12 s | 0.03448 / 0.00223 | Separate clock/divider streams have 3/5 edge relationships; body/noise ablations both differ. Manual reset reaches both dividers at the same frame. |
-| Crossed Embers | 12 s | 0.10583 / 0.06209 | FM/folder/trim/LFO ablations alter output; delayed cycle builds and bypassing Delay fails. No nonfinite or runaway samples. |
-| Wooden Weather | 30 s | 0.00990 / 0.00120 | Exciter/resonator/functions/held-control ablations differ; actual CV capture error is zero. Resonator is silent without excitation and decays after an impulse in numerical tests. |
+| Slow Machine | 20 s | 0.02535 / 0.00717 | One-second RMS varies roughly 0.00389–0.00955; LFO ablation changes output. Both source ablations differ. |
+| Three Against Five | 12 s | 0.03721 / 0.00221 | Separate clock/divider streams have 3/5 edge relationships; body/noise ablations both differ. Manual reset reaches both dividers at the same frame. |
+| Crossed Embers | 12 s | 0.10587 / 0.06207 | FM/folder/trim/LFO ablations alter output; delayed cycle builds and bypassing Delay fails. No nonfinite or runaway samples. |
+| Wooden Weather | 30 s | 0.00990 / 0.00119 | Exciter/resonator/functions/held-control ablations differ; actual CV capture error is zero. Resonator is silent without excitation and decays after an impulse in numerical tests. |
 
 Every ordinary authored module has a nonzero four-second output difference when
 its incident cables are disconnected. This proves participation in the exercised
@@ -165,15 +178,25 @@ that opt-in registry as starter content.
 ## Audition recordings and evidence limits
 
 Local PCM16 mono recordings are under
-`C:/Users/pertt/.codex/visualizations/2026/10/06/01a10fab-b65f-71b2-9858-37f06fa564e0/r3s-auditions`.
+`C:/Users/pertt/.codex/visualizations/2026/10/06/01a10fab-b65f-71b2-9858-37f06fa564e0/r3s-auditions/post-routing`.
+The original accepted-substrate recordings remain in the parent directory.
 Raw WAVs preserve the listen level above. Playback copies below are independently
 normalized to about 0.3 peak solely to make listening easier; this normalization
 is not runtime DSP or a proposed starter-volume rule.
 
-- [Slow Machine audition](C:/Users/pertt/.codex/visualizations/2026/10/06/01a10fab-b65f-71b2-9858-37f06fa564e0/r3s-auditions/slow-audition.wav)
-- [Three Against Five audition](C:/Users/pertt/.codex/visualizations/2026/10/06/01a10fab-b65f-71b2-9858-37f06fa564e0/r3s-auditions/rhythm-audition.wav)
-- [Crossed Embers audition](C:/Users/pertt/.codex/visualizations/2026/10/06/01a10fab-b65f-71b2-9858-37f06fa564e0/r3s-auditions/cross-audition.wav)
-- [Wooden Weather audition](C:/Users/pertt/.codex/visualizations/2026/10/06/01a10fab-b65f-71b2-9858-37f06fa564e0/r3s-auditions/weather-audition.wav)
+- [Slow Machine audition](C:/Users/pertt/.codex/visualizations/2026/10/06/01a10fab-b65f-71b2-9858-37f06fa564e0/r3s-auditions/post-routing/slow-audition.wav)
+- [Three Against Five audition](C:/Users/pertt/.codex/visualizations/2026/10/06/01a10fab-b65f-71b2-9858-37f06fa564e0/r3s-auditions/post-routing/rhythm-audition.wav)
+- [Crossed Embers audition](C:/Users/pertt/.codex/visualizations/2026/10/06/01a10fab-b65f-71b2-9858-37f06fa564e0/r3s-auditions/post-routing/cross-audition.wav)
+- [Wooden Weather audition](C:/Users/pertt/.codex/visualizations/2026/10/06/01a10fab-b65f-71b2-9858-37f06fa564e0/r3s-auditions/post-routing/weather-audition.wav)
+
+Use those normalized copies to examine timbre and relationships. Use the
+[raw same-gain comparison](C:/Users/pertt/.codex/visualizations/2026/10/06/01a10fab-b65f-71b2-9858-37f06fa564e0/r3s-auditions/post-routing/same-gain-comparison.wav)
+to compare starter levels: Slow 0–20 s, Rhythm 21–33 s, Cross 34–46 s, Weather
+47–77 s, with one second of silence between segments. PCM samples are copied
+exactly from the raw WAVs at gain 1; no per-segment normalization, fades or limiting
+are applied. Individual raw files are `slow.wav`, `rhythm.wav`, `cross.wav` and
+`weather.wav` in the same directory. Keep playback volume constant across this
+comparison; normalized copies cannot establish relative starter loudness.
 
 No human listening judgment was performed in this environment. Rendered audio
 and measured relationships are supplied for auditory review; they are not a
@@ -187,9 +210,11 @@ serious DSP fidelity remain later work.
 
 - `npm run test:patch`: all 17 R2 tests pass.
 - `npm run test:studio`: all seven progression/save/archive tests pass.
-- `npm run test:substrate`: 13 tests pass, covering settings/identity preservation,
+- `npm run test:substrate`: 14 tests pass, covering settings/identity preservation,
   strict configured domains, event/reset/retrigger/capture semantics, actual DSP,
   cycles, unavailable versions, preflight, cleanup/cancellation and processor errors.
+  The routing regression verifies continuous ramping, 100 ms removal grace, immediate
+  event removal, reconnection and Stop cleanup while fades are pending.
 - Production build and focused TypeScript checks pass. Existing `/index.css`
   warning remains unrelated. No claim about unused alternate `src/App.tsx`.
 - Four old graphs compared with accepted `b25d452` code using actual

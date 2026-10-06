@@ -314,11 +314,13 @@ is explicitly ineligible for runtime loading and does not redefine R2 IDs.
 
 ### R3-S — Starter-required behavior substrate
 
-**Explicitly authorized after R3-A review; now implemented and numerically/browser
-validated.** See [contracts, IDs, fixtures and evidence](../project/R3S_STARTER_SUBSTRATE.md).
+**Explicitly authorized after R3-A review; technically accepted by the user.**
+See [contracts, IDs, fixtures and evidence](../project/R3S_STARTER_SUBSTRATE.md).
 Only selected modes are exposed through an opt-in native registry. The seven
 R2 definitions and v1 save meanings remain intact. Rendered audition recordings
-are available; human listening judgment is still outstanding.
+are available; human listening judgment is still outstanding. Continuous AUDIO/CV
+routes use the existing ramp/fade; CLOCK/TRIG routes remain sample-exact. Review
+timbre using normalized copies and relative levels using raw same-gain recordings.
 
 Pull forward only the necessary subset of old R5 proven by selected graphs.
 Implement in bounded bundles through the accepted definition/behavior seam;
@@ -598,8 +600,10 @@ The Sampo remains a special mythic capstone idea. Do not reduce it to “Utility
 
 R1/R1A and R2 are accepted and closed. R3-A passes in direction, retaining all four
 systems. The separately authorized [R3-S substrate](../project/R3S_STARTER_SUBSTRATE.md)
-is implemented with native audition fixtures and rendered evidence. Review its
-selected modes, audio/event/domain behavior and recordings before any R3-B order.
+is technically accepted with native audition fixtures and rendered evidence.
+Complete actual listening before tuning initial values, then design persistence
+and starter inventory convergence rules before any R3-B order. Crossed Embers
+must not be softened solely because of aggressive numerical levels.
 **Stop before R3-B gameplay, save migration, inventory or capacity changes.**
 Capacity (11/12), starter inventory fairness/convergence and persistence remain
 explicit decisions for that future scope. Broader old R5 remains later work.
