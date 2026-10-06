@@ -2,7 +2,9 @@ import type { ModuleDefinition, PortDefinition, ControlDefinition, SignalDomain,
 
 // R3-S selected modes only. The seven prototype definitions are never replaced.
 const p = (id: string, family: SignalDomain, direction: 'in' | 'out', scale = 1, clock = false): PortDefinition =>
-    ({ id, label: id, binding: id, family, direction, scale, ...(direction === 'in' ? { maxConnections: 1, smoothing: 'none' as const } : {}), ...(clock ? { accepts: ['CLOCK'] } : {}) });
+    ({ id, label: id, binding: id, family, direction, scale,
+        ...(direction === 'in' ? { maxConnections: 1, ...(family === 'TRIG' || family === 'CLOCK' ? { smoothing: 'none' as const } : {}) } : {}),
+        ...(clock ? { accepts: ['CLOCK'] } : {}) });
 const c = (id: string, min: number, max: number, step: number, initial: number, unit: string, integer = false): ControlDefinition =>
     ({ id, label: id, binding: id, min, max, step, initial, unit, ...(integer ? { integer: true } : {}) });
 const freeze = <T,>(value: T): T => { if (value && typeof value === 'object') { for (const item of Object.values(value)) freeze(item); Object.freeze(value); } return value; };

@@ -146,6 +146,55 @@ class MockWorklet extends RecordingNode {
     options: any;
     constructor(context: WorkletContext, _id: string, options: any) { super('worklet'); context.nodes.push(this); this.options = options; }
 }
+test('continuous selected routes ramp and fade; event routes connect and disconnect immediately', async t => {
+    for (const definition of Object.values(STARTER_REGISTRY.definitions)) {
+        for (const port of definition.ports.filter(p => p.direction === 'in')) {
+            if (port.family === 'AUDIO' || port.family === 'CV') assert.notEqual(port.smoothing, 'none', `${definition.definitionId}:${port.id}`);
+            else assert.equal(port.smoothing, 'none');
+        }
+    }
+    t.mock.timers.enable({ apis: ['setTimeout'] });
+    const old = Object.getOwnPropertyDescriptor(globalThis, 'AudioWorkletNode');
+    Object.defineProperty(globalThis, 'AudioWorkletNode', { configurable: true, value: MockWorklet });
+    try {
+        for (const patch of [fixtures.rhythm, fixtures.weather]) {
+            const context = new WorkletContext();
+            const graph = new PatchAudioGraph(() => ({ context: context as any, destination: new RecordingNode('master') as any, analyser: new RecordingNode('analyser') as any, release: async () => {} }), STARTER_REGISTRY);
+            try {
+                await graph.start(patch);
+                const routes = [...(graph as any).routes.values()];
+                for (const route of routes) {
+                    const instance = patch.instances.find(i => i.instanceId === route.cable.to.instanceId)!;
+                    const port = STARTER_REGISTRY.definitions[instance.definitionId].ports.find(p => p.id === route.cable.to.portId)!;
+                    const event = port.family === 'CLOCK' || port.family === 'TRIG';
+                    assert.equal(route.immediate, event);
+                    assert.deepEqual(route.gain.gain.targets, event ? [] : [{ value: port.scale, time: 12, constant: .015 }]);
+                    assert.equal(route.gain.gain.value, port.scale);
+                }
+                const continuous = routes.filter(r => !r.immediate), events = routes.filter(r => r.immediate);
+                assert.ok(continuous.length && events.length);
+                graph.apply({ ...patch, cables: [] });
+                assert.ok(events.every(r => r.gain.disconnects === 1 && !r.source.connections.includes(r.gain)));
+                assert.ok(continuous.every(r => r.gain.disconnects === 0 && r.source.connections.includes(r.gain)));
+                assert.ok(continuous.every(r => r.gain.gain.targets.at(-1).value === 0 && r.gain.gain.targets.at(-1).constant === .015));
+                assert.equal((graph as any).pending.size, continuous.length);
+                t.mock.timers.tick(99);
+                assert.ok(continuous.every(r => r.gain.disconnects === 0));
+                t.mock.timers.tick(1);
+                assert.ok(continuous.every(r => r.gain.disconnects === 1 && !r.source.connections.includes(r.gain)));
+                assert.equal((graph as any).pending.size, 0);
+                graph.apply(patch); graph.apply({ ...patch, cables: [] });
+                assert.equal((graph as any).pending.size, continuous.length);
+            } finally { await graph.dispose(); }
+            assert.equal((graph as any).pending.size, 0, 'stop clears pending continuous-route fades');
+            assert.ok(context.nodes.every(n => n.connections.length === 0));
+        }
+    } finally {
+        t.mock.timers.reset();
+        if (old) Object.defineProperty(globalThis, 'AudioWorkletNode', old); else delete (globalThis as any).AudioWorkletNode;
+    }
+});
+
 test('all fixtures build through PatchAudioGraph with exact routes, deliberate activation and complete idempotent cleanup', async () => {
     const old = Object.getOwnPropertyDescriptor(globalThis, 'AudioWorkletNode');
     Object.defineProperty(globalThis, 'AudioWorkletNode', { configurable: true, value: MockWorklet });
