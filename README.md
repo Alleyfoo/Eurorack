@@ -65,10 +65,13 @@ the [recovered old design-bible authority map](docs/archive/OLD_DESIGN_BIBLE_REC
 and the [governing design](docs/design/GAME_DESIGN.md).
 
 [R1/R1A are accepted and closed](docs/plans/R1_ACCEPTANCE_AMENDMENTS.md).
-[R2 is implemented and validated](docs/project/R2_DATA_DRIVEN_PATCH_SEAM.md): the
+[R2 is accepted and closed](docs/project/R2_DATA_DRIVEN_PATCH_SEAM.md): the
 seven existing behaviors now use versioned definitions and a direct behavior
-registry, preserving v1 saves and current sound. Starter racks remain later work;
-R3 has not started.
+registry, preserving v1 saves and current sound.
+[R3-A proposes four starter systems](docs/plans/R3A_STARTER_SYSTEM_DESIGN.md), with
+explicit draft graphs, minimum missing behaviors and rack-capacity experiments.
+It is design only; behavior implementation and R3-B executable starters require
+separate authorization.
 
 ## Production build
 

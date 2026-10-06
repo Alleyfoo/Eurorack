@@ -116,5 +116,8 @@ R1/R1A were subsequently accepted and closed, and the separately authorized
 [R2 seam is implemented and validated](../project/R2_DATA_DRIVEN_PATCH_SEAM.md).
 It contains only the seven existing behaviors and preset/archive preservation
 fixtures, without the capability/event/resource frameworks described for later phases.
-Starter presets remain R3;
-broader crude capabilities remain R5 and serious DSP remains R9.
+[R3-A](../plans/R3A_STARTER_SYSTEM_DESIGN.md) now uses these families to propose
+starter graphs and derive missing behaviors before executable R3-B content.
+Only the selected starters' necessary subset of old R5 may be pulled forward in
+a separately authorized behavior milestone. Broader capabilities remain R5 and
+serious DSP remains R9.

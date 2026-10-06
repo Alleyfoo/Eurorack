@@ -51,12 +51,17 @@ legacy migration and perfect DSP replay remain outside scope.
 **R1 is accepted in direction with four amendments**, recorded in
 `docs/plans/R1_ACCEPTANCE_AMENDMENTS.md`: directly mapped CV → pitch, 16-family
 coverage including synthesized percussion, #94 pitch/clock distribution with
-free fan-out, and a narrow R2 boundary. **R1/R1A are closed; the user explicitly
-authorized R2 on 2026-10-06. R2 is implemented and validated**, documented in
+free fan-out, and a narrow R2 boundary. **R1/R1A and R2 are accepted and closed**,
+documented in
 `docs/project/R2_DATA_DRIVEN_PATCH_SEAM.md`. Seven existing behaviors now use the
 definition/behavior/instance/port/control seam with a frozen v1 compatibility
-adapter and preset/archive preservation fixtures. **Stop before R3** unless the
-user authorizes further scoped work. Do not migrate v1 saves in place.
+adapter and preset/archive preservation fixtures. The user authorized **R3-A design
+only**, now proposed in `docs/plans/R3A_STARTER_SYSTEM_DESIGN.md` with explicit draft
+graphs in `docs/content/R3A_STARTER_GRAPHS.json`. Review the four candidates, minimum
+behavior requirements and capacity experiment before a separately authorized
+starter-required behavior milestone, then R3-B executable starters. **Stop before
+new behavior or R3-B implementation.** Draft data is not runtime ModulePatch data;
+do not register it automatically or migrate v1 saves in place.
 Do not build the full capability ontology, event algebra/scheduler, resource
 manifest/store or 100-module validation universe in R2. Historical metadata gaps
 remain annotated; don't restart broad research as a prerequisite for that seam.

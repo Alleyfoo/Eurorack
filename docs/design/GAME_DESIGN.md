@@ -98,9 +98,12 @@ is an example, not a correct answer.
 The initial instrument must already support several meaningful relationships and
 an interesting audible state; the player should not be forced to listen to a bare
 sine wave while earning basic synthesis functionality. Exact starter contents,
-preset count and installed capacity remain open until the rehabilitated catalogue
-and research coverage are reviewed. The current six-module G1-P capacity carries
-no full-game authority.
+preset count and installed capacity remain open for starter-system review and
+playtesting. R1/R2 are accepted; [R3-A](../plans/R3A_STARTER_SYSTEM_DESIGN.md) proposes
+four contrasting graphs, derives their required behavior subset and compares
+11/12 ordinary positions plus Output as a content experiment. These proposals do
+not change runtime capacity or authorize executable starters. The current
+six-module G1-P capacity carries no full-game authority.
 
 **D2-A — accepted for G1-P:** one small common studio kit: one chosen sound
 source, tone or noise, plus Filter, LFO and Output. The choice is starting material,

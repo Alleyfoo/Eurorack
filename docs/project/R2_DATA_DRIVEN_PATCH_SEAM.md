@@ -2,7 +2,12 @@
 
 Implemented 2026-10-06 in `421c575`, following explicit user acceptance of R1/R1A
 and authorization of the seven-behavior R2 slice. Architectural replacement beneath
-existing behavior; no new instrument, catalogue content or DSP. R3 is not started.
+existing behavior; no new instrument, catalogue content or DSP was added in R2.
+
+**Accepted and closed by the user on 2026-10-06**, after reviewing `421c575`,
+`fd75c89` and `2f46380`. The next authorized work is
+[R3-A design only](../plans/R3A_STARTER_SYSTEM_DESIGN.md), followed by separately
+authorized starter-required behaviors and R3-B executable starters.
 
 ## Runtime authority
 
@@ -131,7 +136,8 @@ Browser scripts remain temporary files outside the repo per the Playwright skill
 
 ## Stop boundary
 
-R2 validation is complete. Do not begin R3 automatically. No envelopes, S&H,
+R2 validation and user acceptance are complete. R2 did not authorize automatic
+R3 work; the user's subsequent R3-A order authorizes design only. No envelopes, S&H,
 quantizers, clocks/gates, sequencers, schedulers, sample/buffer resources, stereo
 Output, new feedback models, 100-module registration, starter racks or adventure
 content were added. Future content and behavior need their own scoped work order.

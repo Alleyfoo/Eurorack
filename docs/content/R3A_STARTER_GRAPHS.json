@@ -1,0 +1,1731 @@
+{
+  "designFormat": "r3a-starter-candidates-v1",
+  "runtimeEligible": false,
+  "authority": "R3-A design proposal only; no behavior or R3-B implementation authorization",
+  "controlsStatus": "Explicit audition values and scoped port proposals; provisional until behavior/listening review",
+  "source": "Accepted R1 role table and 16-family coverage; no original-research inspection claim",
+  "products": {
+    "solar-sine": {
+      "catalogueRow": 1,
+      "name": "Solar Sine",
+      "ports": [
+        {
+          "portId": "pitch",
+          "family": "CV",
+          "direction": "in",
+          "transfer": "frequencyHz = baseHz * 2 ** input; generic CV, 1 octave/unit; no calibrated source claim"
+        },
+        {
+          "portId": "out",
+          "family": "AUDIO",
+          "direction": "out"
+        }
+      ],
+      "controlUnits": {
+        "frequency": "Hz"
+      },
+      "initialControls": {
+        "frequency": 110
+      },
+      "initialSettings": {
+        "waveform": "sine"
+      },
+      "missingBehaviorIds": [],
+      "reuseBasis": "prototype.oscillator",
+      "scopeNote": "Sine configuration; no new oscillator algorithm. Selected periodic mode retains the R2 normalized output peak of 0.25."
+    },
+    "gramps-saw": {
+      "catalogueRow": 2,
+      "name": "Gramps’ Saw",
+      "ports": [
+        {
+          "portId": "pitch",
+          "family": "CV",
+          "direction": "in",
+          "transfer": "frequencyHz = baseHz * 2 ** input; generic CV, 1 octave/unit; no calibrated source claim"
+        },
+        {
+          "portId": "out",
+          "family": "AUDIO",
+          "direction": "out"
+        }
+      ],
+      "controlUnits": {
+        "frequency": "Hz"
+      },
+      "initialControls": {
+        "frequency": 111
+      },
+      "initialSettings": {
+        "waveform": "sawtooth",
+        "driftEnabled": false
+      },
+      "missingBehaviorIds": [],
+      "reuseBasis": "prototype.oscillator",
+      "scopeNote": "Manual saw configuration; optional drift mode/port is not required by these starters. Selected periodic mode retains the R2 normalized output peak of 0.25."
+    },
+    "fusion-filter": {
+      "catalogueRow": 11,
+      "name": "Fusion Ladder Filter",
+      "ports": [
+        {
+          "portId": "in",
+          "family": "AUDIO",
+          "direction": "in"
+        },
+        {
+          "portId": "cutoff",
+          "family": "CV",
+          "direction": "in"
+        },
+        {
+          "portId": "out",
+          "family": "AUDIO",
+          "direction": "out"
+        }
+      ],
+      "controlUnits": {
+        "cutoff": "Hz",
+        "resonance": "Q"
+      },
+      "initialControls": {
+        "cutoff": 600,
+        "resonance": 1.6
+      },
+      "initialSettings": {
+        "cutoffCvCentsPerUnit": 2400
+      },
+      "missingBehaviorIds": [],
+      "reuseBasis": "prototype.filter",
+      "scopeNote": "Crude low-pass contract; no claim of completed four-pole ladder fidelity."
+    },
+    "ghost-vca": {
+      "catalogueRow": 41,
+      "name": "Ghost Gate VCA",
+      "ports": [
+        {
+          "portId": "in",
+          "family": "AUDIO",
+          "direction": "in"
+        },
+        {
+          "portId": "gain",
+          "family": "CV",
+          "direction": "in"
+        },
+        {
+          "portId": "out",
+          "family": "AUDIO",
+          "direction": "out"
+        }
+      ],
+      "controlUnits": {
+        "level": "nonnegative gain bias"
+      },
+      "initialControls": {
+        "level": 0.4
+      },
+      "initialSettings": {
+        "gainCvPerUnit": 0.5
+      },
+      "missingBehaviorIds": [],
+      "reuseBasis": "prototype.vca",
+      "scopeNote": "These graphs use AUDIO signal lanes; broad DC-coupled/CV operation is not an additional starter prerequisite."
+    },
+    "void-delay": {
+      "catalogueRow": 62,
+      "name": "Void Delay",
+      "ports": [
+        {
+          "portId": "in",
+          "family": "AUDIO",
+          "direction": "in"
+        },
+        {
+          "portId": "return",
+          "family": "AUDIO",
+          "direction": "in"
+        },
+        {
+          "portId": "out",
+          "family": "AUDIO",
+          "direction": "out"
+        }
+      ],
+      "controlUnits": {
+        "time": "s",
+        "input": "gain",
+        "return": "gain"
+      },
+      "initialControls": {
+        "time": 0.37,
+        "input": 0.8,
+        "return": 0.25
+      },
+      "initialSettings": {
+        "wet": 1
+      },
+      "missingBehaviorIds": [],
+      "reuseBasis": "prototype.delay",
+      "scopeNote": "Same explicit return and saturation as R2. Time CV and wet/dry controls are unused future features."
+    },
+    "drift-lfo": {
+      "catalogueRow": 21,
+      "name": "Grandpa’s Drift LFO",
+      "ports": [
+        {
+          "portId": "out",
+          "family": "CV",
+          "direction": "out"
+        }
+      ],
+      "controlUnits": {
+        "rate": "Hz",
+        "amount": "bipolar CV peak"
+      },
+      "initialControls": {
+        "rate": 0.06,
+        "amount": 0.35
+      },
+      "initialSettings": {
+        "waveform": "sine",
+        "driftEnabled": false
+      },
+      "missingBehaviorIds": [],
+      "reuseBasis": "prototype.lfo",
+      "scopeNote": "Periodic sine with optional drift disabled; no new random/chaos core required."
+    },
+    "needle-mixer": {
+      "catalogueRow": 87,
+      "name": "Needle Mixer",
+      "ports": [
+        {
+          "portId": "a",
+          "family": "AUDIO",
+          "direction": "in"
+        },
+        {
+          "portId": "b",
+          "family": "AUDIO",
+          "direction": "in"
+        },
+        {
+          "portId": "out",
+          "family": "AUDIO",
+          "direction": "out"
+        }
+      ],
+      "controlUnits": {
+        "aLevel": "gain",
+        "bLevel": "gain",
+        "master": "gain"
+      },
+      "initialControls": {
+        "aLevel": 0.6,
+        "bLevel": 0.35,
+        "master": 0.8
+      },
+      "initialSettings": {},
+      "missingBehaviorIds": [
+        "audio.mix"
+      ],
+      "reuseBasis": null,
+      "scopeNote": "Explicit two-input mono summing with independently useful trims."
+    },
+    "thunderclock": {
+      "catalogueRow": 79,
+      "name": "Thunderclock Driver",
+      "ports": [
+        {
+          "portId": "out",
+          "family": "CLOCK",
+          "direction": "out"
+        },
+        {
+          "portId": "reset",
+          "family": "TRIG",
+          "direction": "out"
+        }
+      ],
+      "controlUnits": {
+        "rate": "Hz",
+        "pulseWidth": "fraction of clock period"
+      },
+      "initialControls": {
+        "rate": 3,
+        "pulseWidth": 0.05
+      },
+      "initialSettings": {
+        "run": true,
+        "initialPhase": 0
+      },
+      "missingBehaviorIds": [
+        "clock.master"
+      ],
+      "reuseBasis": null,
+      "scopeNote": "Patch-time clock and manual reset; no world-time progress."
+    },
+    "lunar-divider": {
+      "catalogueRow": 85,
+      "name": "Lunar Pulse Divider",
+      "ports": [
+        {
+          "portId": "in",
+          "family": "CLOCK",
+          "direction": "in"
+        },
+        {
+          "portId": "reset",
+          "family": "TRIG",
+          "direction": "in"
+        },
+        {
+          "portId": "out",
+          "family": "CLOCK",
+          "direction": "out"
+        }
+      ],
+      "controlUnits": {
+        "division": "positive integer input-edge count",
+        "phase": "integer tick offset"
+      },
+      "initialControls": {
+        "division": 3,
+        "phase": 0
+      },
+      "initialSettings": {
+        "firstEdgeOnReset": true
+      },
+      "missingBehaviorIds": [
+        "clock.divide"
+      ],
+      "reuseBasis": null,
+      "scopeNote": "Division only in this starter slice. Clock multiplication and period prediction are not needed."
+    },
+    "thunderstrike-ad": {
+      "catalogueRow": 33,
+      "name": "Thunderstrike ENV",
+      "ports": [
+        {
+          "portId": "trigger",
+          "family": "TRIG",
+          "direction": "in",
+          "accepts": [
+            "TRIG",
+            "CLOCK"
+          ],
+          "consume": "rising edge only"
+        },
+        {
+          "portId": "out",
+          "family": "CV",
+          "direction": "out"
+        }
+      ],
+      "controlUnits": {
+        "attack": "s",
+        "decay": "s"
+      },
+      "initialControls": {
+        "attack": 0.002,
+        "decay": 0.18
+      },
+      "initialSettings": {
+        "curve": "exponential",
+        "retrigger": "restart-from-zero",
+        "initialValue": 0
+      },
+      "missingBehaviorIds": [
+        "function.ad"
+      ],
+      "reuseBasis": null,
+      "scopeNote": "Unipolar [0,1] contour, positive attack/decay, no ADSR sustain."
+    },
+    "solar-wind": {
+      "catalogueRow": 57,
+      "name": "Solar Wind Noise",
+      "ports": [
+        {
+          "portId": "out",
+          "family": "AUDIO",
+          "direction": "out"
+        }
+      ],
+      "controlUnits": {
+        "level": "gain",
+        "colorCutoff": "Hz"
+      },
+      "initialControls": {
+        "level": 0.35,
+        "colorCutoff": 5000
+      },
+      "initialSettings": {
+        "colorMode": "lowpass"
+      },
+      "missingBehaviorIds": [
+        "noise.color"
+      ],
+      "reuseBasis": "prototype.noise + existing low-pass primitive",
+      "scopeNote": "White-noise basis with declared internal low-pass coloration; no recorded assets."
+    },
+    "vapor-fm": {
+      "catalogueRow": 8,
+      "name": "Vaporline FM Source",
+      "ports": [
+        {
+          "portId": "pitch",
+          "family": "CV",
+          "direction": "in",
+          "transfer": "frequencyHz = baseHz * 2 ** input; generic CV, 1 octave/unit; no calibrated source claim"
+        },
+        {
+          "portId": "linear-fm",
+          "family": "AUDIO",
+          "direction": "in"
+        },
+        {
+          "portId": "out",
+          "family": "AUDIO",
+          "direction": "out"
+        }
+      ],
+      "controlUnits": {
+        "frequency": "Hz",
+        "fmDepth": "Hz per normalized AUDIO unit"
+      },
+      "initialControls": {
+        "frequency": 220,
+        "fmDepth": 850
+      },
+      "initialSettings": {
+        "waveform": "sine",
+        "internalModulatorEnabled": false,
+        "frequencyBoundsHz": [
+          20,
+          12000
+        ]
+      },
+      "missingBehaviorIds": [
+        "osc.linear-fm"
+      ],
+      "reuseBasis": "prototype.oscillator",
+      "scopeNote": "External linear FM only for these candidates; PM, through-zero FM and internal modulator are deferred, not falsely advertised as implemented. Selected periodic mode retains the R2 normalized output peak of 0.25."
+    },
+    "thunderfold": {
+      "catalogueRow": 12,
+      "name": "Thunderfold VCF",
+      "ports": [
+        {
+          "portId": "in",
+          "family": "AUDIO",
+          "direction": "in"
+        },
+        {
+          "portId": "fold",
+          "family": "CV",
+          "direction": "in"
+        },
+        {
+          "portId": "out",
+          "family": "AUDIO",
+          "direction": "out"
+        }
+      ],
+      "controlUnits": {
+        "fold": "dimensionless fold drive",
+        "symmetry": "normalized input bias"
+      },
+      "initialControls": {
+        "fold": 6,
+        "symmetry": 0
+      },
+      "initialSettings": {
+        "foldCvDepth": 0.7
+      },
+      "missingBehaviorIds": [
+        "shape.wavefolder"
+      ],
+      "reuseBasis": null,
+      "scopeNote": "Actual repeated folding, not a replacement name for tanh saturation. Proposed selected-mode folding reflects repeatedly at normalized +/-1 after drive and symmetry bias."
+    },
+    "solar-quad": {
+      "catalogueRow": 93,
+      "name": "Solar Quad Attenuator",
+      "ports": [
+        {
+          "portId": "in1",
+          "direction": "in",
+          "lane": 1
+        },
+        {
+          "portId": "out1",
+          "direction": "out",
+          "lane": 1
+        },
+        {
+          "portId": "in2",
+          "direction": "in",
+          "lane": 2
+        },
+        {
+          "portId": "out2",
+          "direction": "out",
+          "lane": 2
+        },
+        {
+          "portId": "in3",
+          "direction": "in",
+          "lane": 3
+        },
+        {
+          "portId": "out3",
+          "direction": "out",
+          "lane": 3
+        },
+        {
+          "portId": "in4",
+          "direction": "in",
+          "lane": 4
+        },
+        {
+          "portId": "out4",
+          "direction": "out",
+          "lane": 4
+        }
+      ],
+      "controlUnits": {
+        "gain1": "signed gain",
+        "gain2": "signed gain",
+        "gain3": "signed gain",
+        "gain4": "signed gain"
+      },
+      "initialControls": {
+        "gain1": 0.4,
+        "gain2": 0.22,
+        "gain3": 0.25,
+        "gain4": 1
+      },
+      "initialSettings": {
+        "laneFamilies": [
+          "AUDIO",
+          "AUDIO",
+          "CV",
+          "CV"
+        ]
+      },
+      "missingBehaviorIds": [
+        "signal.attenuvert"
+      ],
+      "reuseBasis": null,
+      "scopeNote": "Lane family explicitly fixed per instance in this design data; no offset or automatic domain conversion."
+    },
+    "fossil-modal": {
+      "catalogueRow": 10,
+      "name": "Fossil Resonator",
+      "ports": [
+        {
+          "portId": "exciter",
+          "family": "AUDIO",
+          "direction": "in"
+        },
+        {
+          "portId": "pitch",
+          "family": "CV",
+          "direction": "in",
+          "transfer": "frequencyHz = baseHz * 2 ** input; generic CV, 1 octave/unit; no calibrated source claim"
+        },
+        {
+          "portId": "damping",
+          "family": "CV",
+          "direction": "in"
+        },
+        {
+          "portId": "out",
+          "family": "AUDIO",
+          "direction": "out"
+        }
+      ],
+      "controlUnits": {
+        "frequency": "Hz reference",
+        "damping": "normalized [0,1]",
+        "structure": "normalized [0,1]",
+        "excitationPosition": "normalized [0,1]"
+      },
+      "initialControls": {
+        "frequency": 137,
+        "damping": 0.55,
+        "structure": 0.3,
+        "excitationPosition": 0.4
+      },
+      "initialSettings": {
+        "dampingCvDepth": 0.3,
+        "modeRatios": [
+          1,
+          2.76,
+          5.4
+        ]
+      },
+      "missingBehaviorIds": [
+        "resonator.modal"
+      ],
+      "reuseBasis": null,
+      "scopeNote": "Illustrative three-mode excited resonator; silent without exciter, no hidden oscillator/strike. Exact response requires later listening."
+    },
+    "rustleaf-functions": {
+      "catalogueRow": 32,
+      "name": "Rustleaf Function Duo",
+      "ports": [
+        {
+          "portId": "a.trigger",
+          "family": "TRIG",
+          "direction": "in",
+          "accepts": [
+            "TRIG",
+            "CLOCK"
+          ],
+          "consume": "rising edge only"
+        },
+        {
+          "portId": "a.out",
+          "family": "CV",
+          "direction": "out"
+        },
+        {
+          "portId": "a.eoc",
+          "family": "TRIG",
+          "direction": "out"
+        },
+        {
+          "portId": "b.trigger",
+          "family": "TRIG",
+          "direction": "in",
+          "accepts": [
+            "TRIG",
+            "CLOCK"
+          ],
+          "consume": "rising edge only"
+        },
+        {
+          "portId": "b.out",
+          "family": "CV",
+          "direction": "out"
+        },
+        {
+          "portId": "b.eoc",
+          "family": "TRIG",
+          "direction": "out"
+        }
+      ],
+      "controlUnits": {
+        "riseA": "s",
+        "fallA": "s",
+        "riseB": "s",
+        "fallB": "s"
+      },
+      "initialControls": {
+        "riseA": 0.004,
+        "fallA": 0.85,
+        "riseB": 11,
+        "fallB": 17
+      },
+      "initialSettings": {
+        "cycleA": true,
+        "cycleB": true,
+        "curveA": "exponential",
+        "curveB": "linear",
+        "initialValueA": 0,
+        "initialValueB": 0
+      },
+      "missingBehaviorIds": [
+        "function.ad",
+        "function.cycle-eoc"
+      ],
+      "reuseBasis": null,
+      "scopeNote": "Two independent channels sharing the AD core, with explicit cycle/EOC modes; slew and other function modes not required."
+    },
+    "quantum-hold": {
+      "catalogueRow": 52,
+      "name": "Quantum Sprinkle",
+      "ports": [
+        {
+          "portId": "value",
+          "family": "CV",
+          "direction": "in"
+        },
+        {
+          "portId": "sample",
+          "family": "TRIG",
+          "direction": "in",
+          "accepts": [
+            "TRIG",
+            "CLOCK"
+          ],
+          "consume": "rising edge only"
+        },
+        {
+          "portId": "out",
+          "family": "CV",
+          "direction": "out"
+        }
+      ],
+      "controlUnits": {
+        "initialValue": "generic CV"
+      },
+      "initialControls": {
+        "initialValue": 0
+      },
+      "initialSettings": {},
+      "missingBehaviorIds": [
+        "memory.sample-hold"
+      ],
+      "reuseBasis": null,
+      "scopeNote": "Captures external CV exactly at a sample edge; no hidden random source or quantizer."
+    },
+    "output": {
+      "catalogueRow": null,
+      "name": "Output",
+      "ports": [
+        {
+          "portId": "in",
+          "family": "AUDIO",
+          "direction": "in"
+        }
+      ],
+      "controlUnits": {},
+      "initialControls": {},
+      "initialSettings": {},
+      "missingBehaviorIds": [],
+      "reuseBasis": "prototype.output",
+      "scopeNote": "Infrastructure outside the 100 catalogue rows; listen controls belong to transport."
+    }
+  },
+  "candidates": [
+    {
+      "candidateId": "slow",
+      "name": "Slow Machine",
+      "status": "proposed-for-review",
+      "runtimeEligible": false,
+      "researchFamilies": [
+        "Pad / drone",
+        "Subtractive voice",
+        "Evolving modulation network"
+      ],
+      "installedOrdinaryPositions": 7,
+      "outputPositions": 1,
+      "transport": {
+        "listenLevel": 0.15,
+        "muted": false,
+        "startGestureRequired": true,
+        "drivers": []
+      },
+      "instances": [
+        {
+          "instanceId": "slow-sine",
+          "definitionRef": "solar-sine",
+          "ownership": "starter-owned",
+          "controls": {
+            "frequency": 110
+          },
+          "settings": {
+            "waveform": "sine"
+          }
+        },
+        {
+          "instanceId": "slow-saw",
+          "definitionRef": "gramps-saw",
+          "ownership": "starter-owned",
+          "controls": {
+            "frequency": 111
+          },
+          "settings": {
+            "waveform": "sawtooth",
+            "driftEnabled": false
+          }
+        },
+        {
+          "instanceId": "slow-mix",
+          "definitionRef": "needle-mixer",
+          "ownership": "starter-owned",
+          "controls": {
+            "aLevel": 0.6,
+            "bLevel": 0.35,
+            "master": 0.8
+          },
+          "settings": {}
+        },
+        {
+          "instanceId": "slow-filter",
+          "definitionRef": "fusion-filter",
+          "ownership": "starter-owned",
+          "controls": {
+            "cutoff": 600,
+            "resonance": 1.6
+          },
+          "settings": {
+            "cutoffCvCentsPerUnit": 2400
+          }
+        },
+        {
+          "instanceId": "slow-vca",
+          "definitionRef": "ghost-vca",
+          "ownership": "starter-owned",
+          "controls": {
+            "level": 0.4
+          },
+          "settings": {
+            "gainCvPerUnit": 0.5
+          }
+        },
+        {
+          "instanceId": "slow-lfo",
+          "definitionRef": "drift-lfo",
+          "ownership": "starter-owned",
+          "controls": {
+            "rate": 0.06,
+            "amount": 0.35
+          },
+          "settings": {
+            "waveform": "sine",
+            "driftEnabled": false
+          }
+        },
+        {
+          "instanceId": "slow-delay",
+          "definitionRef": "void-delay",
+          "ownership": "starter-owned",
+          "controls": {
+            "time": 0.37,
+            "input": 0.8,
+            "return": 0.25
+          },
+          "settings": {
+            "wet": 1
+          }
+        },
+        {
+          "instanceId": "slow-output",
+          "definitionRef": "output",
+          "ownership": "infrastructure",
+          "controls": {},
+          "settings": {}
+        }
+      ],
+      "cables": [
+        {
+          "cableId": "slow-c01",
+          "from": {
+            "instanceId": "slow-sine",
+            "portId": "out"
+          },
+          "to": {
+            "instanceId": "slow-mix",
+            "portId": "a"
+          }
+        },
+        {
+          "cableId": "slow-c02",
+          "from": {
+            "instanceId": "slow-saw",
+            "portId": "out"
+          },
+          "to": {
+            "instanceId": "slow-mix",
+            "portId": "b"
+          }
+        },
+        {
+          "cableId": "slow-c03",
+          "from": {
+            "instanceId": "slow-mix",
+            "portId": "out"
+          },
+          "to": {
+            "instanceId": "slow-filter",
+            "portId": "in"
+          }
+        },
+        {
+          "cableId": "slow-c04",
+          "from": {
+            "instanceId": "slow-filter",
+            "portId": "out"
+          },
+          "to": {
+            "instanceId": "slow-vca",
+            "portId": "in"
+          }
+        },
+        {
+          "cableId": "slow-c05",
+          "from": {
+            "instanceId": "slow-vca",
+            "portId": "out"
+          },
+          "to": {
+            "instanceId": "slow-delay",
+            "portId": "in"
+          }
+        },
+        {
+          "cableId": "slow-c06",
+          "from": {
+            "instanceId": "slow-delay",
+            "portId": "out"
+          },
+          "to": {
+            "instanceId": "slow-delay",
+            "portId": "return"
+          }
+        },
+        {
+          "cableId": "slow-c07",
+          "from": {
+            "instanceId": "slow-delay",
+            "portId": "out"
+          },
+          "to": {
+            "instanceId": "slow-output",
+            "portId": "in"
+          }
+        },
+        {
+          "cableId": "slow-c08",
+          "from": {
+            "instanceId": "slow-lfo",
+            "portId": "out"
+          },
+          "to": {
+            "instanceId": "slow-filter",
+            "portId": "cutoff"
+          }
+        },
+        {
+          "cableId": "slow-c09",
+          "from": {
+            "instanceId": "slow-lfo",
+            "portId": "out"
+          },
+          "to": {
+            "instanceId": "slow-vca",
+            "portId": "gain"
+          }
+        }
+      ],
+      "missingBehaviorIds": [
+        "audio.mix"
+      ]
+    },
+    {
+      "candidateId": "rhythm",
+      "name": "Three Against Five",
+      "status": "proposed-for-review",
+      "runtimeEligible": false,
+      "researchFamilies": [
+        "Complex / percussive synthesis"
+      ],
+      "installedOrdinaryPositions": 10,
+      "outputPositions": 1,
+      "transport": {
+        "listenLevel": 0.15,
+        "muted": false,
+        "startGestureRequired": true,
+        "drivers": [
+          "rhythm-clock"
+        ]
+      },
+      "instances": [
+        {
+          "instanceId": "rhythm-clock",
+          "definitionRef": "thunderclock",
+          "ownership": "starter-owned",
+          "controls": {
+            "rate": 3,
+            "pulseWidth": 0.05
+          },
+          "settings": {
+            "run": true,
+            "initialPhase": 0
+          }
+        },
+        {
+          "instanceId": "rhythm-div3",
+          "definitionRef": "lunar-divider",
+          "ownership": "starter-owned",
+          "controls": {
+            "division": 3,
+            "phase": 0
+          },
+          "settings": {
+            "firstEdgeOnReset": true
+          }
+        },
+        {
+          "instanceId": "rhythm-div5",
+          "definitionRef": "lunar-divider",
+          "ownership": "starter-owned",
+          "controls": {
+            "division": 5,
+            "phase": 0
+          },
+          "settings": {
+            "firstEdgeOnReset": true
+          }
+        },
+        {
+          "instanceId": "rhythm-body-env",
+          "definitionRef": "thunderstrike-ad",
+          "ownership": "starter-owned",
+          "controls": {
+            "attack": 0.002,
+            "decay": 0.18
+          },
+          "settings": {
+            "curve": "exponential",
+            "retrigger": "restart-from-zero",
+            "initialValue": 0
+          }
+        },
+        {
+          "instanceId": "rhythm-noise-env",
+          "definitionRef": "thunderstrike-ad",
+          "ownership": "starter-owned",
+          "controls": {
+            "attack": 0.001,
+            "decay": 0.055
+          },
+          "settings": {
+            "curve": "exponential",
+            "retrigger": "restart-from-zero",
+            "initialValue": 0
+          }
+        },
+        {
+          "instanceId": "rhythm-body",
+          "definitionRef": "solar-sine",
+          "ownership": "starter-owned",
+          "controls": {
+            "frequency": 65
+          },
+          "settings": {
+            "waveform": "sine"
+          }
+        },
+        {
+          "instanceId": "rhythm-noise",
+          "definitionRef": "solar-wind",
+          "ownership": "starter-owned",
+          "controls": {
+            "level": 0.45,
+            "colorCutoff": 6500
+          },
+          "settings": {
+            "colorMode": "lowpass"
+          }
+        },
+        {
+          "instanceId": "rhythm-body-vca",
+          "definitionRef": "ghost-vca",
+          "ownership": "starter-owned",
+          "controls": {
+            "level": 0
+          },
+          "settings": {
+            "gainCvPerUnit": 0.5
+          }
+        },
+        {
+          "instanceId": "rhythm-noise-vca",
+          "definitionRef": "ghost-vca",
+          "ownership": "starter-owned",
+          "controls": {
+            "level": 0
+          },
+          "settings": {
+            "gainCvPerUnit": 0.5
+          }
+        },
+        {
+          "instanceId": "rhythm-mix",
+          "definitionRef": "needle-mixer",
+          "ownership": "starter-owned",
+          "controls": {
+            "aLevel": 0.8,
+            "bLevel": 0.45,
+            "master": 0.8
+          },
+          "settings": {}
+        },
+        {
+          "instanceId": "rhythm-output",
+          "definitionRef": "output",
+          "ownership": "infrastructure",
+          "controls": {},
+          "settings": {}
+        }
+      ],
+      "cables": [
+        {
+          "cableId": "rhythm-c01",
+          "from": {
+            "instanceId": "rhythm-clock",
+            "portId": "out"
+          },
+          "to": {
+            "instanceId": "rhythm-div3",
+            "portId": "in"
+          }
+        },
+        {
+          "cableId": "rhythm-c02",
+          "from": {
+            "instanceId": "rhythm-clock",
+            "portId": "out"
+          },
+          "to": {
+            "instanceId": "rhythm-div5",
+            "portId": "in"
+          }
+        },
+        {
+          "cableId": "rhythm-c03",
+          "from": {
+            "instanceId": "rhythm-clock",
+            "portId": "reset"
+          },
+          "to": {
+            "instanceId": "rhythm-div3",
+            "portId": "reset"
+          }
+        },
+        {
+          "cableId": "rhythm-c04",
+          "from": {
+            "instanceId": "rhythm-clock",
+            "portId": "reset"
+          },
+          "to": {
+            "instanceId": "rhythm-div5",
+            "portId": "reset"
+          }
+        },
+        {
+          "cableId": "rhythm-c05",
+          "from": {
+            "instanceId": "rhythm-div3",
+            "portId": "out"
+          },
+          "to": {
+            "instanceId": "rhythm-body-env",
+            "portId": "trigger"
+          }
+        },
+        {
+          "cableId": "rhythm-c06",
+          "from": {
+            "instanceId": "rhythm-div5",
+            "portId": "out"
+          },
+          "to": {
+            "instanceId": "rhythm-noise-env",
+            "portId": "trigger"
+          }
+        },
+        {
+          "cableId": "rhythm-c07",
+          "from": {
+            "instanceId": "rhythm-body-env",
+            "portId": "out"
+          },
+          "to": {
+            "instanceId": "rhythm-body",
+            "portId": "pitch"
+          }
+        },
+        {
+          "cableId": "rhythm-c08",
+          "from": {
+            "instanceId": "rhythm-body-env",
+            "portId": "out"
+          },
+          "to": {
+            "instanceId": "rhythm-body-vca",
+            "portId": "gain"
+          }
+        },
+        {
+          "cableId": "rhythm-c09",
+          "from": {
+            "instanceId": "rhythm-noise-env",
+            "portId": "out"
+          },
+          "to": {
+            "instanceId": "rhythm-noise-vca",
+            "portId": "gain"
+          }
+        },
+        {
+          "cableId": "rhythm-c10",
+          "from": {
+            "instanceId": "rhythm-body",
+            "portId": "out"
+          },
+          "to": {
+            "instanceId": "rhythm-body-vca",
+            "portId": "in"
+          }
+        },
+        {
+          "cableId": "rhythm-c11",
+          "from": {
+            "instanceId": "rhythm-noise",
+            "portId": "out"
+          },
+          "to": {
+            "instanceId": "rhythm-noise-vca",
+            "portId": "in"
+          }
+        },
+        {
+          "cableId": "rhythm-c12",
+          "from": {
+            "instanceId": "rhythm-body-vca",
+            "portId": "out"
+          },
+          "to": {
+            "instanceId": "rhythm-mix",
+            "portId": "a"
+          }
+        },
+        {
+          "cableId": "rhythm-c13",
+          "from": {
+            "instanceId": "rhythm-noise-vca",
+            "portId": "out"
+          },
+          "to": {
+            "instanceId": "rhythm-mix",
+            "portId": "b"
+          }
+        },
+        {
+          "cableId": "rhythm-c14",
+          "from": {
+            "instanceId": "rhythm-mix",
+            "portId": "out"
+          },
+          "to": {
+            "instanceId": "rhythm-output",
+            "portId": "in"
+          }
+        }
+      ],
+      "missingBehaviorIds": [
+        "clock.master",
+        "clock.divide",
+        "function.ad",
+        "noise.color",
+        "audio.mix"
+      ]
+    },
+    {
+      "candidateId": "cross",
+      "name": "Crossed Embers",
+      "status": "proposed-for-review",
+      "runtimeEligible": false,
+      "researchFamilies": [
+        "FM / PM",
+        "Evolving modulation network"
+      ],
+      "installedOrdinaryPositions": 7,
+      "outputPositions": 1,
+      "transport": {
+        "listenLevel": 0.15,
+        "muted": false,
+        "startGestureRequired": true,
+        "drivers": []
+      },
+      "instances": [
+        {
+          "instanceId": "cross-carrier",
+          "definitionRef": "vapor-fm",
+          "ownership": "starter-owned",
+          "controls": {
+            "frequency": 220,
+            "fmDepth": 850
+          },
+          "settings": {
+            "waveform": "sine",
+            "internalModulatorEnabled": false,
+            "frequencyBoundsHz": [
+              20,
+              12000
+            ]
+          }
+        },
+        {
+          "instanceId": "cross-modulator",
+          "definitionRef": "vapor-fm",
+          "ownership": "starter-owned",
+          "controls": {
+            "frequency": 113,
+            "fmDepth": 300
+          },
+          "settings": {
+            "waveform": "sine",
+            "internalModulatorEnabled": false,
+            "frequencyBoundsHz": [
+              20,
+              12000
+            ]
+          }
+        },
+        {
+          "instanceId": "cross-trim",
+          "definitionRef": "solar-quad",
+          "ownership": "starter-owned",
+          "controls": {
+            "gain1": 0.4,
+            "gain2": 0.22,
+            "gain3": 0.25,
+            "gain4": 1
+          },
+          "settings": {
+            "laneFamilies": [
+              "AUDIO",
+              "AUDIO",
+              "CV",
+              "CV"
+            ]
+          }
+        },
+        {
+          "instanceId": "cross-folder",
+          "definitionRef": "thunderfold",
+          "ownership": "starter-owned",
+          "controls": {
+            "fold": 6,
+            "symmetry": 0
+          },
+          "settings": {
+            "foldCvDepth": 0.7
+          }
+        },
+        {
+          "instanceId": "cross-vca",
+          "definitionRef": "ghost-vca",
+          "ownership": "starter-owned",
+          "controls": {
+            "level": 0.5
+          },
+          "settings": {
+            "gainCvPerUnit": 0.5
+          }
+        },
+        {
+          "instanceId": "cross-delay",
+          "definitionRef": "void-delay",
+          "ownership": "starter-owned",
+          "controls": {
+            "time": 0.12,
+            "input": 0.7,
+            "return": 0
+          },
+          "settings": {
+            "wet": 1
+          }
+        },
+        {
+          "instanceId": "cross-lfo",
+          "definitionRef": "drift-lfo",
+          "ownership": "starter-owned",
+          "controls": {
+            "rate": 0.09,
+            "amount": 0.6
+          },
+          "settings": {
+            "waveform": "sine",
+            "driftEnabled": false
+          }
+        },
+        {
+          "instanceId": "cross-output",
+          "definitionRef": "output",
+          "ownership": "infrastructure",
+          "controls": {},
+          "settings": {}
+        }
+      ],
+      "cables": [
+        {
+          "cableId": "cross-c01",
+          "from": {
+            "instanceId": "cross-modulator",
+            "portId": "out"
+          },
+          "to": {
+            "instanceId": "cross-trim",
+            "portId": "in1"
+          }
+        },
+        {
+          "cableId": "cross-c02",
+          "from": {
+            "instanceId": "cross-trim",
+            "portId": "out1"
+          },
+          "to": {
+            "instanceId": "cross-carrier",
+            "portId": "linear-fm"
+          }
+        },
+        {
+          "cableId": "cross-c03",
+          "from": {
+            "instanceId": "cross-carrier",
+            "portId": "out"
+          },
+          "to": {
+            "instanceId": "cross-folder",
+            "portId": "in"
+          }
+        },
+        {
+          "cableId": "cross-c04",
+          "from": {
+            "instanceId": "cross-folder",
+            "portId": "out"
+          },
+          "to": {
+            "instanceId": "cross-vca",
+            "portId": "in"
+          }
+        },
+        {
+          "cableId": "cross-c05",
+          "from": {
+            "instanceId": "cross-vca",
+            "portId": "out"
+          },
+          "to": {
+            "instanceId": "cross-delay",
+            "portId": "in"
+          }
+        },
+        {
+          "cableId": "cross-c06",
+          "from": {
+            "instanceId": "cross-delay",
+            "portId": "out"
+          },
+          "to": {
+            "instanceId": "cross-output",
+            "portId": "in"
+          }
+        },
+        {
+          "cableId": "cross-c07",
+          "from": {
+            "instanceId": "cross-delay",
+            "portId": "out"
+          },
+          "to": {
+            "instanceId": "cross-trim",
+            "portId": "in2"
+          }
+        },
+        {
+          "cableId": "cross-c08",
+          "from": {
+            "instanceId": "cross-trim",
+            "portId": "out2"
+          },
+          "to": {
+            "instanceId": "cross-modulator",
+            "portId": "linear-fm"
+          }
+        },
+        {
+          "cableId": "cross-c09",
+          "from": {
+            "instanceId": "cross-lfo",
+            "portId": "out"
+          },
+          "to": {
+            "instanceId": "cross-trim",
+            "portId": "in3"
+          }
+        },
+        {
+          "cableId": "cross-c10",
+          "from": {
+            "instanceId": "cross-trim",
+            "portId": "out3"
+          },
+          "to": {
+            "instanceId": "cross-folder",
+            "portId": "fold"
+          }
+        }
+      ],
+      "missingBehaviorIds": [
+        "osc.linear-fm",
+        "signal.attenuvert",
+        "shape.wavefolder"
+      ]
+    },
+    {
+      "candidateId": "weather",
+      "name": "Wooden Weather",
+      "status": "proposed-for-review",
+      "runtimeEligible": false,
+      "researchFamilies": [
+        "Physical modelling",
+        "Noise texture",
+        "Evolving modulation network",
+        "Krell / self-running"
+      ],
+      "installedOrdinaryPositions": 7,
+      "outputPositions": 1,
+      "transport": {
+        "listenLevel": 0.15,
+        "muted": false,
+        "startGestureRequired": true,
+        "drivers": [
+          "weather-functions.a",
+          "weather-functions.b"
+        ]
+      },
+      "instances": [
+        {
+          "instanceId": "weather-noise",
+          "definitionRef": "solar-wind",
+          "ownership": "starter-owned",
+          "controls": {
+            "level": 0.4,
+            "colorCutoff": 3500
+          },
+          "settings": {
+            "colorMode": "lowpass"
+          }
+        },
+        {
+          "instanceId": "weather-exciter-vca",
+          "definitionRef": "ghost-vca",
+          "ownership": "starter-owned",
+          "controls": {
+            "level": 0
+          },
+          "settings": {
+            "gainCvPerUnit": 0.5
+          }
+        },
+        {
+          "instanceId": "weather-resonator",
+          "definitionRef": "fossil-modal",
+          "ownership": "starter-owned",
+          "controls": {
+            "frequency": 137,
+            "damping": 0.55,
+            "structure": 0.3,
+            "excitationPosition": 0.4
+          },
+          "settings": {
+            "dampingCvDepth": 0.3,
+            "modeRatios": [
+              1,
+              2.76,
+              5.4
+            ]
+          }
+        },
+        {
+          "instanceId": "weather-functions",
+          "definitionRef": "rustleaf-functions",
+          "ownership": "starter-owned",
+          "controls": {
+            "riseA": 0.004,
+            "fallA": 0.85,
+            "riseB": 11,
+            "fallB": 17
+          },
+          "settings": {
+            "cycleA": true,
+            "cycleB": true,
+            "curveA": "exponential",
+            "curveB": "linear",
+            "initialValueA": 0,
+            "initialValueB": 0
+          }
+        },
+        {
+          "instanceId": "weather-hold",
+          "definitionRef": "quantum-hold",
+          "ownership": "starter-owned",
+          "controls": {
+            "initialValue": 0
+          },
+          "settings": {}
+        },
+        {
+          "instanceId": "weather-lfo",
+          "definitionRef": "drift-lfo",
+          "ownership": "starter-owned",
+          "controls": {
+            "rate": 0.037,
+            "amount": 0.8
+          },
+          "settings": {
+            "waveform": "sine",
+            "driftEnabled": false
+          }
+        },
+        {
+          "instanceId": "weather-trim",
+          "definitionRef": "solar-quad",
+          "ownership": "starter-owned",
+          "controls": {
+            "gain1": 0.5,
+            "gain2": 0.7,
+            "gain3": 1,
+            "gain4": 1
+          },
+          "settings": {
+            "laneFamilies": [
+              "CV",
+              "CV",
+              "CV",
+              "CV"
+            ]
+          }
+        },
+        {
+          "instanceId": "weather-output",
+          "definitionRef": "output",
+          "ownership": "infrastructure",
+          "controls": {},
+          "settings": {}
+        }
+      ],
+      "cables": [
+        {
+          "cableId": "weather-c01",
+          "from": {
+            "instanceId": "weather-noise",
+            "portId": "out"
+          },
+          "to": {
+            "instanceId": "weather-exciter-vca",
+            "portId": "in"
+          }
+        },
+        {
+          "cableId": "weather-c02",
+          "from": {
+            "instanceId": "weather-functions",
+            "portId": "a.out"
+          },
+          "to": {
+            "instanceId": "weather-exciter-vca",
+            "portId": "gain"
+          }
+        },
+        {
+          "cableId": "weather-c03",
+          "from": {
+            "instanceId": "weather-exciter-vca",
+            "portId": "out"
+          },
+          "to": {
+            "instanceId": "weather-resonator",
+            "portId": "exciter"
+          }
+        },
+        {
+          "cableId": "weather-c04",
+          "from": {
+            "instanceId": "weather-resonator",
+            "portId": "out"
+          },
+          "to": {
+            "instanceId": "weather-output",
+            "portId": "in"
+          }
+        },
+        {
+          "cableId": "weather-c05",
+          "from": {
+            "instanceId": "weather-lfo",
+            "portId": "out"
+          },
+          "to": {
+            "instanceId": "weather-hold",
+            "portId": "value"
+          }
+        },
+        {
+          "cableId": "weather-c06",
+          "from": {
+            "instanceId": "weather-functions",
+            "portId": "a.eoc"
+          },
+          "to": {
+            "instanceId": "weather-hold",
+            "portId": "sample"
+          }
+        },
+        {
+          "cableId": "weather-c07",
+          "from": {
+            "instanceId": "weather-hold",
+            "portId": "out"
+          },
+          "to": {
+            "instanceId": "weather-trim",
+            "portId": "in1"
+          }
+        },
+        {
+          "cableId": "weather-c08",
+          "from": {
+            "instanceId": "weather-trim",
+            "portId": "out1"
+          },
+          "to": {
+            "instanceId": "weather-resonator",
+            "portId": "pitch"
+          }
+        },
+        {
+          "cableId": "weather-c09",
+          "from": {
+            "instanceId": "weather-functions",
+            "portId": "b.out"
+          },
+          "to": {
+            "instanceId": "weather-trim",
+            "portId": "in2"
+          }
+        },
+        {
+          "cableId": "weather-c10",
+          "from": {
+            "instanceId": "weather-trim",
+            "portId": "out2"
+          },
+          "to": {
+            "instanceId": "weather-resonator",
+            "portId": "damping"
+          }
+        }
+      ],
+      "missingBehaviorIds": [
+        "noise.color",
+        "resonator.modal",
+        "function.ad",
+        "function.cycle-eoc",
+        "memory.sample-hold",
+        "signal.attenuvert"
+      ]
+    }
+  ]
+}

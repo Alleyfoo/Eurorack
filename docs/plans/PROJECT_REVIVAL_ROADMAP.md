@@ -1,6 +1,6 @@
 # Project revival roadmap — from prototype rack to chill Eurorack adventure
 
-2026-10-05.
+2026-10-05; R2 acceptance and R3 split updated 2026-10-06.
 
 This is the long-horizon execution map after recovering the old design bible,
 the 100-module catalogue lineage, the new synthesis research and the implemented
@@ -205,7 +205,8 @@ useful #94 pitch/clock distribution and narrowed R2 were explicitly accepted.
 
 # R2 — Build the data-driven module foundation
 
-**Implemented and validated 2026-10-06 following explicit authorization.** See
+**Accepted and closed by the user 2026-10-06**, after review of `421c575`,
+`fd75c89` and `2f46380`. See
 [R2 implementation evidence](../project/R2_DATA_DRIVEN_PATCH_SEAM.md). The scope
 below supersedes broader suggestions in the conceptual schema. R2 does not start R3.
 
@@ -262,7 +263,11 @@ through that seam. All three routes and save boundaries retain current behavior.
 
 ---
 
-# R3 — Starter racks and preset graphs
+# R3 — Design starters, derive behavior, then make them executable
+
+**Ordering amended by the user's R2 acceptance.** The seven current behaviors
+can prove the seam but cannot determine the opening's full musical vocabulary.
+R3-A design is authorized; new behavior and R3-B are separate work orders.
 
 ### Goal
 
@@ -281,15 +286,48 @@ It is ordinary patch data:
 Every cable can be removed. Every module can be repatched. No topology bonus,
 protected connection or hidden "correct" chain exists.
 
-### Content target
+### R3-A — Starter-system design and capability requirements
 
-Author **3–4 contrasting starter racks** from the accepted catalogue. Candidate
-families to test, not locked names:
+Design **3–4 contrasting starter racks on paper/data** from the accepted catalogue
+and 16 research families, without requiring the current engine to run them.
+For each, supply owned module instances, explicit cable endpoints, initial
+controls/settings, intended audible character, dismantling examples, missing
+runtime behaviors and installed-position count. Derive the minimum shared behavior
+set and useful capacity additions from those graphs.
 
-- evolving / drone;
-- rhythmic / event-driven;
-- unstable / cross-mod / feedback;
-- optionally a sampled/noise-oriented system if the implemented behavior set supports it.
+[R3-A design packet](R3A_STARTER_SYSTEM_DESIGN.md) and its
+[draft graph dataset](../content/R3A_STARTER_GRAPHS.json) propose:
+
+- Slow Machine: beating sources, slow movement and visible echo return (7 + Output).
+- Three Against Five: two independently articulated synthesized percussion paths
+  on divided clocks (10 + Output).
+- Crossed Embers: audio-rate FM/folding coupled through Delay (7 + Output).
+- Wooden Weather: cycling functions, held control and noise excitation of a modal
+  resonator (7 + Output).
+
+Their union requires eight new processing functions and three bounded extensions,
+not the full R5 list. Review the selection and requirements before implementation;
+draft values and sound descriptions remain audition hypotheses. Design-only data
+is explicitly ineligible for runtime loading and does not redefine R2 IDs.
+
+### Starter-required behavior milestone — separately authorize after R3-A review
+
+Pull forward only the necessary subset of old R5 proven by selected graphs.
+Implement in bounded bundles through the accepted definition/behavior seam;
+prove explicit signal/event relationships, stop/cleanup and listening behavior.
+Do not implement broad synthesis breadth, generic event/resource frameworks or
+the 100-module catalogue because later phases mention them.
+
+Preserve R2's sound and v1 save meanings. New modes require reviewed stable IDs
+and typed state, with an explicit persistence boundary before new starter saves;
+the frozen v1 adapter cannot represent them by substituting old kinds.
+
+### R3-B — Executable starter racks
+
+Only after required behaviors are implemented and validated, author selected
+starters in the actual graph format and tune them by listening. Use the ordinary
+visible graph with no protected cables or hidden sequence. Starter selection,
+new persistence and any runtime capacity change need explicit scope in this order.
 
 Each must already produce a recognizably different, interesting result with one
 deliberate Start gesture. None should require the player to earn basic articulation
@@ -306,8 +344,17 @@ Test:
 - whether removing/replacing a module creates an interesting decision rather than
   simply blocking a viable patch.
 
+R3-A's graphs use 7/10/7/7 ordinary positions plus Output. Its proposed experiment
+compares 11 and 12 ordinary positions: the largest system plus an independent
+pitch contour, and optionally a separate depth utility. This is a measured design
+proposal, not a fixed number or a change to the current prototype.
+
 ### Exit evidence
 
+R3-A: reviewable draft graphs answer which opening systems, minimum missing
+behaviors and required room. Stop for selection/review before coding new behavior.
+
+R3-B:
 A fresh player can choose a starter, hear something meaningful immediately, then
 dismantle it and understand that the game permits other relationships.
 
@@ -342,6 +389,10 @@ inventory work?
 ---
 
 # R5 — Expand crude behavior breadth
+
+The starter-required subset may be pulled forward between R3-A and R3-B under
+its own scoped authorization. The remaining list below is later breadth, not a
+requirement to finish before starters and not implied by R3-A design authorization.
 
 ### Goal
 
@@ -531,9 +582,11 @@ The Sampo remains a special mythic capstone idea. Do not reduce it to “Utility
 
 # Immediate next work order
 
-R1/R1A are closed and the explicitly authorized R2 seam is implemented and
-validated. Read [R2 implementation evidence](../project/R2_DATA_DRIVEN_PATCH_SEAM.md)
-and the updated handoff. **Stop before R3; do not automatically author starter
-racks or expand behavior.** Review R2 before a separately scoped next work order.
+R1/R1A and R2 are accepted and closed. R3-A design work is now proposed in the
+[starter-system packet](R3A_STARTER_SYSTEM_DESIGN.md). Review its four systems,
+eleven bounded missing items, capacity experiment and partial catalogue modes.
+Then explicitly authorize only the selected behavior subset; R3-B follows its
+validation under a separate order. **Stop after R3-A design validation: no new
+DSP, runnable presets, save migration or starter UI is authorized here.**
 Exact catalogue-history annotations remain follow-up evidence, without requiring
 broad research or future-phase infrastructure to use the seven working behaviors.

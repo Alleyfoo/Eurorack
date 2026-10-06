@@ -25,9 +25,13 @@ For the R1 design-review gate, read the
 [patch-family coverage witnesses](../content/R1_PATCH_FAMILY_COVERAGE.md).
 R1/R1A are closed with [four accepted amendments](../plans/R1_ACCEPTANCE_AMENDMENTS.md).
 The corrected packet covers 16 families. The separately authorized
-[R2 seam is implemented and validated](R2_DATA_DRIVEN_PATCH_SEAM.md), preserving
-the seven current behaviors and v1 saves. Stop before R3; historical metadata
-annotations do not require renewed broad research.
+[R2 seam is accepted and closed](R2_DATA_DRIVEN_PATCH_SEAM.md), preserving
+the seven current behaviors and v1 saves.
+[R3-A starter-system design](../plans/R3A_STARTER_SYSTEM_DESIGN.md) proposes four
+explicit graphs and their minimum behavior/capacity requirements. Review this
+design before separately authorizing the necessary behavior subset and R3-B
+executable starters. Historical metadata annotations do not require renewed
+broad research.
 Next, read [G1 — Game Structure / Progression Prototype](../plans/G1_GAME_STRUCTURE_PROPOSAL.md).
 Its [G1-D decision packet](../plans/G1_D_DECISION_PACKET.md) now records accepted
 D1–D10 directions and provisional content recommendations. The user's subsequent
