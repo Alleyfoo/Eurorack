@@ -223,4 +223,8 @@ document. #94 now distributes independently transposed pitches and divided clock
 ratio. Buffered precision alone would not distinguish #94 from ideal cable fan-out.
 The amended #94 is the concrete resolution selected for this correction pass,
 not an implemented processor. Neither direction acceptance nor a coverage witness
-authorizes runtime implementation; R2 remains a separate authorization gate.
+authorizes runtime implementation; runtime work needs its own scoped authorization.
+
+Subsequently, the user closed R1/R1A and explicitly authorized only the
+[seven-behavior R2 seam, now validated](../project/R2_DATA_DRIVEN_PATCH_SEAM.md).
+The broader catalogue contracts above remain future scope.

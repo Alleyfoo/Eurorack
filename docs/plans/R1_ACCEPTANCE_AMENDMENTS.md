@@ -2,8 +2,12 @@
 
 2026-10-05, following the user's review of `12ee1c2` and `fa04fc0`.
 
-**R1 accepted in direction, with the four amendments below.** This documentation
-pass records them; **R2 implementation still requires explicit authorization**.
+**R1/R1A accepted and closed, with the four amendments below.** The documentation
+pass recorded them and required separate R2 authorization.
+**Subsequent decision, 2026-10-06:** the user reviewed `2150464` and `7d84109`,
+accepted R1A, closed R1 and explicitly authorized only the narrow R2 seam.
+[R2 is now implemented and validated](../project/R2_DATA_DRIVEN_PATCH_SEAM.md).
+The gate statements below record the earlier review state; R3 remains unstarted.
 The user accepts the separation of historical identity, proposed function and
 implemented behavior, the module/behavior/instance model, versioning/archive
 preservation and the functional distinctions in the role review. Exact future
@@ -94,3 +98,16 @@ No design contradiction currently blocks the small R2 seam. Exact historical
 metadata and future panel/DSP details remain annotated follow-up work. R1A's
 documentation deliverable is complete; manager review and explicit R2
 authorization remain pending. Stop here.
+
+## Manager acceptance and R2 authorization — 2026-10-06
+
+The user independently corroborated the original bible/research direction,
+accepted all four amendments including #94's paired pitch/time reinterpretation,
+and stated: **R1A passes; R1 is closed; R2 is explicitly authorized.**
+The authorization covers only architectural replacement beneath the existing
+seven behaviors, stable identities/bindings, preservation of current sound,
+v1 saves and lifecycle, preset/archive fixtures and validation. It excludes new
+DSP, behaviors, content and future event/resource/capability machinery.
+
+R2 is implemented in `421c575`; its runtime and preservation evidence are recorded
+in the implementation document above. Stop after R2 validation, before R3.

@@ -1,11 +1,14 @@
 # R1 draft — module definitions, ports, controls and capabilities
 
 2026-10-05. **Accepted in direction, amended at the R1 gate.** See the
-[acceptance record](../plans/R1_ACCEPTANCE_AMENDMENTS.md). No exported TypeScript types, registry or
-save migration is implemented here. Read the [role contracts](../content/R1_FUNCTIONAL_ROLE_REVIEW.md),
+[acceptance record](../plans/R1_ACCEPTANCE_AMENDMENTS.md). R1/R1A are now closed;
+the separately authorized [R2 subset is implemented](../project/R2_DATA_DRIVEN_PATCH_SEAM.md).
+The shapes below remain conceptual; R2 exports only the minimal seven-behavior
+types/registry and uses a frozen v1 adapter, without save migration.
+Read the [role contracts](../content/R1_FUNCTIONAL_ROLE_REVIEW.md),
 [source audit](../content/R1_CATALOGUE_SOURCE_AUDIT.md) and
-[coverage witnesses](../content/R1_PATCH_FAMILY_COVERAGE.md). R2 starts only after
-explicit authorization; it adapts only the seven existing S1-A kinds. The broad
+[coverage witnesses](../content/R1_PATCH_FAMILY_COVERAGE.md). R2 adapts only the
+seven existing S1-A kinds. The broad
 shapes and vocabulary below describe future contracts, not the R2 implementation
 checklist. Capability ontology, event execution and resource manifests are deferred.
 
@@ -249,8 +252,8 @@ explicitly included; storing a patch does not promise bit-exact performance.
 
 ## R2 implementation boundary — seven existing behaviors only
 
-This section is the complete implementation boundary once R2 is explicitly
-authorized. The broader conceptual sections above do not expand it.
+This section records the complete authorized R2 implementation boundary.
+The broader conceptual sections above do not expand it.
 
 Start with `prototype.oscillator`, `prototype.noise`, `prototype.filter`,
 `prototype.vca`, `prototype.lfo`, `prototype.delay`, `prototype.output` definitions.
@@ -308,5 +311,6 @@ migration. Starter presets remain R3 content. The ordinary preset mentioned abov
 is a preservation/build test fixture using the seven existing behaviors, not a
 new starter instrument or preset feature.
 
-R1 acceptance in direction and this narrowed checklist do not authorize starting
-R2. No runtime changes are part of the four-amendment documentation pass.
+The user separately authorized R2 after accepting the four-amendment packet.
+Its seven-behavior implementation is validated; no broader behavior or R3 work
+is authorized by that completion. See the implementation evidence linked above.

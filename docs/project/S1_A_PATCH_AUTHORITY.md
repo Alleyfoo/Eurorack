@@ -24,6 +24,11 @@ The same state drives jacks/SVG and `services/patchAudioGraph.ts:PatchAudioGraph
 Module order affects display only. Actual port locations determine cable geometry;
 no old hard-coded card coordinates are reused.
 
+R2 now supplies versioned definition/behavior authority beneath these unchanged
+records. `patchAdapter` maps the v1 UI data into `ModulePatch`; registry factories
+and destination-port bindings build the same graph. See
+[R2 implementation and preservation evidence](R2_DATA_DRIVEN_PATCH_SEAM.md).
+
 Studio's `services/audioEngine.ts:openStudioPatchSession` owns context creation
 and the existing compressor → master gain → limiter → analyser/speakers and
 recording-stream paths. It pauses the positional scheduler/modulation loop,

@@ -103,7 +103,7 @@ A new worker can explain:
 
 # R1 — Rehabilitate the 100-module catalogue
 
-**2026-10-05: R1 accepted in direction, with four documentation amendments.**
+**2026-10-06: R1/R1A accepted and closed after manager review.**
 See the [acceptance record](R1_ACCEPTANCE_AMENDMENTS.md) and amended packet:
 [source audit](../content/R1_CATALOGUE_SOURCE_AUDIT.md),
 [role contracts](../content/R1_FUNCTIONAL_ROLE_REVIEW.md),
@@ -112,8 +112,8 @@ See the [acceptance record](R1_ACCEPTANCE_AMENDMENTS.md) and amended packet:
 All 100 current-source rows and 53 rework/donor proposals are reviewed. The user
 corroborated the original bible/research's functional direction and added
 percussion coverage. Exact historical metadata gaps remain annotated, not a
-requirement for another broad research pass. Review the four amendments; R2 still
-requires explicit implementation authorization.
+requirement for another broad research pass. The user reviewed the four amendments
+and separately authorized the narrow R2 seam, now implemented and validated.
 
 ### Goal
 
@@ -198,15 +198,16 @@ functional roles. At minimum cover:
 
 Stop for design review once the catalogue roles and behavior vocabulary are
 coherent. Do **not** implement 100 DSP modules in R1.
-The current gate is review of the four amendments: direct mapped CV → pitch,
-16th percussion witness, useful #94 pitch/clock distribution, and narrowed R2.
+That review gate is met: direct mapped CV → pitch, the 16th percussion witness,
+useful #94 pitch/clock distribution and narrowed R2 were explicitly accepted.
 
 ---
 
 # R2 — Build the data-driven module foundation
 
-**Not yet authorized.** The scope below supersedes broader implementation
-suggestions in the conceptual schema. Acceptance of R1 direction does not start R2.
+**Implemented and validated 2026-10-06 following explicit authorization.** See
+[R2 implementation evidence](../project/R2_DATA_DRIVEN_PATCH_SEAM.md). The scope
+below supersedes broader suggestions in the conceptual schema. R2 does not start R3.
 
 ### Goal
 
@@ -530,10 +531,9 @@ The Sampo remains a special mythic capstone idea. Do not reduce it to “Utility
 
 # Immediate next work order
 
-R1 is accepted in direction and the four-amendment documentation pass is recorded
-in [R1 acceptance](R1_ACCEPTANCE_AMENDMENTS.md). Review the amended pitch policy,
-percussion witness, #94 contract and narrow R2 checklist. **Stop before runtime
-work until the user explicitly authorizes R2.** Once authorized, follow only the
-seven-behavior scope above and the schema's R2 implementation boundary. Exact
-catalogue-history annotations can remain follow-up evidence; don't restart broad
-research or build future-phase infrastructure to clear this gate.
+R1/R1A are closed and the explicitly authorized R2 seam is implemented and
+validated. Read [R2 implementation evidence](../project/R2_DATA_DRIVEN_PATCH_SEAM.md)
+and the updated handoff. **Stop before R3; do not automatically author starter
+racks or expand behavior.** Review R2 before a separately scoped next work order.
+Exact catalogue-history annotations remain follow-up evidence, without requiring
+broad research or future-phase infrastructure to use the seven working behaviors.

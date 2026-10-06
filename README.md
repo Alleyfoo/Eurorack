@@ -64,9 +64,11 @@ See the [Project revival roadmap](docs/plans/PROJECT_REVIVAL_ROADMAP.md), the
 the [recovered old design-bible authority map](docs/archive/OLD_DESIGN_BIBLE_RECOVERY.md),
 and the [governing design](docs/design/GAME_DESIGN.md).
 
-[R1 is accepted in direction with four amendments](docs/plans/R1_ACCEPTANCE_AMENDMENTS.md).
-R2 awaits explicit authorization for a small seam around the seven existing
-behaviors, with preset/archive preservation checks.
+[R1/R1A are accepted and closed](docs/plans/R1_ACCEPTANCE_AMENDMENTS.md).
+[R2 is implemented and validated](docs/project/R2_DATA_DRIVEN_PATCH_SEAM.md): the
+seven existing behaviors now use versioned definitions and a direct behavior
+registry, preserving v1 saves and current sound. Starter racks remain later work;
+R3 has not started.
 
 ## Production build
 

@@ -39,6 +39,11 @@ Studio patch, active project/working-copy branch, branch inventory/loans/engagem
 unlocked and closed projects, archives, current context and prototype completion.
 Loading creates no AudioContext and does not start sound.
 
+The separately authorized [R2 seam](R2_DATA_DRIVEN_PATCH_SEAM.md) now validates
+and builds these unchanged v1 records through versioned definitions/behaviors.
+The save key/schema, archive metadata and explicit loan/substitution flows remain
+as described here; there is no in-place migration or additional content.
+
 | Layer | Behavior |
 |---|---|
 | Studio | Owned instances in generous storage, plus the current installed patch. Uninstalling removes live incident cables deliberately but preserves the owned instance/controls. |

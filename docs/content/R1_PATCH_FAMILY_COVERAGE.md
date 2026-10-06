@@ -112,7 +112,9 @@ the user rather than directly inspected by the agent:
 - Several processors can serve multiple identities. No implication that all 100
   must ship before a playable chapter or that serious DSP precedes game completion.
 
-R1 is accepted in direction; review the four amendments before authorizing R2.
-R2 is only the seven-behavior seam with preset/archive preservation fixtures, not
-the capability/event/resource frameworks described for later phases. Starter presets remain R3;
+R1/R1A were subsequently accepted and closed, and the separately authorized
+[R2 seam is implemented and validated](../project/R2_DATA_DRIVEN_PATCH_SEAM.md).
+It contains only the seven existing behaviors and preset/archive preservation
+fixtures, without the capability/event/resource frameworks described for later phases.
+Starter presets remain R3;
 broader crude capabilities remain R5 and serious DSP remains R9.
