@@ -1,4 +1,4 @@
-import { WAVEFORMS, type SignalDomain } from './moduleDefinitions.ts';
+import { WAVEFORMS, type SignalDomain, type SettingValue } from './moduleDefinitions.ts';
 
 export interface AudioVoice {
     inputs: Record<string, AudioNode | AudioParam>;
@@ -6,17 +6,27 @@ export interface AudioVoice {
     nodes: AudioNode[];
     sources: AudioScheduledSourceNode[];
     update: (controls: Record<string, number>) => void;
+    activate?: (time: number) => void;
+    dispose?: () => void;
+    action?: (id: string, time: number) => void;
 }
 export interface BehaviorContext {
     context: AudioContext;
     masterInput: AudioNode;
     smooth: (param: AudioParam, value: number) => void;
+    settings?: Record<string, SettingValue>;
+    controls?: Record<string, number>;
+    onError?: (error: Error) => void;
 }
 export interface BehaviorDescriptor {
     behaviorId: string; behaviorVersion: number;
-    ports: Record<string, { direction: 'in' | 'out'; family: SignalDomain }>;
+    ports: Record<string, { direction: 'in' | 'out'; family: SignalDomain; accepts?: SignalDomain[] }>;
     controls: string[];
     breaksAudioCycle: boolean;
+    signalPaths?: [string, string][];
+    actions?: string[];
+    prepare?: (context: AudioContext) => Promise<void>;
+    isPrepared?: (context: AudioContext) => boolean;
     create: (context: BehaviorContext) => AudioVoice;
 }
 

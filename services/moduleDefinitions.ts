@@ -1,8 +1,11 @@
-/** R2's fixed seven-behavior vocabulary. No catalogue or future signal domains. */
-export type SignalDomain = 'AUDIO' | 'CV';
+/** R2 definitions remain frozen; R3-S adds only stream TRIG/CLOCK and typed selected settings. */
+export type SignalDomain = 'AUDIO' | 'CV' | 'TRIG' | 'CLOCK';
+export type SettingValue = string | boolean | number | string[] | number[];
+export interface SettingDefinition { initial: SettingValue; options: SettingValue[] }
 export interface PortDefinition {
     id: string; label: string; family: SignalDomain; direction: 'in' | 'out';
     binding: string; scale: number;
+    accepts?: SignalDomain[]; maxConnections?: number; smoothing?: 'none';
 }
 export interface ControlDefinition {
     id: string; label: string; min: number; max: number; step: number;
@@ -13,10 +16,14 @@ export interface ModuleDefinition {
     behaviorId: string; behaviorVersion: number;
     name: string; subtitle: string;
     ports: PortDefinition[]; controls: ControlDefinition[];
+    settings?: Record<string, SettingDefinition>;
+    productId?: string;
+    initialControlsImmediate?: boolean;
 }
 export interface ModuleInstance {
     instanceId: string; definitionId: string; definitionVersion: number;
     controls: Record<string, number>;
+    settings?: Record<string, SettingValue>;
 }
 export interface ModuleEndpoint { instanceId: string; portId: string }
 export interface ModuleCable { cableId: string; from: ModuleEndpoint; to: ModuleEndpoint }

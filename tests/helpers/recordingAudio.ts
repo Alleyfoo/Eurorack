@@ -2,6 +2,9 @@
 export class RecordingParam {
     value = 0;
     targets: { value: number; time: number; constant: number }[] = [];
+    events: { value: number; time: number }[] = [];
+    setValueAtTime(value: number, time: number) { this.value = value; this.events.push({ value, time }); }
+    cancelScheduledValues(_time: number) { this.events = []; }
     setTargetAtTime(value: number, time: number, constant: number) {
         this.value = value; this.targets.push({ value, time, constant });
     }

@@ -32,7 +32,9 @@ export function createInitialPatch(): SandboxPatch {
 }
 export function findPort(patch: SandboxPatch, endpoint: PatchEndpoint): PatchPort | undefined {
     const module = patch.modules.find(m => m.id === endpoint.moduleId);
-    return module && resolveModule(toModuleInstance(module)).definition.ports.find(p => p.id === endpoint.portId);
+    const port = module && resolveModule(toModuleInstance(module)).definition.ports.find(p => p.id === endpoint.portId);
+    if (port?.family === 'TRIG' || port?.family === 'CLOCK') throw new Error('The frozen v1 panel cannot represent native event ports.');
+    return port as PatchPort | undefined;
 }
 export function cableKey(cable: Pick<PatchCable, 'from' | 'to'>): string {
     return JSON.stringify([cable.from.moduleId, cable.from.portId, cable.to.moduleId, cable.to.portId]);

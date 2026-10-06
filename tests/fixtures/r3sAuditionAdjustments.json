@@ -1,0 +1,12 @@
+{
+  "weather": {
+    "weather-noise": {
+      "level": 1
+    }
+  },
+  "rhythm": {
+    "rhythm-mix": {
+      "master": 1.5
+    }
+  }
+}

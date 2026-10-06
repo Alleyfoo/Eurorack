@@ -1,0 +1,939 @@
+{
+  "slow": {
+    "formatVersion": 1,
+    "instances": [
+      {
+        "instanceId": "slow-sine",
+        "definitionId": "catalogue.solar-sine.selected",
+        "definitionVersion": 1,
+        "controls": {
+          "frequency": 110
+        },
+        "settings": {
+          "waveform": "sine"
+        }
+      },
+      {
+        "instanceId": "slow-saw",
+        "definitionId": "catalogue.gramps-saw.selected",
+        "definitionVersion": 1,
+        "controls": {
+          "frequency": 111
+        },
+        "settings": {
+          "waveform": "sawtooth",
+          "driftEnabled": false
+        }
+      },
+      {
+        "instanceId": "slow-mix",
+        "definitionId": "catalogue.needle-mixer.selected",
+        "definitionVersion": 1,
+        "controls": {
+          "aLevel": 0.6,
+          "bLevel": 0.35,
+          "master": 0.8
+        },
+        "settings": {}
+      },
+      {
+        "instanceId": "slow-filter",
+        "definitionId": "catalogue.fusion-filter.selected",
+        "definitionVersion": 1,
+        "controls": {
+          "cutoff": 600,
+          "resonance": 1.6
+        },
+        "settings": {
+          "cutoffCvCentsPerUnit": 2400
+        }
+      },
+      {
+        "instanceId": "slow-vca",
+        "definitionId": "catalogue.ghost-vca.selected",
+        "definitionVersion": 1,
+        "controls": {
+          "level": 0.4
+        },
+        "settings": {
+          "gainCvPerUnit": 0.5
+        }
+      },
+      {
+        "instanceId": "slow-lfo",
+        "definitionId": "catalogue.drift-lfo.selected",
+        "definitionVersion": 1,
+        "controls": {
+          "rate": 0.06,
+          "amount": 0.35
+        },
+        "settings": {
+          "waveform": "sine",
+          "driftEnabled": false
+        }
+      },
+      {
+        "instanceId": "slow-delay",
+        "definitionId": "catalogue.void-delay.selected",
+        "definitionVersion": 1,
+        "controls": {
+          "time": 0.37,
+          "input": 0.8,
+          "return": 0.25
+        },
+        "settings": {
+          "wet": 1
+        }
+      },
+      {
+        "instanceId": "slow-output",
+        "definitionId": "prototype.output",
+        "definitionVersion": 1,
+        "controls": {},
+        "settings": {}
+      }
+    ],
+    "cables": [
+      {
+        "cableId": "slow-c01",
+        "from": {
+          "instanceId": "slow-sine",
+          "portId": "out"
+        },
+        "to": {
+          "instanceId": "slow-mix",
+          "portId": "a"
+        }
+      },
+      {
+        "cableId": "slow-c02",
+        "from": {
+          "instanceId": "slow-saw",
+          "portId": "out"
+        },
+        "to": {
+          "instanceId": "slow-mix",
+          "portId": "b"
+        }
+      },
+      {
+        "cableId": "slow-c03",
+        "from": {
+          "instanceId": "slow-mix",
+          "portId": "out"
+        },
+        "to": {
+          "instanceId": "slow-filter",
+          "portId": "in"
+        }
+      },
+      {
+        "cableId": "slow-c04",
+        "from": {
+          "instanceId": "slow-filter",
+          "portId": "out"
+        },
+        "to": {
+          "instanceId": "slow-vca",
+          "portId": "in"
+        }
+      },
+      {
+        "cableId": "slow-c05",
+        "from": {
+          "instanceId": "slow-vca",
+          "portId": "out"
+        },
+        "to": {
+          "instanceId": "slow-delay",
+          "portId": "in"
+        }
+      },
+      {
+        "cableId": "slow-c06",
+        "from": {
+          "instanceId": "slow-delay",
+          "portId": "out"
+        },
+        "to": {
+          "instanceId": "slow-delay",
+          "portId": "return"
+        }
+      },
+      {
+        "cableId": "slow-c07",
+        "from": {
+          "instanceId": "slow-delay",
+          "portId": "out"
+        },
+        "to": {
+          "instanceId": "slow-output",
+          "portId": "in"
+        }
+      },
+      {
+        "cableId": "slow-c08",
+        "from": {
+          "instanceId": "slow-lfo",
+          "portId": "out"
+        },
+        "to": {
+          "instanceId": "slow-filter",
+          "portId": "cutoff"
+        }
+      },
+      {
+        "cableId": "slow-c09",
+        "from": {
+          "instanceId": "slow-lfo",
+          "portId": "out"
+        },
+        "to": {
+          "instanceId": "slow-vca",
+          "portId": "gain"
+        }
+      }
+    ]
+  },
+  "rhythm": {
+    "formatVersion": 1,
+    "instances": [
+      {
+        "instanceId": "rhythm-clock",
+        "definitionId": "catalogue.thunderclock.selected",
+        "definitionVersion": 1,
+        "controls": {
+          "rate": 3,
+          "pulseWidth": 0.05
+        },
+        "settings": {
+          "run": true,
+          "initialPhase": 0
+        }
+      },
+      {
+        "instanceId": "rhythm-div3",
+        "definitionId": "catalogue.lunar-divider.selected",
+        "definitionVersion": 1,
+        "controls": {
+          "division": 3,
+          "phase": 0
+        },
+        "settings": {
+          "firstEdgeOnReset": true
+        }
+      },
+      {
+        "instanceId": "rhythm-div5",
+        "definitionId": "catalogue.lunar-divider.selected",
+        "definitionVersion": 1,
+        "controls": {
+          "division": 5,
+          "phase": 0
+        },
+        "settings": {
+          "firstEdgeOnReset": true
+        }
+      },
+      {
+        "instanceId": "rhythm-body-env",
+        "definitionId": "catalogue.thunderstrike-ad.selected",
+        "definitionVersion": 1,
+        "controls": {
+          "attack": 0.002,
+          "decay": 0.18
+        },
+        "settings": {
+          "curve": "exponential",
+          "retrigger": "restart-from-zero",
+          "initialValue": 0
+        }
+      },
+      {
+        "instanceId": "rhythm-noise-env",
+        "definitionId": "catalogue.thunderstrike-ad.selected",
+        "definitionVersion": 1,
+        "controls": {
+          "attack": 0.001,
+          "decay": 0.055
+        },
+        "settings": {
+          "curve": "exponential",
+          "retrigger": "restart-from-zero",
+          "initialValue": 0
+        }
+      },
+      {
+        "instanceId": "rhythm-body",
+        "definitionId": "catalogue.solar-sine.selected",
+        "definitionVersion": 1,
+        "controls": {
+          "frequency": 65
+        },
+        "settings": {
+          "waveform": "sine"
+        }
+      },
+      {
+        "instanceId": "rhythm-noise",
+        "definitionId": "catalogue.solar-wind.selected",
+        "definitionVersion": 1,
+        "controls": {
+          "level": 0.45,
+          "colorCutoff": 6500
+        },
+        "settings": {
+          "colorMode": "lowpass"
+        }
+      },
+      {
+        "instanceId": "rhythm-body-vca",
+        "definitionId": "catalogue.ghost-vca.selected",
+        "definitionVersion": 1,
+        "controls": {
+          "level": 0
+        },
+        "settings": {
+          "gainCvPerUnit": 0.5
+        }
+      },
+      {
+        "instanceId": "rhythm-noise-vca",
+        "definitionId": "catalogue.ghost-vca.selected",
+        "definitionVersion": 1,
+        "controls": {
+          "level": 0
+        },
+        "settings": {
+          "gainCvPerUnit": 0.5
+        }
+      },
+      {
+        "instanceId": "rhythm-mix",
+        "definitionId": "catalogue.needle-mixer.selected",
+        "definitionVersion": 1,
+        "controls": {
+          "aLevel": 0.8,
+          "bLevel": 0.45,
+          "master": 1.5
+        },
+        "settings": {}
+      },
+      {
+        "instanceId": "rhythm-output",
+        "definitionId": "prototype.output",
+        "definitionVersion": 1,
+        "controls": {},
+        "settings": {}
+      }
+    ],
+    "cables": [
+      {
+        "cableId": "rhythm-c01",
+        "from": {
+          "instanceId": "rhythm-clock",
+          "portId": "out"
+        },
+        "to": {
+          "instanceId": "rhythm-div3",
+          "portId": "in"
+        }
+      },
+      {
+        "cableId": "rhythm-c02",
+        "from": {
+          "instanceId": "rhythm-clock",
+          "portId": "out"
+        },
+        "to": {
+          "instanceId": "rhythm-div5",
+          "portId": "in"
+        }
+      },
+      {
+        "cableId": "rhythm-c03",
+        "from": {
+          "instanceId": "rhythm-clock",
+          "portId": "reset"
+        },
+        "to": {
+          "instanceId": "rhythm-div3",
+          "portId": "reset"
+        }
+      },
+      {
+        "cableId": "rhythm-c04",
+        "from": {
+          "instanceId": "rhythm-clock",
+          "portId": "reset"
+        },
+        "to": {
+          "instanceId": "rhythm-div5",
+          "portId": "reset"
+        }
+      },
+      {
+        "cableId": "rhythm-c05",
+        "from": {
+          "instanceId": "rhythm-div3",
+          "portId": "out"
+        },
+        "to": {
+          "instanceId": "rhythm-body-env",
+          "portId": "trigger"
+        }
+      },
+      {
+        "cableId": "rhythm-c06",
+        "from": {
+          "instanceId": "rhythm-div5",
+          "portId": "out"
+        },
+        "to": {
+          "instanceId": "rhythm-noise-env",
+          "portId": "trigger"
+        }
+      },
+      {
+        "cableId": "rhythm-c07",
+        "from": {
+          "instanceId": "rhythm-body-env",
+          "portId": "out"
+        },
+        "to": {
+          "instanceId": "rhythm-body",
+          "portId": "pitch"
+        }
+      },
+      {
+        "cableId": "rhythm-c08",
+        "from": {
+          "instanceId": "rhythm-body-env",
+          "portId": "out"
+        },
+        "to": {
+          "instanceId": "rhythm-body-vca",
+          "portId": "gain"
+        }
+      },
+      {
+        "cableId": "rhythm-c09",
+        "from": {
+          "instanceId": "rhythm-noise-env",
+          "portId": "out"
+        },
+        "to": {
+          "instanceId": "rhythm-noise-vca",
+          "portId": "gain"
+        }
+      },
+      {
+        "cableId": "rhythm-c10",
+        "from": {
+          "instanceId": "rhythm-body",
+          "portId": "out"
+        },
+        "to": {
+          "instanceId": "rhythm-body-vca",
+          "portId": "in"
+        }
+      },
+      {
+        "cableId": "rhythm-c11",
+        "from": {
+          "instanceId": "rhythm-noise",
+          "portId": "out"
+        },
+        "to": {
+          "instanceId": "rhythm-noise-vca",
+          "portId": "in"
+        }
+      },
+      {
+        "cableId": "rhythm-c12",
+        "from": {
+          "instanceId": "rhythm-body-vca",
+          "portId": "out"
+        },
+        "to": {
+          "instanceId": "rhythm-mix",
+          "portId": "a"
+        }
+      },
+      {
+        "cableId": "rhythm-c13",
+        "from": {
+          "instanceId": "rhythm-noise-vca",
+          "portId": "out"
+        },
+        "to": {
+          "instanceId": "rhythm-mix",
+          "portId": "b"
+        }
+      },
+      {
+        "cableId": "rhythm-c14",
+        "from": {
+          "instanceId": "rhythm-mix",
+          "portId": "out"
+        },
+        "to": {
+          "instanceId": "rhythm-output",
+          "portId": "in"
+        }
+      }
+    ]
+  },
+  "cross": {
+    "formatVersion": 1,
+    "instances": [
+      {
+        "instanceId": "cross-carrier",
+        "definitionId": "catalogue.vapor-fm.selected",
+        "definitionVersion": 1,
+        "controls": {
+          "frequency": 220,
+          "fmDepth": 850
+        },
+        "settings": {
+          "waveform": "sine",
+          "internalModulatorEnabled": false,
+          "frequencyBoundsHz": [
+            20,
+            12000
+          ]
+        }
+      },
+      {
+        "instanceId": "cross-modulator",
+        "definitionId": "catalogue.vapor-fm.selected",
+        "definitionVersion": 1,
+        "controls": {
+          "frequency": 113,
+          "fmDepth": 300
+        },
+        "settings": {
+          "waveform": "sine",
+          "internalModulatorEnabled": false,
+          "frequencyBoundsHz": [
+            20,
+            12000
+          ]
+        }
+      },
+      {
+        "instanceId": "cross-trim",
+        "definitionId": "catalogue.solar-quad.audio-audio-cv-cv",
+        "definitionVersion": 1,
+        "controls": {
+          "gain1": 0.4,
+          "gain2": 0.22,
+          "gain3": 0.25,
+          "gain4": 1
+        },
+        "settings": {
+          "laneFamilies": [
+            "AUDIO",
+            "AUDIO",
+            "CV",
+            "CV"
+          ]
+        }
+      },
+      {
+        "instanceId": "cross-folder",
+        "definitionId": "catalogue.thunderfold.selected",
+        "definitionVersion": 1,
+        "controls": {
+          "fold": 6,
+          "symmetry": 0
+        },
+        "settings": {
+          "foldCvDepth": 0.7
+        }
+      },
+      {
+        "instanceId": "cross-vca",
+        "definitionId": "catalogue.ghost-vca.selected",
+        "definitionVersion": 1,
+        "controls": {
+          "level": 0.5
+        },
+        "settings": {
+          "gainCvPerUnit": 0.5
+        }
+      },
+      {
+        "instanceId": "cross-delay",
+        "definitionId": "catalogue.void-delay.selected",
+        "definitionVersion": 1,
+        "controls": {
+          "time": 0.12,
+          "input": 0.7,
+          "return": 0
+        },
+        "settings": {
+          "wet": 1
+        }
+      },
+      {
+        "instanceId": "cross-lfo",
+        "definitionId": "catalogue.drift-lfo.selected",
+        "definitionVersion": 1,
+        "controls": {
+          "rate": 0.09,
+          "amount": 0.6
+        },
+        "settings": {
+          "waveform": "sine",
+          "driftEnabled": false
+        }
+      },
+      {
+        "instanceId": "cross-output",
+        "definitionId": "prototype.output",
+        "definitionVersion": 1,
+        "controls": {},
+        "settings": {}
+      }
+    ],
+    "cables": [
+      {
+        "cableId": "cross-c01",
+        "from": {
+          "instanceId": "cross-modulator",
+          "portId": "out"
+        },
+        "to": {
+          "instanceId": "cross-trim",
+          "portId": "in1"
+        }
+      },
+      {
+        "cableId": "cross-c02",
+        "from": {
+          "instanceId": "cross-trim",
+          "portId": "out1"
+        },
+        "to": {
+          "instanceId": "cross-carrier",
+          "portId": "linear-fm"
+        }
+      },
+      {
+        "cableId": "cross-c03",
+        "from": {
+          "instanceId": "cross-carrier",
+          "portId": "out"
+        },
+        "to": {
+          "instanceId": "cross-folder",
+          "portId": "in"
+        }
+      },
+      {
+        "cableId": "cross-c04",
+        "from": {
+          "instanceId": "cross-folder",
+          "portId": "out"
+        },
+        "to": {
+          "instanceId": "cross-vca",
+          "portId": "in"
+        }
+      },
+      {
+        "cableId": "cross-c05",
+        "from": {
+          "instanceId": "cross-vca",
+          "portId": "out"
+        },
+        "to": {
+          "instanceId": "cross-delay",
+          "portId": "in"
+        }
+      },
+      {
+        "cableId": "cross-c06",
+        "from": {
+          "instanceId": "cross-delay",
+          "portId": "out"
+        },
+        "to": {
+          "instanceId": "cross-output",
+          "portId": "in"
+        }
+      },
+      {
+        "cableId": "cross-c07",
+        "from": {
+          "instanceId": "cross-delay",
+          "portId": "out"
+        },
+        "to": {
+          "instanceId": "cross-trim",
+          "portId": "in2"
+        }
+      },
+      {
+        "cableId": "cross-c08",
+        "from": {
+          "instanceId": "cross-trim",
+          "portId": "out2"
+        },
+        "to": {
+          "instanceId": "cross-modulator",
+          "portId": "linear-fm"
+        }
+      },
+      {
+        "cableId": "cross-c09",
+        "from": {
+          "instanceId": "cross-lfo",
+          "portId": "out"
+        },
+        "to": {
+          "instanceId": "cross-trim",
+          "portId": "in3"
+        }
+      },
+      {
+        "cableId": "cross-c10",
+        "from": {
+          "instanceId": "cross-trim",
+          "portId": "out3"
+        },
+        "to": {
+          "instanceId": "cross-folder",
+          "portId": "fold"
+        }
+      }
+    ]
+  },
+  "weather": {
+    "formatVersion": 1,
+    "instances": [
+      {
+        "instanceId": "weather-noise",
+        "definitionId": "catalogue.solar-wind.selected",
+        "definitionVersion": 1,
+        "controls": {
+          "level": 1,
+          "colorCutoff": 3500
+        },
+        "settings": {
+          "colorMode": "lowpass"
+        }
+      },
+      {
+        "instanceId": "weather-exciter-vca",
+        "definitionId": "catalogue.ghost-vca.selected",
+        "definitionVersion": 1,
+        "controls": {
+          "level": 0
+        },
+        "settings": {
+          "gainCvPerUnit": 0.5
+        }
+      },
+      {
+        "instanceId": "weather-resonator",
+        "definitionId": "catalogue.fossil-modal.selected",
+        "definitionVersion": 1,
+        "controls": {
+          "frequency": 137,
+          "damping": 0.55,
+          "structure": 0.3,
+          "excitationPosition": 0.4
+        },
+        "settings": {
+          "dampingCvDepth": 0.3,
+          "modeRatios": [
+            1,
+            2.76,
+            5.4
+          ]
+        }
+      },
+      {
+        "instanceId": "weather-functions",
+        "definitionId": "catalogue.rustleaf-functions.selected",
+        "definitionVersion": 1,
+        "controls": {
+          "riseA": 0.004,
+          "fallA": 0.85,
+          "riseB": 11,
+          "fallB": 17
+        },
+        "settings": {
+          "cycleA": true,
+          "cycleB": true,
+          "curveA": "exponential",
+          "curveB": "linear",
+          "initialValueA": 0,
+          "initialValueB": 0
+        }
+      },
+      {
+        "instanceId": "weather-hold",
+        "definitionId": "catalogue.quantum-hold.selected",
+        "definitionVersion": 1,
+        "controls": {
+          "initialValue": 0
+        },
+        "settings": {}
+      },
+      {
+        "instanceId": "weather-lfo",
+        "definitionId": "catalogue.drift-lfo.selected",
+        "definitionVersion": 1,
+        "controls": {
+          "rate": 0.037,
+          "amount": 0.8
+        },
+        "settings": {
+          "waveform": "sine",
+          "driftEnabled": false
+        }
+      },
+      {
+        "instanceId": "weather-trim",
+        "definitionId": "catalogue.solar-quad.cv4",
+        "definitionVersion": 1,
+        "controls": {
+          "gain1": 0.5,
+          "gain2": 0.7,
+          "gain3": 1,
+          "gain4": 1
+        },
+        "settings": {
+          "laneFamilies": [
+            "CV",
+            "CV",
+            "CV",
+            "CV"
+          ]
+        }
+      },
+      {
+        "instanceId": "weather-output",
+        "definitionId": "prototype.output",
+        "definitionVersion": 1,
+        "controls": {},
+        "settings": {}
+      }
+    ],
+    "cables": [
+      {
+        "cableId": "weather-c01",
+        "from": {
+          "instanceId": "weather-noise",
+          "portId": "out"
+        },
+        "to": {
+          "instanceId": "weather-exciter-vca",
+          "portId": "in"
+        }
+      },
+      {
+        "cableId": "weather-c02",
+        "from": {
+          "instanceId": "weather-functions",
+          "portId": "a.out"
+        },
+        "to": {
+          "instanceId": "weather-exciter-vca",
+          "portId": "gain"
+        }
+      },
+      {
+        "cableId": "weather-c03",
+        "from": {
+          "instanceId": "weather-exciter-vca",
+          "portId": "out"
+        },
+        "to": {
+          "instanceId": "weather-resonator",
+          "portId": "exciter"
+        }
+      },
+      {
+        "cableId": "weather-c04",
+        "from": {
+          "instanceId": "weather-resonator",
+          "portId": "out"
+        },
+        "to": {
+          "instanceId": "weather-output",
+          "portId": "in"
+        }
+      },
+      {
+        "cableId": "weather-c05",
+        "from": {
+          "instanceId": "weather-lfo",
+          "portId": "out"
+        },
+        "to": {
+          "instanceId": "weather-hold",
+          "portId": "value"
+        }
+      },
+      {
+        "cableId": "weather-c06",
+        "from": {
+          "instanceId": "weather-functions",
+          "portId": "a.eoc"
+        },
+        "to": {
+          "instanceId": "weather-hold",
+          "portId": "sample"
+        }
+      },
+      {
+        "cableId": "weather-c07",
+        "from": {
+          "instanceId": "weather-hold",
+          "portId": "out"
+        },
+        "to": {
+          "instanceId": "weather-trim",
+          "portId": "in1"
+        }
+      },
+      {
+        "cableId": "weather-c08",
+        "from": {
+          "instanceId": "weather-trim",
+          "portId": "out1"
+        },
+        "to": {
+          "instanceId": "weather-resonator",
+          "portId": "pitch"
+        }
+      },
+      {
+        "cableId": "weather-c09",
+        "from": {
+          "instanceId": "weather-functions",
+          "portId": "b.out"
+        },
+        "to": {
+          "instanceId": "weather-trim",
+          "portId": "in2"
+        }
+      },
+      {
+        "cableId": "weather-c10",
+        "from": {
+          "instanceId": "weather-trim",
+          "portId": "out2"
+        },
+        "to": {
+          "instanceId": "weather-resonator",
+          "portId": "damping"
+        }
+      }
+    ]
+  }
+}

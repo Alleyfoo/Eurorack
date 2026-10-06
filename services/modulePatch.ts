@@ -8,6 +8,9 @@ export interface ModuleRegistry {
 }
 export const MODULE_REGISTRY: ModuleRegistry = { definitions: MODULE_DEFINITIONS, behaviors: PATCH_BEHAVIORS };
 const validId = (id: unknown): id is string => typeof id === 'string' && id.trim().length > 0;
+const validSetting = (value: unknown): boolean => typeof value === 'string' || typeof value === 'boolean'
+    || (typeof value === 'number' && Number.isFinite(value))
+    || (Array.isArray(value) && value.every(v => typeof v === 'string' || (typeof v === 'number' && Number.isFinite(v))));
 
 export function resolveModule(instance: ModuleInstance, registry = MODULE_REGISTRY): { definition: ModuleDefinition; behavior: BehaviorDescriptor } {
     if (!instance || !validId(instance.instanceId)) throw new Error('Invalid module instance ID. Stored data is unchanged.');
@@ -21,7 +24,10 @@ export function resolveModule(instance: ModuleInstance, registry = MODULE_REGIST
     const portBindings = new Set<string>();
     for (const port of definition.ports) {
         const binding = Object.hasOwn(behavior.ports, port.binding) ? behavior.ports[port.binding] : undefined;
-        if (!validId(port.id) || portIds.has(port.id) || portBindings.has(port.binding) || !binding || port.direction !== binding.direction || port.family !== binding.family || !Number.isFinite(port.scale)) throw new Error('Invalid definition port binding.');
+        if (!validId(port.id) || portIds.has(port.id) || portBindings.has(port.binding) || !binding || port.direction !== binding.direction || port.family !== binding.family || !Number.isFinite(port.scale)
+            || JSON.stringify(port.accepts ?? []) !== JSON.stringify(binding.accepts ?? [])
+            || (port.accepts && (port.family !== 'TRIG' || port.direction !== 'in' || port.accepts.some(f => f !== 'CLOCK')))
+            || (port.maxConnections !== undefined && port.maxConnections !== 1)) throw new Error('Invalid definition port binding.');
         portIds.add(port.id); portBindings.add(port.binding);
     }
     if (portBindings.size !== Object.keys(behavior.ports).length) throw new Error('Missing definition port binding.');
@@ -39,14 +45,23 @@ export function resolveModule(instance: ModuleInstance, registry = MODULE_REGIST
     }
     if (controlBindings.size !== behavior.controls.length) throw new Error('Missing definition control binding.');
     if (Object.keys(controls).some(id => !controlIds.has(id))) throw new Error('Unknown module control. Stored data is unchanged.');
+    const settings = instance.settings ?? {};
+    if (!settings || typeof settings !== 'object' || Array.isArray(settings)) throw new Error('Invalid module settings.');
+    const rules = definition.settings ?? {};
+    if (Object.keys(settings).some(id => !Object.hasOwn(rules, id))) throw new Error('Unknown module setting. Stored data is unchanged.');
+    for (const [id, rule] of Object.entries(rules)) {
+        if (!validSetting(rule.initial) || !rule.options?.every(validSetting) || !Object.hasOwn(settings, id) || !validSetting(settings[id])
+            || !rule.options.some(value => JSON.stringify(value) === JSON.stringify(settings[id]))) throw new Error(`Invalid module setting: ${id}. Stored data is unchanged.`);
+    }
     return { definition, behavior };
 }
 
 export function createModuleInstance(definitionId: string, instanceId: string, registry = MODULE_REGISTRY): ModuleInstance {
     const definition = Object.hasOwn(registry.definitions, definitionId) ? registry.definitions[definitionId] : undefined;
     if (!definition) throw new Error(`Unknown module definition: ${definitionId}.`);
-    const instance = { instanceId, definitionId, definitionVersion: definition.definitionVersion,
-        controls: Object.fromEntries(definition.controls.map(c => [c.id, c.initial])) };
+    const instance: ModuleInstance = { instanceId, definitionId, definitionVersion: definition.definitionVersion,
+        controls: Object.fromEntries(definition.controls.map(c => [c.id, c.initial])),
+        ...(definition.settings ? { settings: Object.fromEntries(Object.entries(definition.settings).map(([id, rule]) => [id, structuredClone(rule.initial)])) } : {}) };
     resolveModule(instance, registry);
     return instance;
 }
@@ -62,19 +77,41 @@ export function moduleConnectionError(patch: ModulePatch, from: ModuleEndpoint, 
     const source = modulePort(patch, from, registry); const target = modulePort(patch, to, registry);
     if (!source || !target) return 'That port is no longer in the rack.';
     if (source.direction !== 'out' || target.direction !== 'in') return 'Connect an output to an input.';
-    if (source.family !== target.family) return 'Match the signal: AUDIO to AUDIO, CV to CV.';
+    if (source.family !== target.family && !(target.family === 'TRIG' && source.family === 'CLOCK' && target.accepts?.includes('CLOCK'))) return 'Match the signal: AUDIO to AUDIO, CV to CV; CLOCK only to explicitly accepting TRIG inputs.';
     if (patch.cables.some(c => cableKey(c.from, c.to) === cableKey(from, to))) return 'Those ports are already connected.';
-    const delayed = new Set(patch.instances.filter(m => resolveModule(m, registry).behavior.breaksAudioCycle).map(m => m.instanceId));
-    const edges = [...patch.cables, { from, to }].filter(c => modulePort(patch, c.from, registry)?.family === 'AUDIO' && !delayed.has(c.from.instanceId));
+    if (target.maxConnections === 1 && patch.cables.some(c => c.to.instanceId === to.instanceId && c.to.portId === to.portId)) return 'This selected-mode input accepts one cable.';
+    // Port paths keep independent Quad lanes independent. Old one-output processors
+    // have exactly the same Delay-only cycle policy as the R2 instance projection.
+    const key = (e: ModuleEndpoint) => JSON.stringify([e.instanceId, e.portId]);
+    const edges: [string, string][] = [...patch.cables, { from, to }]
+        .filter(c => modulePort(patch, c.from, registry)?.family === 'AUDIO').map(c => [key(c.from), key(c.to)]);
+    const signalEdges: [string, string][] = [...patch.cables, { from, to }].map(c => [key(c.from), key(c.to)]);
+    for (const instance of patch.instances) {
+        const { definition, behavior } = resolveModule(instance, registry);
+        if (behavior.breaksAudioCycle) continue;
+        const audio = definition.ports.filter(p => p.family === 'AUDIO');
+        const paths = behavior.signalPaths ?? audio.filter(p => p.direction === 'in').flatMap(a => audio.filter(p => p.direction === 'out').map(b => [a.binding, b.binding] as [string, string]));
+        for (const [a, b] of paths) {
+            const input = audio.find(p => p.binding === a); const output = audio.find(p => p.binding === b);
+            if (input && output) edges.push([key({ instanceId: instance.instanceId, portId: input.id }), key({ instanceId: instance.instanceId, portId: output.id })]);
+        }
+        const signalPaths = behavior.signalPaths ?? definition.ports.filter(p => p.direction === 'in').flatMap(a => definition.ports.filter(p => p.direction === 'out').map(b => [a.binding, b.binding] as [string, string]));
+        for (const [a, b] of signalPaths) {
+            const input = definition.ports.find(p => p.binding === a); const output = definition.ports.find(p => p.binding === b);
+            if (input && output) signalEdges.push([key({ instanceId: instance.instanceId, portId: input.id }), key({ instanceId: instance.instanceId, portId: output.id })]);
+        }
+    }
     const visiting = new Set<string>(); const visited = new Set<string>();
     const cycle = (id: string): boolean => {
         if (visiting.has(id)) return true;
         if (visited.has(id)) return false;
         visiting.add(id);
-        if (edges.some(c => c.from.instanceId === id && cycle(c.to.instanceId))) return true;
+        if (edges.some(([a, b]) => a === id && cycle(b))) return true;
         visiting.delete(id); visited.add(id); return false;
     };
-    return patch.instances.some(m => cycle(m.instanceId)) ? 'Put a Delay in this audio loop, then patch its return.' : null;
+    if (edges.some(([id]) => cycle(id))) return 'Put a Delay in this audio loop, then patch its return.';
+    visiting.clear(); visited.clear(); edges.splice(0, edges.length, ...signalEdges);
+    return edges.some(([id]) => cycle(id)) ? 'Selected-mode control/event loops are unsupported; use the declared internal cycle mode.' : null;
 }
 
 export function validateModulePatch(value: unknown, registry = MODULE_REGISTRY): asserts value is ModulePatch {
