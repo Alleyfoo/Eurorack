@@ -70,3 +70,27 @@ Review these amendments, then explicitly authorize the narrowed R2 slice when
 ready. Further catalogue archaeology can stay as documented follow-up evidence;
 it must not grow into an indefinite prerequisite for adapting seven working
 behaviors. No runtime implementation is part of this correction pass.
+
+## R1A work-order completion — 2026-10-06
+
+The R1A work order was checked against the existing amendments in `ad62616`.
+All four were already present. This completion pass makes two points explicit:
+directly accepting generic CV never certifies its source as calibrated PITCH_CV;
+and R2 excludes sequencer runtime, quantizer, S&H, envelopes, Clock/GATE, causal
+event networks, future feedback architectures, sample/buffer resource services,
+broad asset manifests, starter presets and catalogue migration. The ordinary
+seven-behavior preset remains a test fixture, not starter content.
+
+Validation passed: all 100 catalogue identities match the audit and role tables
+exactly, with the historical 47 KEEP / 45 REWORK / 8 DUPLICATE decisions unchanged;
+the matrix contains 16 distinct families; the independent percussion witness and
+#94 transpose/divide bank remain explicit; CV/pitch and R2-boundary assertions
+pass; 155 local links resolve; ten packet/navigation files decode as strict UTF-8;
+and `git diff --check` passes. Manual wording review found no remaining generic-CV
+pitch prohibition or broader R2 authorization. Runtime and protected CI files are
+untouched, so no runtime build/test is required by this work order.
+
+No design contradiction currently blocks the small R2 seam. Exact historical
+metadata and future panel/DSP details remain annotated follow-up work. R1A's
+documentation deliverable is complete; manager review and explicit R2
+authorization remain pending. Stop here.

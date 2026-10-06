@@ -19,6 +19,9 @@ contracts in R2. Other contracts receive exact ranges when their behavior is sco
 Every P inlet also accepts generic C directly through a declared pitch-depth
 mapping (default one octave per unit unless stated otherwise). P retains calibrated
 octave units for sequencing/precision arithmetic; LFO → pitch needs no converter.
+Direct connection does not certify a generic source as calibrated PITCH_CV.
+Precision pitch utilities keep their declared octave units/reference semantics;
+the destination's explicit mapping determines the effect of generic modulation.
 
 Proposed event-inlet adapters used by the coverage witnesses: #13 strike, #33
 trigger, #52 sample and #55 event input consume a CLOCK's rising edges; #56 trigger

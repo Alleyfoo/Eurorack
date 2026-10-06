@@ -122,6 +122,9 @@ control or an optional external attenuverter changes the modulation amount; no
 utility is required merely to permit the cable. Precision addition/sequencing
 retains calibrated units and explicit reference-frequency semantics. No pitch
 mapping silently quantizes, makes music "correct", or reinterprets an old save.
+Accepting generic CV does not turn that source into calibrated PITCH_CV. Precision
+utilities declare octave units and reference semantics for their arithmetic;
+a mapped modulation source carries no implied pitch-calibration guarantee.
 
 Default input cardinality is one cable. Summing ports opt into multiple incoming
 cables with a documented sum/normalization rule; event inputs explicitly choose
@@ -297,6 +300,13 @@ event algebra and scheduler, asset/resource manifests or local buffer store,
 100-module registration/validation, new DSP and stereo Output. Those enter only
 with a later behavior/content need and scoped authorization. R2 may preserve
 optional metadata for future use without implementing the machinery behind it.
+
+In particular, R2 adds no sequencer runtime, quantizer, S&H, envelopes or Clock/GATE
+behavior; no generalized causal-event network or future feedback architecture;
+and no sample/buffer resource service, broad asset manifest system or catalogue
+migration. Starter presets remain R3 content. The ordinary preset mentioned above
+is a preservation/build test fixture using the seven existing behaviors, not a
+new starter instrument or preset feature.
 
 R1 acceptance in direction and this narrowed checklist do not authorize starting
 R2. No runtime changes are part of the four-amendment documentation pass.

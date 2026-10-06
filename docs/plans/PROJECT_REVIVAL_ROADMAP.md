@@ -246,6 +246,12 @@ migration, new adventure UI or starter-selection/content suite. Minimal version
 checks and existing archive preservation are required; future asset/buffer and
 cross-definition compatibility machinery wait for the behavior that needs them.
 
+Specifically exclude sequencer runtime, quantizer, S&H, envelopes, Clock/GATE
+behavior, generalized causal-event networks, future feedback architectures,
+sample/buffer resource services and broad asset manifest systems. No starter
+presets or catalogue migration in R2. The single ordinary preset fixture above
+uses only current behavior to verify the seam; starter content remains R3.
+
 ### Exit evidence
 
 A patch can be described purely as module definitions/instances/cables and built
